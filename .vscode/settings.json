@@ -1,0 +1,88 @@
+/*
+	.VSCODE editor config
+	Place your settings in this file to overwrite the default settings
+	Controls after how many characters the editor will wrap to the next line. Setting this to 0 turns on viewport width wrapping
+
+	---
+	TODO: Move this to README.md
+	Installed plugins:
+	- Eslint
+	- prettier-vscode
+	- yzhang.markdown-all-in-one
+	- vscode-icons
+	- Fira Code (install font on system)
+*/
+{
+	"editor.minimap.enabled": false,
+	"editor.wordWrapColumn": 100,
+	"editor.wordWrap": "wordWrapColumn",
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.tabCompletion": "on",
+	"editor.renderIndentGuides": true,
+	"editor.formatOnSave": true,
+	"editor.fontFamily": "Fira Code, Menlo, monospace",
+	"editor.fontLigatures": true,
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"emmet.triggerExpansionOnTab": true,
+	"emmet.extensionsPath": "~/emmet",
+	"eslint.alwaysShowStatus": true,
+	"eslint.options": {
+		"configFile": ".eslintrc.json"
+	},
+	"eslint.autoFixOnSave": true,
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		{
+			"language": "vue",
+			"autoFix": true
+		}
+	],
+	"prettier.singleQuote": true,
+	"prettier.useTabs": true,
+	"prettier.disableLanguages": [],
+	"prettier.eslintIntegration": true,
+	"prettier.tabWidth": 0,
+	"prettier.semi": false,
+	"prettier.jsxBracketSameLine": true,
+	"typescript.validate.enable": false,
+	"typescript.suggestionActions.enabled": false,
+	"typescript.disableAutomaticTypeAcquisition": false,
+	"html.format.indentHandlebars": true,
+	"window.zoomLevel": 0,
+	"terminal.external.osxExec": "Hyper.app",
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"workbench.iconTheme": "vscode-icons",
+	"workbench.colorTheme": "Tomorrow Night Blue",
+	"terminal.integrated.rendererType": "dom",
+	"cSpell.language": "en",
+	"cSpell.userWords": [
+		"zeit",
+		"linebreak"
+	],
+	"vsicons.projectDetection.autoReload": true,
+	"files.associations": {
+		"*.jsx": "javascriptreact"
+	},
+	"files.trimTrailingWhitespace": true,
+	"vetur.format.options.useTabs": true,
+	"javascript.validate.enable": false,
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[markdown]": {
+		"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+	},
+	"files.watcherExclude": {
+		"**/.next/**": true
+	}
+}
