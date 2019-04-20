@@ -1,0 +1,32 @@
+{
+	"name": "rad-nextjs",
+	"version": "0.0.1",
+	"description": "Simple setup for nextjs projects",
+	"main": "index.js",
+	"scripts": {
+		"dev": "next",
+		"build": "next build",
+		"start": "next start"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/RalphSimon/rad-nextjs.git"
+	},
+	"keywords": [
+		"Next.js",
+		"starter-kit",
+		"simple",
+		"setup"
+	],
+	"author": "Ralph Simon",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/RalphSimon/rad-nextjs/issues"
+	},
+	"homepage": "https://github.com/RalphSimon/rad-nextjs#readme",
+	"dependencies": {
+		"next": "^8.1.0",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6"
+	}
+}
