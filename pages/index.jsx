@@ -1,3 +1,7 @@
-import { Welcome } from '../components/Welcome'
+import { Welcome, WelcomeSwitch } from '../components/Welcome'
 
-export default () => <Welcome />
+export default () => (
+	<Welcome>
+		<WelcomeSwitch />
+	</Welcome>
+)

@@ -1,4 +1,4 @@
-export const Welcome = () => (
+export const Welcome = ({ children }) => (
 	<div className="welcome">
 		<div>
 			<h1>Welcome</h1>
@@ -6,6 +6,8 @@ export const Welcome = () => (
 				Delete the <pre>&#60;Welcome /&#62;</pre> component to start rolling your own
 			</p>
 		</div>
+
+		<div className="welcome-switch">{children}</div>
 		<style jsx global>{/* CSS */ `
 			*,
 			*::before,
@@ -20,13 +22,24 @@ export const Welcome = () => (
 				color: #212529;
 			}
 
-			.welcome {
+			.welcome,
+			.welcome-switch {
 				display: flex;
+				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+				text-align: center;
+			}
+
+			.welcome {
 				width: 100vw;
 				height: 100vh;
-				text-align: center;
+			}
+
+			.welcome-switch {
+				width: 50%;
+				border-top: 1px solid #212529;
+				padding-top: 24px;
 			}
 
 			h1 {

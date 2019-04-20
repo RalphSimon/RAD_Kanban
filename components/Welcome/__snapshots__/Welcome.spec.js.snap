@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gives an example of a Snapshot test 1`] = `
+<div
+  className="jsx-4191556392 welcome"
+>
+  <div
+    className="jsx-4191556392"
+  >
+    <h1
+      className="jsx-4191556392"
+    >
+      Welcome
+    </h1>
+    <p
+      className="jsx-4191556392"
+    >
+      Delete the 
+      <pre
+        className="jsx-4191556392"
+      >
+        &lt;Welcome /&gt;
+      </pre>
+       component to start rolling your own
+    </p>
+  </div>
+  <div
+    className="jsx-4191556392 welcome-switch"
+  />
+</div>
+`;
