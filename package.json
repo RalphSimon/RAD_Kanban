@@ -8,7 +8,9 @@
 		"build": "next build",
 		"start": "next start",
 		"test": "jest",
-		"test:watch": "jest --watch"
+		"test:watch": "jest --watch",
+		"premock:api": "node mock_api/generateData.js",
+		"mock:api": "node mock_api/server.js"
 	},
 	"repository": {
 		"type": "git",
@@ -39,7 +41,9 @@
 		"eslint-plugin-jsx-a11y": "^6.2.1",
 		"eslint-plugin-react": "^7.12.4",
 		"eslint-plugin-react-hooks": "^1.6.0",
+		"faker": "^4.1.0",
 		"jest": "^24.7.1",
+		"json-server": "^0.14.2",
 		"react-test-renderer": "^16.8.6",
 		"react-testing-library": "^6.1.2"
 	}

@@ -13,7 +13,7 @@ Simple setup for nextjs projects
   - [x] _app.js
   - [x] index.js
   - [x] Welcome component
-- [ ] Add jest + configure it
-- [ ] Add mock API (TBD)
+- [x] Add jest + configure it
+- [] Add mock API (TBD)
 - [ ] Add @zeit/next-bundle-analyzer + configure it
 - [x] Add .vscode config
