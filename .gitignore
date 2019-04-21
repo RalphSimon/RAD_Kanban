@@ -27,7 +27,7 @@ lib-cov
 coverage
 
 # Webpack bundle analyzer output
-bundles/
+bundles
 
 # nyc test coverage
 .nyc_output
