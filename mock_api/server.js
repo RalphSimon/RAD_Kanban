@@ -27,12 +27,5 @@ server.use((req, res, next) => {
 
 server.use(ROOT, router)
 server.listen(PORT, () => {
-	console.log(`
-		JSON server is running on: http://localhost:${PORT},
-		Starting with these end-points: ${getEndPoints(db)}
-	`)
+	console.log(`JSON server is running on: http://localhost:${PORT}`)
 })
-
-function getEndPoints(db) {
-	return Object.keys(db).map(point => ` ${ROOT}/${point} `)
-}
