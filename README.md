@@ -15,5 +15,5 @@ Simple setup for nextjs projects
   - [x] Welcome component
 - [x] Add jest + configure it
 - [x] Add mock API (TBD)
-- [ ] Add @zeit/next-bundle-analyzer + configure it
+- [x] Add @zeit/next-bundle-analyzer + configure it
 - [x] Add .vscode config
