@@ -10,7 +10,10 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"premock:api": "node mock_api/generateData.js",
-		"mock:api": "node mock_api/server.js"
+		"mock:api": "node mock_api/server.js",
+		"analyze": "BUNDLE_ANALYZE=both next build",
+		"analyze:server": "BUNDLE_ANALYZE=server next build",
+		"analyze:browser": "BUNDLE_ANALYZE=browser next build"
 	},
 	"repository": {
 		"type": "git",
@@ -34,6 +37,7 @@
 		"react-dom": "^16.8.6"
 	},
 	"devDependencies": {
+		"@zeit/next-bundle-analyzer": "^0.1.2",
 		"babel-eslint": "^10.0.1",
 		"babel-jest": "^24.7.1",
 		"eslint": "^5.16.0",
