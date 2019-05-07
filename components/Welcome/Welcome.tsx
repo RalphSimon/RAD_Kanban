@@ -1,14 +1,21 @@
-export const Welcome = ({ children }) => (
-	<div className="welcome">
-		<div>
-			<h1>Welcome</h1>
-			<p>
-				Delete the <pre>&#60;Welcome /&#62;</pre> component to start rolling your own
-			</p>
-		</div>
+import * as React from 'react'
 
-		<div className="welcome-switch">{children}</div>
-		<style jsx global>{/* CSS */ `
+interface WelcomeProps {
+  children: JSX.Element[] | JSX.Element;
+}
+
+export const Welcome = ({ children }: WelcomeProps) => (
+  <div className="welcome">
+    <div>
+      <h1>Welcome</h1>
+      <div>
+				Delete the <pre>&#60;Welcome /&#62;</pre> component to start rolling
+				your own
+      </div>
+    </div>
+
+    <div className="welcome-switch">{children}</div>
+    <style jsx global>{`
 			*,
 			*::before,
 			*::after {
@@ -50,5 +57,5 @@ export const Welcome = ({ children }) => (
 				font-size: 1rem;
 			}
 		`}</style>
-	</div>
+  </div>
 )
