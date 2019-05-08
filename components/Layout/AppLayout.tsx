@@ -11,7 +11,7 @@ export const AppLayout = ({ children }) => {
 						4,
 						[col-start] minmax(max-content, 1fr)
 					);
-					grid-template-rows: repeat(4, [canvas] 1fr) [bottom-nav] 48px;
+					grid-template-rows: repeat(4, [canvas] 1fr) [bottom-nav] 64px;
 				}
 
 				@media (min-width: 480px) {

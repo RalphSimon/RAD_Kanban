@@ -1,14 +1,11 @@
-import { HelloWorld } from '../components/Hello'
+import { AppCanvas } from '../components/Layout'
 
-export default () => (
-  <div className="index">
-    <HelloWorld label="Hello World" />
+const Overview = () => {
+  return (
+    <AppCanvas>
+      <h1 className="text-preset-1">RAD Kanban</h1>
+    </AppCanvas>
+  )
+}
 
-    <style jsx>{`
-			.index {
-				width: 100vw;
-				height: 100vw;
-			}
-		`}</style>
-  </div>
-)
+export default Overview
