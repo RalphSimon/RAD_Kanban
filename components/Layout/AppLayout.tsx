@@ -2,33 +2,10 @@ export const AppLayout = ({ children }) => {
   return (
     <div className="app-layout">
       {children}
-      <style jsx>{`
-				.app-layout {
-					width: 100vw;
-					height: 100vh;
-					display: grid;
-					grid-template-columns: repeat(
-						4,
-						[col-start] minmax(max-content, 1fr)
-					);
-					grid-template-rows: repeat(4, [canvas] 1fr) [bottom-nav] 64px;
-				}
-
-				@media (min-width: 480px) {
-					.app-layout {
-						grid-template-rows: repeat(8, [row-start] 1fr);
-						grid-template-columns: [nav-start] 64px repeat(
-								7,
-								[col-start] minmax(max-content, 1fr)
-							);
-					}
-				}
-			`}</style>
       <style jsx global>{`
 				@import url('https://fonts.googleapis.com/css?family=Barlow:400,400i,600,800');
 
 				:root {
-					/* UI PALETTE */
 					--color-gray-base: #aeb2c0;
 					--color-indigo-base: #2e5bff;
 					--color-indigo2-base: #692eff;
@@ -69,11 +46,9 @@ export const AppLayout = ({ children }) => {
 					--color-teal-dark: #24cba7;
 					--color-cyan-dark: #249bca;
 
-					/* SIZES */
 					--icon-btn-size-base: 48px;
 					--icon-btn-size-small: 32px;
 
-					/* DEFAULTS */
 					--color-brand: var(--color-indigo-base);
 					--color-focus: var(--color-indigo-base);
 					--color-warning: var(--color-red2-base);
@@ -108,14 +83,6 @@ export const AppLayout = ({ children }) => {
 					background-color: var(--color-bg-canvas);
 					-webkit-font-smoothing: antialiased;
 					-moz-osx-font-smoothing: grayscale;
-				}
-
-				/* BASE DECORATOR - STORYBOOK ONLY!!! */
-
-				.decorator__base {
-					width: 100vw;
-					height: 100vh;
-					overflow: hidden;
 				}
 
 				code {
@@ -197,6 +164,17 @@ export const AppLayout = ({ children }) => {
 					color: var(--color-text-light);
 				}
 
+				.app-layout {
+					width: 100vw;
+					height: 100vh;
+					display: grid;
+					grid-template-columns: repeat(
+						4,
+						[col-start] minmax(max-content, 1fr)
+					);
+					grid-template-rows: repeat(4, [canvas] 1fr) [bottom-nav] 64px;
+				}
+
 				@media (min-width: 480px) {
 					.text-preset-1 {
 						font-size: 48px;
@@ -209,6 +187,14 @@ export const AppLayout = ({ children }) => {
 
 					.text-preset-3 {
 						font-size: 28px;
+					}
+
+					.app-layout {
+						grid-template-rows: repeat(8, [row-start] 1fr);
+						grid-template-columns: [nav-start] 64px repeat(
+								7,
+								[col-start] minmax(max-content, 1fr)
+							);
 					}
 				}
 			`}</style>

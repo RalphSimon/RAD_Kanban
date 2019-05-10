@@ -10,7 +10,9 @@ export const AppCanvas = ({ children }) => {
 
 				@media (min-width: 480px) {
 					.canvas {
-						display: flex;
+						 {
+							/* display: flex; */
+						}
 						grid-column: col-start 1 / span 7;
 						grid-row: span 8;
 					}
