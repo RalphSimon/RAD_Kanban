@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require('path')
 const jsonServer = require('json-server')
 const server = jsonServer.create()
@@ -8,9 +10,9 @@ const ROOT = '/api'
 
 /* eslint-disable no-console */
 const middlewares = jsonServer.defaults({
-	// Display custom index html, with links to endpoint roots.
-	// static: 'node_modules/json-server/dist'
-	static: 'mock_api/public/'
+  // Display custom index html, with links to endpoint roots.
+  // static: 'node_modules/json-server/dist'
+  static: 'mock_api/public/'
 })
 
 server.use(middlewares)
@@ -22,19 +24,19 @@ server.use(jsonServer.bodyParser)
 */
 
 server.use((req, res, next) => {
-	setTimeout(next, 0)
+  setTimeout(next, 0)
 })
 
 // Add createdAt to all POSTS
 server.use((req, res, next) => {
-	if (req.method === 'POST') {
-		req.body.createdAt = Date.now()
-	}
-	// Continue to JSON Server router
-	next()
+  if (req.method === 'POST') {
+    req.body.createdAt = Date.now()
+  }
+  // Continue to JSON Server router
+  next()
 })
 
 server.use(ROOT, router)
 server.listen(PORT, () => {
-	console.log(`JSON server is running on: http://localhost:${PORT}`)
+  console.log(`JSON server is running on: http://localhost:${PORT}`)
 })
