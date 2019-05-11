@@ -53,14 +53,13 @@ export const kanbanReducer = (state, action) => {
         }
       }
     case UPDATE_BOARD_TITLE:
-      return {
+      const someState = {
         ...state,
         title: action.payload
       }
+      console.log(someState)
+      return someState
     case UPDATE_COLUMN_TITLE:
-      console.log({
-        action: action.title
-      })
       const column = state.columns[action.columnId]
       const updatedColumn = {
         ...column,
@@ -73,8 +72,6 @@ export const kanbanReducer = (state, action) => {
           [action.columnId]: updatedColumn
         }
       }
-
-      console.log(newState)
 
       return newState
     default:

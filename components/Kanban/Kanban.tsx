@@ -13,6 +13,7 @@ import {
   addColumn,
   handleDragEndAction,
   reorderColumns,
+  updateBoardTitle,
   updateColumnTitle
 } from './state/kanbanActions'
 import { kanbanReducer } from './state/kanbanReducer'
@@ -49,7 +50,10 @@ export const Kanban = ({ board, tasks }) => {
 
   return (
     <KanbanRoot>
-      <KanbanHeader title={board.title} />
+      <KanbanHeader
+        title={boardState.title}
+        updateTitle={value => dispatchKanban(updateBoardTitle(value))}
+      />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable
           droppableId="kanban-canvas"
