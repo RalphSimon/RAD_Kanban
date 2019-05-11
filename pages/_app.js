@@ -1,8 +1,13 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
+// import { resetServerContext } from 'react-beautiful-dnd'
 
 import { AppLayout, BottomNav, SideNav } from '../components/Layout'
 
+/*
+  FIXME: Move this to _document.js
+  resetServerContext()
+*/
 export default class RADApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
