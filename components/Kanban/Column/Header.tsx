@@ -6,16 +6,9 @@ interface Props {
 }
 
 export const Header = ({ children, dragHandleProps }: Props) => {
-  const header = dragHandleProps ? (
+  return (
     <header className="kb-column__header" {...dragHandleProps}>
       {children}
-    </header>
-  ) : (
-    <header className="kb-column__header">{children}</header>
-  )
-  return (
-    <Fragment>
-      {header}
       <style jsx>{`
 				.kb-column__header {
 					display: flex;
@@ -24,14 +17,15 @@ export const Header = ({ children, dragHandleProps }: Props) => {
 					padding-bottom: 8px;
 				}
 
-				.kb-column__header > .btn__icon {
+				.kb-column__header > .btn {
 					margin-left: auto;
 				}
 
 				:global(.kb-column__header .tag__root) {
 					margin-left: 8px;
+					margin-right: auto;
 				}
 			`}</style>
-    </Fragment>
+    </header>
   )
 }

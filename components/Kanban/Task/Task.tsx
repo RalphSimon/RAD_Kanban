@@ -32,6 +32,10 @@ export const Task = ({ isDragging, provided, task }: TaskProps) => {
       <div className="kb-item__shadow" />
       <style jsx>
         {`
+					.kb-item__root:last-of-type {
+						margin-bottom: ${isDragging ? 0 : 136}px;
+					}
+
 					.kb-item__container::before {
 						background-color: ${task.color};
 					}
@@ -49,10 +53,6 @@ export const Task = ({ isDragging, provided, task }: TaskProps) => {
 						z-index: 3;
 						position: relative;
 						margin-bottom: 16px;
-					}
-
-					.kb-item__root:last-of-type {
-						margin-bottom: 136px;
 					}
 
 					.kb-item__container {

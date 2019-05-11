@@ -12,7 +12,6 @@ export const Body = ({ children }: Props) => (
 				flex-direction: column;
 				height: 100%;
 				margin-bottom: 136px;
-				overflow-y: scroll;
 			}
 		`}</style>
   </section>

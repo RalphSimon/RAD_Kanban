@@ -30,8 +30,7 @@ export const KanbanCanvas = ({ children, columnCount, provided }: Props) => {
 					grid-gap: 24px;
 					align-items: center;
 					padding-left: 16px;
-					overflow-y: hidden;
-					overflow-x: scroll;
+					overflow: auto;
 					background-color: var(--color-bg-canvas);
 				}
 
