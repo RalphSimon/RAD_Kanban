@@ -4,7 +4,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { Body } from './Body'
 import { Container } from './Container'
 import { Header } from './Header'
-import { Tasks } from './Tasks'
+import { List } from './List'
 import { KanbanItem } from '../Task/KanbanItem'
 import { typesDnd } from '../state/actionTypes'
 
@@ -41,7 +41,7 @@ export const KanbanColumn = ({
           <Body>
             <Droppable droppableId={column.id} type={typesDnd.DRAG_TYPE_TASK}>
               {(provided, snapshot) => (
-                <Tasks
+                <List
                   provided={provided}
                   isDraggingOver={snapshot.isDraggingOver}
                   tasks={memoizedTasks}

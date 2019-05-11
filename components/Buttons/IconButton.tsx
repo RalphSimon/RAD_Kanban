@@ -2,6 +2,7 @@ interface IconButtonProps {
   children: JSX.Element[] | JSX.Element;
   color?: string;
   filled: boolean;
+  onClick: () => void;
   size?: string | number;
   title: string;
 }
@@ -10,13 +11,14 @@ export const IconButton = ({
   children,
   color,
   filled,
+  onClick,
   size,
   title
 }: IconButtonProps) => {
   const btnClass = `btn ${filled ? 'btn--filled' : 'btn--base'}`
 
   return (
-    <button className={btnClass} title={title}>
+    <button className={btnClass} title={title} onClick={onClick}>
       <span className="icon">{children}</span>
       <style jsx>{`
 				.btn {
@@ -107,7 +109,7 @@ export const IconButton = ({
   )
 }
 
-ButtonIcon.defaultProps = {
+IconButton.defaultProps = {
   size: 48,
   color: 'indigo'
 }

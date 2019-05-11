@@ -51,6 +51,10 @@ export const Task = ({ isDragging, provided, task }: TaskProps) => {
 						margin-bottom: 16px;
 					}
 
+					.kb-item__root:last-of-type {
+						margin-bottom: 136px;
+					}
+
 					.kb-item__container {
 						width: 100%;
 						height: 100%;

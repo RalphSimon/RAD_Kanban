@@ -6,10 +6,18 @@ import { KanbanDispatch } from './Board/KanbanDispatch'
 import { KanbanHeader } from './Board/KanbanHeader'
 import { KanbanRoot } from './Board/KanbanRoot'
 import { KanbanColumn } from './Column/KanbanColumn'
+import { KanbanAddColumn } from './Column/KanbanAddColumn'
+import { IconButton } from '../Buttons'
 
-import { handleDragEndAction, reorderColumns } from './state/kanbanActions'
+import {
+  addColumn,
+  handleDragEndAction,
+  reorderColumns
+} from './state/kanbanActions'
 import { kanbanReducer } from './state/kanbanReducer'
 import { typesDnd } from './state/actionTypes'
+
+import { Column } from '../../utils'
 
 export const Kanban = ({ board, tasks }) => {
   const [boardState, dispatchKanban] = useReducer(kanbanReducer, board)
@@ -32,6 +40,12 @@ export const Kanban = ({ board, tasks }) => {
     }
   }
 
+  const handleAddColumn = () => {
+    const newColumn = Column(boardState.id)
+
+    dispatchKanban(addColumn(boardState, newColumn))
+  }
+
   return (
     <KanbanRoot>
       <KanbanHeader title={board.title} />
@@ -43,7 +57,7 @@ export const Kanban = ({ board, tasks }) => {
           {provided => (
             <KanbanDispatch.Provider value={dispatchKanban}>
               <KanbanCanvas
-                columnCount={orderedColumns.length}
+                columnCount={orderedColumns.length + 1}
                 provided={provided}>
                 {orderedColumns.map((column, index) => (
                   <KanbanColumn
@@ -54,6 +68,7 @@ export const Kanban = ({ board, tasks }) => {
                   />
                 ))}
                 {provided.placeholder}
+                <KanbanAddColumn addColumn={handleAddColumn} />
               </KanbanCanvas>
             </KanbanDispatch.Provider>
           )}
