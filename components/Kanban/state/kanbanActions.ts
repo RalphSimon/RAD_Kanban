@@ -8,7 +8,8 @@ const {
   REMOVE_FROM_COLUMN,
   REORDER_COLUMNS,
   REORDER_TASKS,
-  UPDATE_TITLE
+  UPDATE_BOARD_TITLE,
+  UPDATE_COLUMN_TITLE
 } = typesKanban
 
 /* Operates on board.columns */
@@ -171,7 +172,7 @@ export const addToColumn = (
   }
 }
 
-/* Operates on board.column[id].taskids */
+/* Operates on board.column[id].taskIds */
 export const removeFromColumn = (
   column: {},
   taskId: string | number
@@ -186,11 +187,20 @@ export const removeFromColumn = (
 }
 
 /* Operates on board.title */
-export const updateTitle = (
+export const updateBoardTitle = (
   title: string
 ): { type: string; payload: string } => {
   return {
-    type: UPDATE_TITLE,
+    type: UPDATE_BOARD_TITLE,
     payload: title
   }
 }
+
+export const updateColumnTitle = (
+  columnId: string,
+  title: string
+): { type: string; columnId: string; title: string } => ({
+  type: UPDATE_COLUMN_TITLE,
+  columnId,
+  title
+})

@@ -14,6 +14,7 @@ export const Header = ({ children, dragHandleProps }: Props) => {
 					display: flex;
 					align-items: center;
 					width: 100%;
+					height: auto;
 					padding-bottom: 8px;
 				}
 

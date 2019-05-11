@@ -1,4 +1,5 @@
 import * as React from 'react'
+import ContentEditable from 'react-contenteditable'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { MoreVertical, Plus } from 'styled-icons/feather'
 
@@ -9,6 +10,7 @@ import { List } from './List'
 import { KanbanItem } from '../Task/KanbanItem'
 import { typesDnd } from '../state/actionTypes'
 import { IconButton } from '../../Buttons'
+import { FieldBase } from '../../Inputs'
 import { Tag } from '../../Tags'
 
 interface ColumnProps {
@@ -26,6 +28,9 @@ export const KanbanColumn = ({
   tasks,
   updateTitle
 }: ColumnProps) => {
+  const [disabled, setDisabled] = React.useState(true)
+  const [title, setTitle] = React.useState(column.title)
+
   const memoizedTasks = React.useMemo(
     () =>
       tasks.map((task, index) => {
@@ -34,12 +39,26 @@ export const KanbanColumn = ({
     [tasks]
   )
 
+  const handleBlur = event => {
+    const { textContent } = event.target
+    setDisabled(true)
+    updateTitle(textContent)
+  }
+
   return (
     <Draggable draggableId={column.id} index={index}>
       {provided => (
         <Container provided={provided}>
           <Header dragHandleProps={provided.dragHandleProps}>
-            <h3 className="text-preset-3">{column.title}</h3>
+            <ContentEditable
+              html={title}
+              disabled={disabled}
+              onChange={e => setTitle(e.target.value)}
+              onDoubleClick={() => setDisabled(false)}
+              onBlur={handleBlur}
+              tagName="span"
+              className="text-preset-3"
+            />
             <Tag label={memoizedTasks.length} />
             <IconButton onClick={addTask} size="32">
               <Plus size="18" strokeWidth="1.5" />

@@ -8,7 +8,8 @@ const {
   REORDER_COLUMNS,
   REORDER_TASKS,
   REMOVE_FROM_COLUMN,
-  UPDATE_TITLE
+  UPDATE_BOARD_TITLE,
+  UPDATE_COLUMN_TITLE
 } = typesKanban
 
 export const kanbanReducer = (state, action) => {
@@ -51,11 +52,31 @@ export const kanbanReducer = (state, action) => {
           [action.payload.id]: action.payload
         }
       }
-    case UPDATE_TITLE:
+    case UPDATE_BOARD_TITLE:
       return {
         ...state,
         title: action.payload
       }
+    case UPDATE_COLUMN_TITLE:
+      console.log({
+        action: action.title
+      })
+      const column = state.columns[action.columnId]
+      const updatedColumn = {
+        ...column,
+        title: action.title
+      }
+      const newState = {
+        ...state,
+        columns: {
+          ...state.columns,
+          [action.columnId]: updatedColumn
+        }
+      }
+
+      console.log(newState)
+
+      return newState
     default:
       return state
   }

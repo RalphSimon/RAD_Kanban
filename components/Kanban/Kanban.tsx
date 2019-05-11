@@ -12,7 +12,8 @@ import { IconButton } from '../Buttons'
 import {
   addColumn,
   handleDragEndAction,
-  reorderColumns
+  reorderColumns,
+  updateColumnTitle
 } from './state/kanbanActions'
 import { kanbanReducer } from './state/kanbanReducer'
 import { typesDnd } from './state/actionTypes'
@@ -65,6 +66,9 @@ export const Kanban = ({ board, tasks }) => {
                     column={column}
                     index={index}
                     tasks={column.tasks}
+                    updateTitle={value => {
+                      dispatchKanban(updateColumnTitle(column.id, value))
+                    }}
                   />
                 ))}
                 {provided.placeholder}
