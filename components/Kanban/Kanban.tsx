@@ -1,9 +1,21 @@
-import { KanbanCanvas } from './KanbanCanvas'
-import { KanbanColumn } from './KanbanColumn'
+import { useReducer } from 'react'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+
+import { KanbanCanvas } from './Board/KanbanCanvas'
+import { KanbanDispatch } from './Board/KanbanDispatch'
+import { KanbanHeader } from './Board/KanbanHeader'
+import { KanbanRoot } from './Board/KanbanRoot'
+import { KanbanColumn } from './Column/KanbanColumn'
+
+import { handleDragEndAction, reorderColumns } from './state/kanbanActions'
+import { kanbanReducer } from './state/kanbanReducer'
+import { typesDnd } from './state/actionTypes'
 
 export const Kanban = ({ board, tasks }) => {
-  const orderedColumns = board.order.map(columnId => {
-    const column = board.columns[columnId]
+  const [boardState, dispatchKanban] = useReducer(kanbanReducer, board)
+
+  const orderedColumns = boardState.order.map(columnId => {
+    const column = boardState.columns[columnId]
     const columnTasks = column.taskIds.map(id => tasks[id])
 
     return {
@@ -12,50 +24,41 @@ export const Kanban = ({ board, tasks }) => {
     }
   })
 
+  const handleDragEnd = result => {
+    if (result.type === typesDnd.DRAG_TYPE_COLUMN) {
+      dispatchKanban(reorderColumns(boardState.order, result))
+    } else {
+      dispatchKanban(handleDragEndAction(boardState.columns, result))
+    }
+  }
+
   return (
-    <section className="kb__root">
-      <header className="kb__header">
-        <h1 className="text-preset-1">{board.title}</h1>
-      </header>
-
-      <KanbanCanvas columns={orderedColumns.length}>
-        {orderedColumns.map((column, index) => (
-          <KanbanColumn key={column.id} column={column} index={index} />
-        ))}
-      </KanbanCanvas>
-
-      <style jsx>
-        {`
-					.kb__root {
-						width: 100%;
-						height: 100%;
-						display: grid;
-						grid-auto-flow: column;
-						grid-template-columns: 16px 1fr 16px;
-						grid-template-rows: [header] max-content [canvas] 1fr;
-						padding: 16px 0;
-						overflow: hidden;
-					}
-
-					.kb__header {
-						grid-row: header;
-						grid-column: 1 / -1;
-						padding: 0 16px;
-					}
-
-					.kb__header > .h1 {
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-
-					@media (min-width: 480px) {
-						.kb__header {
-							padding: 0 24px;
-						}
-					}
-				`}
-      </style>
-    </section>
+    <KanbanRoot>
+      <KanbanHeader title={board.title} />
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable
+          droppableId="kanban-canvas"
+          direction="horizontal"
+          type={typesDnd.DRAG_TYPE_COLUMN}>
+          {provided => (
+            <KanbanDispatch.Provider value={dispatchKanban}>
+              <KanbanCanvas
+                columnCount={orderedColumns.length}
+                provided={provided}>
+                {orderedColumns.map((column, index) => (
+                  <KanbanColumn
+                    key={column.id}
+                    column={column}
+                    index={index}
+                    tasks={column.tasks}
+                  />
+                ))}
+                {provided.placeholder}
+              </KanbanCanvas>
+            </KanbanDispatch.Provider>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </KanbanRoot>
   )
 }

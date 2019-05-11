@@ -1,3 +1,9 @@
+interface TaskProps {
+  provided: {};
+  isDragging: boolean;
+  task: {};
+}
+
 export function formatDate(date) {
   return new Date(date).toLocaleDateString('en-EN', {
     month: 'short',
@@ -5,20 +11,13 @@ export function formatDate(date) {
   })
 }
 
-export const Task = ({
-  dragHandleProps,
-  draggableProps,
-  innerRef,
-  isDragging,
-  task
-}) => {
+export const Task = ({ isDragging, provided, task }: TaskProps) => {
   return (
     <li
-      // ref={innerRef}
+      ref={provided.innerRef}
       className="kb-item__root"
-      // {...draggableProps}
-      // {...dragHandleProps}
-    >
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}>
       <div className="kb-item__container">
         <header className="kb-item__header">
           <h5 className="text-preset-4">{task.title}</h5>

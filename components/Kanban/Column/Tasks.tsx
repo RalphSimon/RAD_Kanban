@@ -1,24 +1,17 @@
-import { useMemo } from 'react'
-
-import { Task } from './Task'
+interface Props {
+  provided: {};
+  isDraggingOver: boolean;
+  tasks: JSX.Element[];
+}
 
 export const Tasks = ({ provided, isDraggingOver, tasks }) => {
-  const memoizedTasks = useMemo(
-    () =>
-      tasks.map((task, index) => {
-        return <Task key={task.id} index={index} task={task} />
-      }),
-    [tasks]
-  )
-
   return (
     <ul
       className="kb-column__list"
-      // ref={provided.innerRef}
-      // {...provided.droppableProps}
-    >
-      {memoizedTasks}
-      {/* {provided.placeholder} */}
+      ref={provided.innerRef}
+      {...provided.droppableProps}>
+      {tasks}
+      {provided.placeholder}
       <style jsx>
         {`
 					.kb-column__list {

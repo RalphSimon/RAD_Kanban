@@ -1,20 +1,25 @@
-export const KanbanCanvas = ({ children, columns /* provided */ }) => {
+interface Props {
+  children: JSX.Element[] | JSX.Element | HTMLElement;
+  columnCount: number;
+  provided: {};
+}
+
+export const KanbanCanvas = ({ children, columnCount, provided }: Props) => {
   return (
     <div
       className="kb__canvas"
-      // ref={provided.innerRef}
-      // {...provided.droppableProps}
-    >
+      ref={provided.innerRef}
+      {...provided.droppableProps}>
       {children}
       <style jsx>
-        {/* CSS */ `
+        {`
 					.kb__canvas {
-						--columns: ${columns * 4};
+						--columns: ${columnCount * 4};
 					}
 				`}
       </style>
 
-      <style jsx>{/* CSS */ `
+      <style jsx>{`
 				.kb__canvas {
 					grid-row: canvas;
 					grid-column: 1 / -1;
