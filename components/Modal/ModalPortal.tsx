@@ -23,9 +23,22 @@ const Scrim = posed.div({
   exit: { opacity: 0 }
 })
 
-export const ModalPortal = ({ children, close, ...poseGroupProps }) => {
+export const ModalPortal = ({
+  ariaLabel,
+  children,
+  close,
+  onKeyDown,
+  role,
+  ...poseGroupProps
+}) => {
   return createPortal(
-    <section className="modal__root">
+    <aside
+      className="modal__root"
+      aria-modal="true"
+      aria-label={ariaLabel}
+      onKeyDown={onKeyDown}
+      role={role}
+      tabIndex="-1">
       <Scrim
         key="scrim"
         className="modal__scrim"
@@ -40,6 +53,7 @@ export const ModalPortal = ({ children, close, ...poseGroupProps }) => {
       </Container>
       <style jsx global>{`
 				.modal__root {
+					z-index: 100;
 					position: fixed;
 					top: 0;
 					left: 0;
@@ -49,10 +63,6 @@ export const ModalPortal = ({ children, close, ...poseGroupProps }) => {
 					justify-content: center;
 					width: 100vw;
 					height: 100vh;
-				}
-
-				.modal__root:focus {
-					background-color: pink;
 				}
 
 				.modal__scrim {
@@ -71,7 +81,7 @@ export const ModalPortal = ({ children, close, ...poseGroupProps }) => {
 					height: auto;
 				}
 			`}</style>
-    </section>,
+    </aside>,
     document.body
   )
 }

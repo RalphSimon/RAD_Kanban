@@ -4,7 +4,7 @@
 	"description": "RYO RAD Kanban",
 	"main": "index.js",
 	"scripts": {
-		"dev": "next",
+		"dev": "next --hostname 192.168.0.153",
 		"build": "next build",
 		"start": "next start",
 		"test": "jest",
@@ -41,6 +41,7 @@
 		"react-beautiful-dnd": "^11.0.3",
 		"react-contenteditable": "^3.2.6",
 		"react-dom": "^16.8.6",
+		"react-pose": "^4.0.8",
 		"styled-components": "^4.2.0",
 		"styled-icons": "^7.14.0"
 	},
