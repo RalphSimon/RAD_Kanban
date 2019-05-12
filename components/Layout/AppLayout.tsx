@@ -98,6 +98,13 @@ export const AppLayout = ({ children }) => {
 					margin: 0;
 				}
 
+				hr {
+					border-top: none;
+					border-right: none;
+					border-left: none;
+					border-bottom: 1px solid var(--color-text-gray);
+				}
+
 				.text-preset-1 {
 					font-size: 32px;
 					font-weight: 400;

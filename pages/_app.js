@@ -1,8 +1,9 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
+import { Chrome, Home } from 'styled-icons/feather'
 // import { resetServerContext } from 'react-beautiful-dnd'
 
-import { AppLayout, BottomNav, SideNav } from '../components/Layout'
+import { AppLayout, BottomNav, NavItem, SideNav } from '../components/Layout'
 
 /*
   FIXME: Move this to _document.js
@@ -33,10 +34,22 @@ export default class RADApp extends App {
           <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
         </Head>
         <AppLayout>
-          <SideNav />
+          <SideNav>
+            <NavItem href="/" label="Home">
+              <Home size="24" strokeWidth="1.5" />
+            </NavItem>
+            <NavItem href="/modal" label="Modal">
+              <Chrome size="24" strokeWidth="1.5" />
+            </NavItem>
+          </SideNav>
           <Component {...pageProps} />
           <BottomNav>
-            <p>Hello</p>
+            <NavItem href="/" label="Home">
+              <Home size="24" strokeWidth="1.5" />
+            </NavItem>
+            <NavItem href="/modal" label="Modal">
+              <Chrome size="24" strokeWidth="1.5" />
+            </NavItem>
           </BottomNav>
         </AppLayout>
       </Container>

@@ -63,7 +63,7 @@ export const KanbanColumn = ({
             <IconButton onClick={addTask} size="32">
               <Plus size="18" strokeWidth="1.5" />
             </IconButton>
-            <IconButton onClick={addTask} size="32">
+            <IconButton size="32">
               <MoreVertical size="18" strokeWidth="1.5" />
             </IconButton>
           </Header>

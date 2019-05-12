@@ -39,8 +39,8 @@ const task = () => {
   return {
     id: random.uuid(),
     title: lorem.words(),
-    body: lorem.sentences(),
-    date: date.recent(),
+    note: lorem.sentences(),
+    createdOn: date.recent(),
     completed: false
   }
 }

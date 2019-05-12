@@ -7,26 +7,28 @@ import { KanbanHeader } from './Board/KanbanHeader'
 import { KanbanRoot } from './Board/KanbanRoot'
 import { KanbanColumn } from './Column/KanbanColumn'
 import { KanbanAddColumn } from './Column/KanbanAddColumn'
-import { IconButton } from '../Buttons'
 
 import {
   addColumn,
+  addToColumn,
   handleDragEndAction,
   reorderColumns,
   updateBoardTitle,
   updateColumnTitle
 } from './state/kanbanActions'
+import { addTask } from './state/taskActions'
 import { kanbanReducer } from './state/kanbanReducer'
+import { taskReducer } from './state/taskReducer'
 import { typesDnd } from './state/actionTypes'
-
-import { Column } from '../../utils'
+import { Column, Task } from '../../utils'
 
 export const Kanban = ({ board, tasks }) => {
   const [boardState, dispatchKanban] = useReducer(kanbanReducer, board)
+  const [taskState, dispatchTasks] = useReducer(taskReducer, tasks)
 
   const orderedColumns = boardState.order.map(columnId => {
     const column = boardState.columns[columnId]
-    const columnTasks = column.taskIds.map(id => tasks[id])
+    const columnTasks = column.taskIds.map(id => taskState[id])
 
     return {
       ...column,
@@ -48,6 +50,14 @@ export const Kanban = ({ board, tasks }) => {
     dispatchKanban(addColumn(boardState, newColumn))
   }
 
+  const handleAddTask = column => {
+    // console.log('ADD TASK', column)
+    const newTask = Task(column.ud)
+
+    dispatchKanban(addToColumn(column, newTask.id))
+    dispatchTasks(addTask(newTask))
+  }
+
   return (
     <KanbanRoot>
       <KanbanHeader
@@ -60,13 +70,14 @@ export const Kanban = ({ board, tasks }) => {
           direction="horizontal"
           type={typesDnd.DRAG_TYPE_COLUMN}>
           {provided => (
-            <KanbanDispatch.Provider value={dispatchKanban}>
+            <KanbanDispatch.Provider value={dispatchTasks}>
               <KanbanCanvas
                 columnCount={orderedColumns.length + 1}
                 provided={provided}>
                 {orderedColumns.map((column, index) => (
                   <KanbanColumn
                     key={column.id}
+                    addTask={() => handleAddTask(column)}
                     column={column}
                     index={index}
                     tasks={column.tasks}

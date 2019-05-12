@@ -13,6 +13,7 @@ const UPDATE_BOARD_TITLE = 'UPDATE_BOARD_TITLE'
 const ADD_TASK = 'ADD_TASK'
 const REMOVE_TASK = 'REMOVE_TASK'
 const UPDATE_TASK = 'UPDATE_TASK'
+const COMPLETE_TASK = 'COMPLETE_TASK'
 
 /* DND TYPES */
 const DRAG_TYPE_COLUMN = 'DRAG_TYPE_COLUMN'
@@ -32,6 +33,7 @@ export const typesKanban = {
 
 export const typesTasks = {
   ADD_TASK,
+  COMPLETE_TASK,
   REMOVE_TASK,
   UPDATE_TASK
 }

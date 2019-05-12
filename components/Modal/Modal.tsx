@@ -8,9 +8,6 @@ export const Modal = ({ ariaLabel, children, role, trigger }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const onKeyDown = ({ keyCode }) => {
-    console.log({
-      modal: keyCode
-    })
     keyCode === 27 && setIsOpen(false)
   }
 
