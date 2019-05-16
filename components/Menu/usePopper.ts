@@ -1,6 +1,14 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import Popper from 'popper.js'
 
+/*
+  Popper.js docs
+  https://github.com/FezVrasta/popper.js/blob/master/docs/_includes/popper-documentation.md#Popper.placements
+
+  Reakit - PopoverState
+  https://github.com/reakit/reakit/blob/master/packages/reakit/src/Popover/PopoverState.ts
+*/
+
 export const usePopper = (initialState = defaultState, isVisible) => {
   const {
     defaultPlacement,
