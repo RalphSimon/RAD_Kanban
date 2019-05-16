@@ -1,41 +1,35 @@
 import { X } from 'styled-icons/feather'
 
 import { AppCanvas } from '../components/Layout'
-import { Modal } from '../components/Modal'
-import { Button, IconButton } from '../components/Buttons'
+import { Button } from '../components/Buttons'
+import { Menu } from '../components/Menu'
 
-const ModalCard = ({ label, action }) => {
+const defaultState = {
+  defaultPlacement: 'bottom-start',
+  flip: true,
+  shift: true,
+  gutter: 12,
+  preventOverflow: true,
+  boundariesElement: 'scrollParent',
+  fixed: false
+}
+
+const MyOptions = ({ children }) => {
   return (
-    <div className="card">
-      <header className="header">
-        <IconButton onClick={action}>
-          <X size="24" strokeWidth="1.5" />
-        </IconButton>
-      </header>
-      <div className="body">
-        <h3>{label}</h3>
-      </div>
-
-      <style jsx>
-        {`
-					.card {
-						width: 500px;
-						height: 300px;
-						margin-top: 48px;
-						background: white;
-					}
-
-					.header {
-						display: flex;
-						justify-content: flex-end;
-						border-bottom: 1px solid gray;
-					}
-
-					.body {
-						padding: 16px;
-					}
-				`}
-      </style>
+    <div className="menu">
+      {children}
+      <style jsx>{`
+				.menu {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					width: 250px;
+					height: 250px;
+					padding: 16px;
+					background-color: rgba(255, 255, 255, 0.5);
+					box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+				}
+			`}</style>
     </div>
   )
 }
@@ -43,27 +37,57 @@ const ModalCard = ({ label, action }) => {
 const ModalPage = () => {
   return (
     <AppCanvas>
-      <section className="center">
-        <Modal
-          trigger={setIsOpen => (
-            <Button
-              label="Trigger Modal"
-              onClick={() => setIsOpen(true)}
-              outline
-            />
-          )}>
-          {setIsOpen => (
-            <ModalCard label="Modal Content" action={() => setIsOpen(false)} />
-          )}
-        </Modal>
+      <section className="canvas">
+        <div className="row">
+          <Menu popperState={defaultState}>
+            <MyOptions>
+              <Button label="Option 1" color="teal" outline />
+              <Button label="Option 2" color="fuchsia" outline />
+              <Button label="Option 3" color="cyan" outline />
+            </MyOptions>
+          </Menu>
+          <Menu
+            popperState={{ ...defaultState, defaultPlacement: 'bottom-end' }}>
+            <MyOptions>
+              <Button label="Option 1" color="teal" outline />
+              <Button label="Option 2" color="fuchsia" outline />
+              <Button label="Option 3" color="cyan" outline />
+            </MyOptions>
+          </Menu>
+        </div>
+        <div className="row">
+          <Menu
+            popperState={{ ...defaultState, defaultPlacement: 'top-start' }}>
+            <MyOptions>
+              <Button label="Option 1" color="teal" outline />
+              <Button label="Option 2" color="fuchsia" outline />
+              <Button label="Option 3" color="cyan" outline />
+            </MyOptions>
+          </Menu>
+          <Menu popperState={{ ...defaultState, defaultPlacement: 'top-end' }}>
+            <MyOptions>
+              <Button label="Option 1" color="teal" outline />
+              <Button label="Option 2" color="fuchsia" outline />
+              <Button label="Option 3" color="cyan" outline />
+            </MyOptions>
+          </Menu>
+        </div>
       </section>
       <style jsx>{`
-				.center {
+				.canvas {
 					display: flex;
-					align-items: center;
-					justify-content: center;
+					flex-wrap: nowrap;
+					flex-direction: column;
+					justify-content: space-between;
 					width: 100%;
 					height: 100%;
+					padding: 16px;
+				}
+
+				.row {
+					display: flex;
+					justify-content: space-between;
+					width: 100%;
 				}
 			`}</style>
     </AppCanvas>

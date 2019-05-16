@@ -1,10 +1,16 @@
-import { Fragment, useState, useRef } from 'react'
+import { Fragment, useState } from 'react'
 import { PoseGroup } from 'react-pose'
 
 import { ModalPortal } from './ModalPortal'
 
-export const Modal = ({ ariaLabel, children, role, trigger }) => {
-  const triggerRef = useRef(null)
+interface Props {
+  ariaLabel: string;
+  children: JSX.Element[] | JSX.Element;
+  role: string;
+  trigger: (setIsOpen: () => void) => JSX.Element | HTMLElement;
+}
+
+export const Modal = ({ ariaLabel, children, role, trigger }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const onKeyDown = ({ keyCode }) => {

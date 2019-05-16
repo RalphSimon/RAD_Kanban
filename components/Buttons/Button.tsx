@@ -39,9 +39,9 @@ export const Button = forwardRef(
         disabled={disabled}
         ref={ref}
         type={type}>
-        {iconBefore ? iconBefore : null}
-        <span className="label">{label}</span>
-        {iconAfter ? iconAfter : null}
+        <span className="icon-before">{iconBefore ? iconBefore : null}</span>
+        {label}
+        <span className="icon-after">{iconAfter ? iconAfter : null}</span>
 
         <style jsx>{`
 					.btn {
@@ -64,8 +64,12 @@ export const Button = forwardRef(
 						opacity: 0.87;
 					}
 
-					.label {
-						margin: 0 8px;
+					.icon-before {
+						margin-right: 8px;
+					}
+
+					.icon-after {
+						margin-left: 8px;
 					}
 
 					.btn__base {

@@ -33,6 +33,7 @@ export default class RADApp extends App {
           />
           <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
         </Head>
+
         <AppLayout>
           <SideNav>
             <NavItem href="/" label="Home">
