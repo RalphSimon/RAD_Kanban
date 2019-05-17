@@ -2,7 +2,7 @@ import { X } from 'styled-icons/feather'
 
 import { AppCanvas } from '../components/Layout'
 import { Button } from '../components/Buttons'
-import { Menu } from '../components/Menu'
+import { Menu, MenuTrigger, MenuList } from '../components/Menu'
 
 const defaultState = {
   defaultPlacement: 'bottom-start',
@@ -39,37 +39,83 @@ const ModalPage = () => {
     <AppCanvas>
       <section className="canvas">
         <div className="row">
-          <Menu popperState={defaultState}>
-            <MyOptions>
-              <Button label="Option 1" color="teal" outline />
-              <Button label="Option 2" color="fuchsia" outline />
-              <Button label="Option 3" color="cyan" outline />
-            </MyOptions>
+          <Menu>
+            <MenuTrigger>
+              {(isOpen, setMenuState) => (
+                <Button
+                  label={isOpen ? 'close' : 'open'}
+                  color="indigo2"
+                  outline
+                  onClick={() => setMenuState(state => !state)}
+                />
+              )}
+            </MenuTrigger>
+            <MenuList>
+              <MyOptions>
+                <Button label="Option 1" color="teal" outline />
+                <Button label="Option 2" color="fuchsia" outline />
+                <Button label="Option 3" color="cyan" outline />
+              </MyOptions>
+            </MenuList>
           </Menu>
-          <Menu
-            popperState={{ ...defaultState, defaultPlacement: 'bottom-end' }}>
-            <MyOptions>
-              <Button label="Option 1" color="teal" outline />
-              <Button label="Option 2" color="fuchsia" outline />
-              <Button label="Option 3" color="cyan" outline />
-            </MyOptions>
+          <Menu defaultPlacement="bottom-end">
+            <MenuTrigger>
+              {(isOpen, setMenuState) => (
+                <Button
+                  label={isOpen ? 'close' : 'open'}
+                  color="indigo2"
+                  outline
+                  onClick={() => setMenuState(state => !state)}
+                />
+              )}
+            </MenuTrigger>
+            <MenuList>
+              <MyOptions>
+                <Button label="Option 1" color="teal" outline />
+                <Button label="Option 2" color="fuchsia" outline />
+                <Button label="Option 3" color="cyan" outline />
+              </MyOptions>
+            </MenuList>
           </Menu>
         </div>
         <div className="row">
-          <Menu
-            popperState={{ ...defaultState, defaultPlacement: 'top-start' }}>
-            <MyOptions>
-              <Button label="Option 1" color="teal" outline />
-              <Button label="Option 2" color="fuchsia" outline />
-              <Button label="Option 3" color="cyan" outline />
-            </MyOptions>
+          <Menu defaultPlacement="top-start">
+            <MenuTrigger>
+              {(isOpen, setMenuState) => (
+                <Button
+                  label={isOpen ? 'close' : 'open'}
+                  color="indigo2"
+                  outline
+                  onClick={() => setMenuState(state => !state)}
+                />
+              )}
+            </MenuTrigger>
+            <MenuList>
+              <MyOptions>
+                <Button label="Option 1" color="teal" outline />
+                <Button label="Option 2" color="fuchsia" outline />
+                <Button label="Option 3" color="cyan" outline />
+              </MyOptions>
+            </MenuList>
           </Menu>
-          <Menu popperState={{ ...defaultState, defaultPlacement: 'top-end' }}>
-            <MyOptions>
-              <Button label="Option 1" color="teal" outline />
-              <Button label="Option 2" color="fuchsia" outline />
-              <Button label="Option 3" color="cyan" outline />
-            </MyOptions>
+          <Menu defaultPlacement="top-end">
+            <MenuTrigger>
+              {(isOpen, setMenuState) => (
+                <Button
+                  label={isOpen ? 'close' : 'open'}
+                  color="indigo2"
+                  outline
+                  onClick={() => setMenuState(state => !state)}
+                />
+              )}
+            </MenuTrigger>
+            <MenuList>
+              <MyOptions>
+                <Button label="Option 1" color="teal" outline />
+                <Button label="Option 2" color="fuchsia" outline />
+                <Button label="Option 3" color="cyan" outline />
+              </MyOptions>
+            </MenuList>
           </Menu>
         </div>
       </section>

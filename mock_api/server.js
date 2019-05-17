@@ -24,7 +24,7 @@ server.use(jsonServer.bodyParser)
 */
 
 server.use((req, res, next) => {
-  setTimeout(next, 1500)
+  setTimeout(next, 0)
 })
 
 // Add createdAt to all POSTS

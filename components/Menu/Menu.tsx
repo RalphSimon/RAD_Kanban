@@ -1,37 +1,33 @@
-import { Fragment, useState, useEffect, useRef } from 'react'
+import { useState, createContext } from 'react'
 
 import { usePopper } from './usePopper'
 import { MenuTrigger } from './MenuTrigger'
-import { MenuList, Surface } from './MenuList'
+import { MenuList } from './MenuList'
 import { Button } from '../Buttons'
 
-export const Menu = ({ children, popperState }) => {
-  const [menuIsOpen, setMenuState] = useState(false)
-  // const triggerRef = useRef(null)
-  // const surfaceRef = useRef(null)
-  const hook = usePopper(popperState, menuIsOpen)
+export const MenuPosition = createContext(null)
 
-  const toggleMenu = event => {
-    const { target } = event
-    setMenuState(state => !state)
-  }
+export const Menu = props => {
+  const [menuIsOpen, setMenuState] = useState(false)
+  const hook = usePopper(props, menuIsOpen)
 
   return (
     <div className="menu">
-      <MenuTrigger ref={hook.referenceRef}>
-        {/* <button onClick={toggleMenu}>{menuIsOpen ? 'Close' : 'Open'}</button> */}
+      <MenuPosition.Provider value={{ hook, setMenuState, isOpen: menuIsOpen }}>
+        {props.children}
+      </MenuPosition.Provider>
+      {/* <MenuTrigger ref={hook.referenceRef}>
         <Button label={menuIsOpen ? 'Close' : 'Open'} onClick={toggleMenu} />
       </MenuTrigger>
 
-      {/* <Surface isOpen={menuIsOpen} /> */}
       <MenuList
         onClick={() => setMenuState(false)}
         isOpen={menuIsOpen}
         ref={hook.popoverRef}
         placement={hook.placement}
         styles={hook.popoverStyles}>
-        {children}
-      </MenuList>
+        {props.children}
+      </MenuList> */}
       <style jsx>{`
 				.menu {
 					z-index: 1;
@@ -44,4 +40,14 @@ export const Menu = ({ children, popperState }) => {
 			`}</style>
     </div>
   )
+}
+
+Menu.defaultProps = {
+  defaultPlacement: 'bottom-start',
+  flip: true,
+  shift: true,
+  gutter: 12,
+  preventOverflow: true,
+  boundariesElement: 'scrollParent',
+  fixed: false
 }

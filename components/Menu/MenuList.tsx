@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 
+import { MenuPosition } from './Menu'
 import { MenuSurface } from './MenuSurface'
 
 export const MenuList = React.forwardRef(
-  ({ children, isOpen, onClick, styles, placement }, ref) => {
+  ({ children /* isOpen, onClick, styles, placement  */ }, ref) => {
+    const { hook, isOpen, setMenuState } = useContext(MenuPosition)
+
     const handleClick = event => {
       const { target } = event
 
-      if (ref.current && !ref.current.contains(target) && isOpen) {
-        onClick()
+      if (
+        hook.popoverRef.current &&
+				!hook.popoverRef.current.contains(target) &&
+				isOpen
+      ) {
+        // onClick()
+        setMenuState(false)
       }
     }
 
@@ -21,8 +29,11 @@ export const MenuList = React.forwardRef(
     })
 
     return (
-      <div ref={ref} onClick={handleClick} style={styles}>
-        <MenuSurface isOpen={isOpen} placement={placement}>
+      <div
+        ref={hook.popoverRef}
+        onClick={handleClick}
+        style={hook.popoverStyles}>
+        <MenuSurface isOpen={isOpen} placement={hook.placement}>
           {children}
         </MenuSurface>
       </div>
