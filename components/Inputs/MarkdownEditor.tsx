@@ -13,16 +13,20 @@ interface Props {
 
 export const MarkdownEditor = ({ value, name, updateContent }: Props) => {
   const [content, setContent] = useState(value)
-  const [disabled, setDisabled] = useState(true)
+  const [enabled, setEnabled] = useState(false)
   const rootRef = useRef(null)
 
-  const handleDisablement = ({ target }) => {
+  const enableEditor = ({ target }) => {
     const root = rootRef.current
-
-    if (root !== target) {
-      setDisabled(false)
+    console.log({
+      isRoot: root === target,
+      target,
+      root
+    })
+    if (root === target) {
+      setEnabled(true)
     } else {
-      setDisabled(true)
+      setEnabled(false)
     }
   }
 
@@ -34,34 +38,34 @@ export const MarkdownEditor = ({ value, name, updateContent }: Props) => {
 
   const handleBlur = event => {
     const { value } = event.target
-    console.log({
-      editor: value
-    })
-    setDisabled(true)
+
+    setEnabled(false)
     updateContent(value)
   }
 
   return (
-    <article className="editor__root" onClick={handleDisablement} ref={rootRef}>
-      {disabled ? (
-        <Markdown source={content} />
-      ) : (
+    <article
+      className="editor__root"
+      onClick={() => setEnabled(true)}
+      ref={rootRef}>
+      {enabled ? (
         <label htmlFor={name} className="editor__label">
           <textarea
             className="text-preset-6 editor__input"
-            disabled={disabled}
             name={name}
             value={content}
             onChange={handleChange}
             onBlur={handleBlur}
           />
         </label>
+      ) : (
+        <Markdown source={content} />
       )}
 
       <style jsx>{`
 				.editor__root {
 					width: 100%;
-					height: 500px;
+					height: 400px;
 				}
 
 				.editor__label,

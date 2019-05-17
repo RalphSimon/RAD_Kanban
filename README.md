@@ -17,3 +17,7 @@ Simple setup for nextjs projects
 - [x] Add mock API (TBD)
 - [x] Add @zeit/next-bundle-analyzer + configure it
 - [x] Add .vscode config
+
+---
+## Paring Auth0 with MongoDB Stitch
+https://github.com/mongodb/stitch-js-sdk/issues/153
