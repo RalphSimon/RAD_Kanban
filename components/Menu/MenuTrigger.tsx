@@ -1,12 +1,12 @@
-import { forwardRef, useContext } from 'react'
+import { useContext } from 'react'
 
 import { MenuPosition } from './Menu'
 
-export const MenuTrigger = forwardRef(({ children }, ref) => {
+export const MenuTrigger = ({ children }) => {
   const { hook, isOpen, setMenuState } = useContext(MenuPosition)
   return (
     <div className="trigger__root" ref={hook.referenceRef}>
-      {children(isOpen, setMenuState)}
+      {children({ isOpen, setMenuState })}
       <style jsx>{`
 				.trigger__root {
 					z-index: 2;
@@ -16,4 +16,4 @@ export const MenuTrigger = forwardRef(({ children }, ref) => {
 			`}</style>
     </div>
   )
-})
+}

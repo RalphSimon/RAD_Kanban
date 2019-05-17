@@ -12,6 +12,7 @@ import {
   addColumn,
   addToColumn,
   handleDragEndAction,
+  removeColumn,
   reorderColumns,
   updateBoardTitle,
   updateColumnTitle
@@ -50,6 +51,10 @@ export const Kanban = ({ board, tasks }) => {
     dispatchKanban(addColumn(boardState, newColumn))
   }
 
+  const handleRemoveColumn = id => {
+    dispatchKanban(removeColumn(boardState, id))
+  }
+
   const handleAddTask = column => {
     // console.log('ADD TASK', column)
     const newTask = Task(column.ud)
@@ -78,6 +83,7 @@ export const Kanban = ({ board, tasks }) => {
                   <KanbanColumn
                     key={column.id}
                     addTask={() => handleAddTask(column)}
+                    removeColumn={() => handleRemoveColumn(column.id)}
                     column={column}
                     index={index}
                     tasks={column.tasks}
