@@ -1,26 +1,29 @@
 import fetch from 'node-fetch'
 
 import { AppCanvas } from '../components/Layout'
-import { Kanban } from '../components/Kanban/Kanban'
-// import db from '../mock_api/public/db.json'
+import { Header } from '../components/Home'
+import { DateDisplay, TimeDisplay } from '../components/Helpers'
 
-const Overview = ({ board, tasks }) => {
-  if (board && tasks) {
-    return (
-      <AppCanvas>
-        <Kanban board={board} tasks={tasks} />
-      </AppCanvas>
-    )
-  }
+const Home = () => {
+  const date = Date.now()
+
+  return (
+    <AppCanvas>
+      <Header>
+        <TimeDisplay date={date} />
+        <DateDisplay
+          date={date}
+          options={{
+            month: 'short',
+            day: '2-digit',
+            year: 'numeric'
+          }}
+        />
+      </Header>
+    </AppCanvas>
+  )
 }
 
-Overview.getInitialProps = async () => {
-  const boardsResponse = await fetch('http://localhost:5000/api/boards')
-  const tasksResponse = await fetch('http://localhost:5000/api/tasks')
-  const boardsJson = await boardsResponse.json()
-  const tasksJson = await tasksResponse.json()
+Home.getInitialProps = async () => {}
 
-  return { board: boardsJson[0], tasks: tasksJson }
-}
-
-export default Overview
+export default Home

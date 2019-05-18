@@ -9,7 +9,7 @@ export const BottomNav = ({ children }: Props) => {
       <style jsx>{`
 				.bottom-nav {
 					display: flex;
-					justify-content: space-between;
+					justify-content: space-around;
 					grid-column: span 4;
 					grid-row: bottom-nav;
 					background-color: var(--color-bg-panel);

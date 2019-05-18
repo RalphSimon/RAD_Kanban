@@ -2,22 +2,28 @@
 Simple setup for nextjs projects
 
 ---
-## Roadmap
-- [x] Add Next.js
-- [x] Add eslint + configure it
-- [x] Add folder structure
-  - [x] components
-  - [x] pages
-  - [x] static
-- [x] Add defaults (Welcome)
-  - [x] _app.js
-  - [x] index.js
-  - [x] Welcome component
-- [x] Add jest + configure it
-- [x] Add mock API (TBD)
-- [x] Add @zeit/next-bundle-analyzer + configure it
-- [x] Add .vscode config
+## Connecting with Firestore
+[x] - use .dotenv to store firebase config
+[x] = Wire up firestore to app
+[X] = Seed database with a couple of boards
+[ ] - Modify kanban state to account for firestore
+[ ] = Add dynamic pages
+[ ] - Add authentication
+[ ] - Add global search
+
+
+### Next.js & Firebase Auth Example
+https://github.com/zeit/next.js/tree/master/examples/with-firebase-authentication
+https://github.com/suevalov/next-blog-firestore
+
+---
+## Misc. Issues:
+[ ] = FIXME: MenuList renders when coming from server
 
 ---
 ## Paring Auth0 with MongoDB Stitch
 https://github.com/mongodb/stitch-js-sdk/issues/153
+
+## Links to remember:
+* https://assortment.io/posts/accessible-modal-component-react-portals-part-2
+* https://www.typescriptlang.org/docs/handbook/interfaces.html
