@@ -1,0 +1,6 @@
+export { config } from './config'
+export { firebaseReducer } from './reducer'
+export { fetchTasks } from './actions'
+export { default as loadDB } from './loadFireStore'
+export { fetchCollection } from './fetchCollection'
+export { useTasks } from './useTasks'

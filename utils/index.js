@@ -1,4 +1,5 @@
 export { Column } from './factories/column'
 export { Task } from './factories/task'
 export { formatDate } from './date/formatDate'
+export { formatTime } from './date/formatTime'
 export { computePlacement } from './domHelpers/computePlacement'

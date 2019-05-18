@@ -1,6 +1,6 @@
 import nanoid from 'nanoid'
 
-export function Column(boardId) {
+export function Column(columnId, boardId) {
   return {
     id: nanoid(),
     title: 'Add a title...',

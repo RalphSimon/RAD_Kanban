@@ -1,6 +1,6 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { Chrome, Home } from 'styled-icons/feather'
+import { Chrome, Database, Home, Trello } from 'styled-icons/feather'
 // import { resetServerContext } from 'react-beautiful-dnd'
 
 import { AppLayout, BottomNav, NavItem, SideNav } from '../components/Layout'
@@ -22,6 +22,7 @@ export default class RADApp extends App {
 
   render() {
     const { Component, pageProps } = this.props
+
     return (
       <Container>
         <Head>
@@ -39,8 +40,14 @@ export default class RADApp extends App {
             <NavItem href="/" label="Home">
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
+            <NavItem href="/project" label="project">
+              <Trello size="24" strokeWidth="1.5" />
+            </NavItem>
             <NavItem href="/modal" label="Modal">
               <Chrome size="24" strokeWidth="1.5" />
+            </NavItem>
+            <NavItem href="/database" label="Database">
+              <Database size="24" strokeWidth="1.5" />
             </NavItem>
           </SideNav>
           <Component {...pageProps} />
@@ -48,8 +55,14 @@ export default class RADApp extends App {
             <NavItem href="/" label="Home">
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
+            <NavItem href="/project" label="project">
+              <Trello size="24" strokeWidth="1.5" />
+            </NavItem>
             <NavItem href="/modal" label="Modal">
               <Chrome size="24" strokeWidth="1.5" />
+            </NavItem>
+            <NavItem href="/database" label="Database">
+              <Database size="24" strokeWidth="1.5" />
             </NavItem>
           </BottomNav>
         </AppLayout>

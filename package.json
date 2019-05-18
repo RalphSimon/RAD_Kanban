@@ -14,7 +14,8 @@
 		"analyze": "BUNDLE_ANALYZE=both next build",
 		"analyze:server": "BUNDLE_ANALYZE=server next build",
 		"analyze:browser": "BUNDLE_ANALYZE=browser next build",
-		"type:check": "tsc"
+		"type:check": "tsc",
+		"seed": "node ./firebase/seed/admin.js"
 	},
 	"repository": {
 		"type": "git",
@@ -34,6 +35,9 @@
 	"homepage": "https://github.com/RalphSimon/rad-nextjs#readme",
 	"dependencies": {
 		"@zeit/next-typescript": "^1.1.1",
+		"dotenv": "^8.0.0",
+		"firebase": "^6.0.2",
+		"firebase-admin": "^7.3.0",
 		"nanoid": "^2.0.1",
 		"next": "^8.1.0",
 		"node-fetch": "^2.5.0",
