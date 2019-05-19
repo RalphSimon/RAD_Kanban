@@ -1,49 +1,45 @@
 import { useEffect, useReducer, useState } from 'react'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
 
-import { config } from './config'
+import loadDB from './loadFireStore'
 import { firebaseReducer } from './reducer'
 import { fetchTasks } from './actions'
 
-export const useTasks = (collection, initialData) => {
+export const useTasks = (path, initialData) => {
   const [tasks, dispatch] = useReducer(firebaseReducer, initialData)
   const [loading, setLoading] = useState(true)
   const [firebaseError, setError] = useState()
 
   useEffect(() => {
-    try {
-      firebase.initializeApp(config)
-    } catch (err) {
-      // we skip the "already exists" message which is
-      // not an actual error when we're hot-reloading
-      if (!/already exists/.test(err.message)) {
-        console.error('Firebase initialization error', err.stack)
-      }
-    }
+    // try {
+    //   firebase.initializeApp(config)
+    // } catch (err) {
+    //   // we skip the "already exists" message which is
+    //   // not an actual error when we're hot-reloading
+    //   if (!/already exists/.test(err.message)) {
+    //     console.error('Firebase initialization error', err.stack)
+    //   }
+    // }
+    const { db } = loadDB()
 
-    const unsubscribe = firebase
-      .firestore()
-      .collection(collection)
-      .onSnapshot(
-        snapshot => {
-          let LIST = []
-          snapshot.forEach(doc => {
-            LIST.push({
-              ...doc.data(),
-              id: doc.id
-            })
+    const unsubscribe = db.collection(path).onSnapshot(
+      snapshot => {
+        let LIST = []
+        snapshot.forEach(doc => {
+          LIST.push({
+            ...doc.data(),
+            id: doc.id
           })
-          console.log('LIST', LIST)
+        })
+        console.log('LIST', LIST)
 
-          dispatch(fetchTasks(LIST))
-          setLoading(false)
-        },
-        err => setError(err)
-      )
+        dispatch(fetchTasks(LIST))
+        setLoading(false)
+      },
+      err => setError(err)
+    )
 
     return () => unsubscribe()
-  }, [collection])
+  }, [path])
 
   return {
     tasks,

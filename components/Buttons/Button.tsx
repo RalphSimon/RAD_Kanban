@@ -3,6 +3,7 @@ import { forwardRef } from 'react'
 interface ButtonProps {
   ariaLabel: string;
   color?: string;
+  children?: JSX.Element | JSX.Element[];
   disabled: boolean;
   iconBefore: JSX.Element | HTMLElement | SVGElement;
   iconAfter: JSX.Element | HTMLElement | SVGElement;
@@ -16,6 +17,7 @@ export const Button = forwardRef(
   (
     {
       ariaLabel,
+      children,
       color,
       disabled,
       iconBefore,
@@ -40,7 +42,7 @@ export const Button = forwardRef(
         ref={ref}
         type={type}>
         <span className="icon-before">{iconBefore ? iconBefore : null}</span>
-        {label}
+        {label || children}
         <span className="icon-after">{iconAfter ? iconAfter : null}</span>
 
         <style jsx>{`
@@ -73,11 +75,10 @@ export const Button = forwardRef(
 					}
 
 					.btn__base {
-						height: 42px;
+						height: 36px;
 						min-width: 64px;
-						padding: 0 24px;
-						border-radius: 4px;
-						font-size: 0.875rem;
+						padding: 0 16px;
+						font-size: 0.75rem;
 						font-weight: 800;
 						word-spacing: 0.275em;
 						letter-spacing: 0.15em;
@@ -119,7 +120,7 @@ export const Button = forwardRef(
 						width: 100%;
 						height: 100%;
 						background-color: var(--bg-color);
-						transform: translate(-100%, 0);
+						transform: translate(-101%, 0);
 						transition: transform 0.25s var(--easing-default);
 					}
 

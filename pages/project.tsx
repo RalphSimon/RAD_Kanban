@@ -1,26 +1,33 @@
-import fetch from 'node-fetch'
+import { withRouter } from 'next/router'
 
 import { AppCanvas } from '../components/Layout'
-import { Kanban } from '../components/Kanban/Kanban'
-// import db from '../mock_api/public/db.json'
+import { loadDB, useCollection } from '../firebase'
 
-const Project = ({ board, tasks }) => {
-  if (board && tasks) {
-    return (
-      <AppCanvas>
-        <Kanban board={board} tasks={tasks} />
-      </AppCanvas>
-    )
-  }
+const Project = ({ data, router }) => {
+  console.log(data.title)
+  return (
+    <AppCanvas>
+      <h1>Kanban Board</h1>
+    </AppCanvas>
+  )
 }
 
-Project.getInitialProps = async () => {
-  const boardsResponse = await fetch('http://localhost:5000/api/boards')
-  const tasksResponse = await fetch('http://localhost:5000/api/tasks')
-  const boardsJson = await boardsResponse.json()
-  const tasksJson = await tasksResponse.json()
+Project.getInitialProps = async ({ query }) => {
+  const { db } = loadDB()
+  const boardRef = await db.collection('BOARDS').doc(query.id)
 
-  return { board: boardsJson[0], tasks: tasksJson }
+  const BOARD = await boardRef
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.warn('Board doesn\'t exist')
+      } else {
+        return doc.data()
+      }
+    })
+    .catch(err => console.error('Error fetching board', err))
+
+  return { data: BOARD }
 }
 
-export default Project
+export default withRouter(Project)

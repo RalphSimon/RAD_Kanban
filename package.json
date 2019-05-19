@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "next --hostname 192.168.0.153",
+		"dev:server": "node devServer.js",
 		"build": "next build",
 		"start": "next start",
 		"test": "jest",
@@ -65,6 +66,7 @@
 		"eslint-plugin-jsx-a11y": "^6.2.1",
 		"eslint-plugin-react": "^7.12.4",
 		"eslint-plugin-react-hooks": "^1.6.0",
+		"express": "^4.17.0",
 		"faker": "^4.1.0",
 		"jest": "^24.7.1",
 		"jest-in-case": "^1.0.2",

@@ -4,6 +4,9 @@ import { Chrome, Database, Home, Trello } from 'styled-icons/feather'
 // import { resetServerContext } from 'react-beautiful-dnd'
 
 import { AppLayout, BottomNav, NavItem, SideNav } from '../components/Layout'
+import { loadDB, FirebaseContext } from '../firebase'
+
+const { db } = loadDB()
 
 /*
   FIXME: Move this to _document.js
@@ -40,7 +43,7 @@ export default class RADApp extends App {
             <NavItem href="/" label="Home">
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
-            <NavItem href="/project" label="project">
+            <NavItem href="/kanban" label="kanban">
               <Trello size="24" strokeWidth="1.5" />
             </NavItem>
             <NavItem href="/modal" label="Modal">
@@ -50,12 +53,15 @@ export default class RADApp extends App {
               <Database size="24" strokeWidth="1.5" />
             </NavItem>
           </SideNav>
-          <Component {...pageProps} />
+          <FirebaseContext.Provider value={db}>
+            <Component {...pageProps} />
+          </FirebaseContext.Provider>
+
           <BottomNav>
             <NavItem href="/" label="Home">
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
-            <NavItem href="/project" label="project">
+            <NavItem href="/kanban" label="kanban">
               <Trello size="24" strokeWidth="1.5" />
             </NavItem>
             <NavItem href="/modal" label="Modal">

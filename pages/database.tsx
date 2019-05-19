@@ -1,16 +1,5 @@
-import { useEffect, useReducer, useState } from 'react'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-
 import { AppCanvas } from '../components/Layout'
-import {
-  loadDB,
-  config,
-  fetchCollection,
-  firebaseReducer,
-  fetchTasks,
-  useTasks
-} from '../firebase'
+import { loadDB, useTasks } from '../firebase'
 
 const Database = ({ data }) => {
   const { loading, tasks, error } = useTasks('TASKS', data)

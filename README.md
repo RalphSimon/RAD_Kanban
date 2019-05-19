@@ -16,6 +16,10 @@ Simple setup for nextjs projects
 https://github.com/zeit/next.js/tree/master/examples/with-firebase-authentication
 https://github.com/suevalov/next-blog-firestore
 
+### Firebase with hooks
+https://dev.to/bmcmahen/using-firebase-with-react-hooks-21ap
+https://github.com/CSFrequency/react-firebase-hooks
+
 ---
 ## Misc. Issues:
 [ ] = FIXME: MenuList renders when coming from server

@@ -28,107 +28,7 @@ const ModalPage = () => {
   return (
     <AppCanvas>
       <section className="canvas">
-        <div className="row">
-          <Menu>
-            <MenuTrigger>
-              {({ isOpen, setMenuState }) => (
-                <Button
-                  label={isOpen ? 'close' : 'open'}
-                  color="indigo2"
-                  outline
-                  onClick={() => setMenuState(state => !state)}
-                />
-              )}
-            </MenuTrigger>
-            <MenuList>
-              <MyOptions>
-                <Button label="Option 1" color="teal" outline />
-                <Button label="Option 2" color="fuchsia" outline />
-                <Button label="Option 3" color="cyan" outline />
-              </MyOptions>
-            </MenuList>
-          </Menu>
-          <Menu defaultPlacement="bottom-end">
-            <MenuTrigger>
-              {({ isOpen, setMenuState }) => (
-                <Button
-                  label={isOpen ? 'close' : 'open'}
-                  color="indigo2"
-                  outline
-                  onClick={() => setMenuState(state => !state)}
-                />
-              )}
-            </MenuTrigger>
-            <MenuList>
-              <MyOptions>
-                <Button label="Option 1" color="teal" outline />
-                <Button label="Option 2" color="fuchsia" outline />
-                <Button label="Option 3" color="cyan" outline />
-              </MyOptions>
-            </MenuList>
-          </Menu>
-        </div>
-        <div className="row-center">
-          <Menu defaultPlacement="auto-end">
-            <MenuTrigger>
-              {({ isOpen, setMenuState }) => (
-                <Button
-                  label={isOpen ? 'close' : 'open'}
-                  color="indigo2"
-                  outline
-                  onClick={() => setMenuState(state => !state)}
-                />
-              )}
-            </MenuTrigger>
-            <MenuList>
-              <MyOptions>
-                <Button label="Option 1" color="teal" outline />
-                <Button label="Option 2" color="fuchsia" outline />
-                <Button label="Option 3" color="cyan" outline />
-              </MyOptions>
-            </MenuList>
-          </Menu>
-        </div>
-        <div className="row">
-          <Menu defaultPlacement="top-start">
-            <MenuTrigger>
-              {({ isOpen, setMenuState }) => (
-                <Button
-                  label={isOpen ? 'close' : 'open'}
-                  color="indigo2"
-                  outline
-                  onClick={() => setMenuState(state => !state)}
-                />
-              )}
-            </MenuTrigger>
-            <MenuList>
-              <MyOptions>
-                <Button label="Option 1" color="teal" outline />
-                <Button label="Option 2" color="fuchsia" outline />
-                <Button label="Option 3" color="cyan" outline />
-              </MyOptions>
-            </MenuList>
-          </Menu>
-          <Menu defaultPlacement="top-end">
-            <MenuTrigger>
-              {({ isOpen, setMenuState }) => (
-                <Button
-                  label={isOpen ? 'close' : 'open'}
-                  color="indigo2"
-                  outline
-                  onClick={() => setMenuState(state => !state)}
-                />
-              )}
-            </MenuTrigger>
-            <MenuList>
-              <MyOptions>
-                <Button label="Option 1" color="teal" outline />
-                <Button label="Option 2" color="fuchsia" outline />
-                <Button label="Option 3" color="cyan" outline />
-              </MyOptions>
-            </MenuList>
-          </Menu>
-        </div>
+        <h1 className="text-preset-1">Testing components here...</h1>
       </section>
       <style jsx>{`
 				.canvas {
@@ -136,6 +36,7 @@ const ModalPage = () => {
 					flex-wrap: nowrap;
 					flex-direction: column;
 					justify-content: space-between;
+					align-items: center;
 					width: 100%;
 					height: 100%;
 					padding: 16px;

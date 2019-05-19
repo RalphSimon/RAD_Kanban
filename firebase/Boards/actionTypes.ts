@@ -1,0 +1,2 @@
+export const LISTEN_FOR_BOARDS = 'LISTEN_FOR_BOARDS'
+export const ADD_BOARD = 'ADD_BOARD'

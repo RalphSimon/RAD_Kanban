@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+
 import { config } from './config'
 
-export default async () => {
-  const firebase = require('firebase/app')
-  require('firebase/firestore')
-
+export default () => {
   try {
     firebase.initializeApp(config)
   } catch (err) {
@@ -15,9 +15,7 @@ export default async () => {
     }
   }
 
-  const db = firebase.firestore()
-
   return {
-    db
+    db: firebase.firestore()
   }
 }

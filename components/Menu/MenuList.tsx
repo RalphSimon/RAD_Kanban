@@ -36,7 +36,7 @@ export const MenuList = ({ children }) => {
         zIndex: 1
       }}>
       <MenuSurface isOpen={isOpen} placement={hook.placement}>
-        {children}
+        {children(setMenuState)}
       </MenuSurface>
     </div>
   )

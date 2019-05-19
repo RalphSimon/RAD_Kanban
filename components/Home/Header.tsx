@@ -4,8 +4,17 @@ export const Header = ({ children }) => {
       {children}
       <style jsx>{`
 				.header {
-					padding: 24px;
+					display: flex;
+					justify-content: space-between;
+					align-items: flex-end;
+					padding: 16px;
 					background-color: var(--color-bg-panel);
+				}
+
+				@media (min-width: 480px) {
+					.header {
+						padding: 24px;
+					}
 				}
 			`}</style>
     </header>
