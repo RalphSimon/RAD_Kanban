@@ -10,6 +10,7 @@ Simple setup for nextjs projects
 [ ] = Add dynamic pages
 [ ] - Add authentication
 [ ] - Add global search
+[ ] = Helper to update item in array
 
 
 ### Next.js & Firebase Auth Example

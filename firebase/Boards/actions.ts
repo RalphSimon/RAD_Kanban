@@ -1,10 +1,15 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import { LISTEN_FOR_BOARDS, ADD_BOARD } from './actionTypes'
+import { LISTEN_FOR_BOARDS, LISTEN_FOR_DOCUMENT } from './actionTypes'
 
 export const listenForBoards = payload => ({
   type: LISTEN_FOR_BOARDS,
+  payload
+})
+
+export const listenForDocument = payload => ({
+  type: LISTEN_FOR_DOCUMENT,
   payload
 })
 

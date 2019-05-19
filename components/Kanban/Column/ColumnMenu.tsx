@@ -13,7 +13,7 @@ export const ColumnMenu = ({ children }) => {
           </IconButton>
         )}
       </MenuTrigger>
-      <MenuList>{children}</MenuList>
+      <MenuList>{() => children}</MenuList>
     </Menu>
   )
 }

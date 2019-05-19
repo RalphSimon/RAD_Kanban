@@ -7,7 +7,7 @@ export const ProjectCard = ({ children, title, id, created }) => {
 
   return (
     <div className="project">
-      <Link href={`/project?id=${id}`} as={`project/${slug}`}>
+      <Link href={`/project?id=${id}`} as={`/project/${slug}/${id}`}>
         <a className="card">
           <header className="header">
             <h3 className="text-preset-4">{title}</h3>

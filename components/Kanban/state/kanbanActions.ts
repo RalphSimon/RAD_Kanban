@@ -18,7 +18,8 @@ export const reorderTasks = (
   result: {}
 ): { type: string; payload: {} } => {
   const { source, destination, draggableId } = result
-  const column = columns[source.droppableId]
+  const [column] = columns.filter(column => column.id === source.droppableId)
+  const copyColumns = columns.filter(column => column.id !== source.droppableId)
 
   const copyIds = Array.from(column.taskIds)
 
@@ -30,11 +31,11 @@ export const reorderTasks = (
     taskIds: copyIds
   }
 
+  copyColumns.splice(columns.indexOf(column), 0, newColumn)
+
   return {
     type: REORDER_TASKS,
-    payload: {
-      [newColumn.id]: newColumn
-    }
+    payload: copyColumns
   }
 }
 
@@ -44,8 +45,12 @@ export const moveTask = (
   result: {}
 ): { type: string; payload: {} } => {
   const { source, destination, draggableId } = result
-  const start = columns[source.droppableId]
-  const finish = columns[destination.droppableId]
+  const [start] = columns.filter(column => column.id === source.droppableId)
+  const [finish] = columns.filter(
+    column => column.id === destination.droppableId
+  )
+
+  const copyColumns = Array.from(columns)
 
   const startTaskIds = Array.from(start.taskIds)
   startTaskIds.splice(source.index, 1)
@@ -63,17 +68,17 @@ export const moveTask = (
     taskIds: finishedTaskIds
   }
 
+  copyColumns.splice(columns.indexOf(start), 1, newStartColumn)
+  copyColumns.splice(columns.indexOf(finish), 1, newFinishColumn)
+
   return {
     type: MOVE_TASK,
-    payload: {
-      ...columns,
-      [newStartColumn.id]: newStartColumn,
-      [newFinishColumn.id]: newFinishColumn
-    }
+    payload: copyColumns
   }
 }
 
-/* Handles logig for dragging tasks */
+/* Determine whether to reorder a column's tasks in place
+  or move a task from one column to the next */
 export const handleDragEndAction = (
   columns: {},
   result: {}
@@ -88,8 +93,10 @@ export const handleDragEndAction = (
   )
     return columns
 
-  const start = columns[source.droppableId]
-  const finish = columns[destination.droppableId]
+  const [start] = columns.filter(column => column.id === source.droppableId)
+  const [finish] = columns.filter(
+    column => column.id === destination.droppableId
+  )
 
   if (start === finish) {
     console.log('reorderTasks')
@@ -125,10 +132,7 @@ export const addColumn = (
     type: ADD_COLUMN,
     payload: {
       ...board,
-      columns: {
-        ...board.columns,
-        [column.id]: column
-      },
+      columns: [...board.columns, column],
       order: [...board.order, column.id]
     }
   }
@@ -140,9 +144,7 @@ export const removeColumn = (
   columnId: string | number
 ): { type: string; payload: {} } => {
   const newOrder = board.order.filter(id => id !== columnId)
-  const newColumns = board.columns
-
-  delete newColumns[columnId]
+  const newColumns = board.columns.filter(column => column.id !== columnId)
 
   return {
     type: REMOVE_COLUMN,

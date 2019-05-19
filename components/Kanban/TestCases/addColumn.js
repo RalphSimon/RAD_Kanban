@@ -10,10 +10,7 @@ const secondColumn = Column(board.id)
 
 const secondBoard = {
   ...board,
-  columns: {
-    ...board.columns,
-    [firstColumn.id]: firstColumn
-  },
+  columns: [...board.columns, firstColumn],
   order: [...board.order, firstColumn.id]
 }
 
@@ -25,10 +22,7 @@ export const CASE_ADD_COLUMN = {
       type: ADD_COLUMN,
       payload: {
         ...board,
-        columns: {
-          ...board.columns,
-          [firstColumn.id]: firstColumn
-        },
+        columns: [...board.columns, firstColumn],
         order: [...board.order, firstColumn.id]
       }
     }
@@ -40,10 +34,7 @@ export const CASE_ADD_COLUMN = {
       type: ADD_COLUMN,
       payload: {
         ...secondBoard,
-        columns: {
-          ...secondBoard.columns,
-          [secondColumn.id]: secondColumn
-        },
+        columns: [...secondBoard.columns, secondColumn],
         order: [...secondBoard.order, secondColumn.id]
       }
     }

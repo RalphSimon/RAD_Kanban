@@ -4,8 +4,6 @@ import { typesKanban } from '../state'
 const { REORDER_COLUMNS } = typesKanban
 const { order } = db.boards[0]
 const printDndResult = (index, id) => ({ index, droppableId: id })
-const selectTask = (column = 'column-1', taskIndex = 0) =>
-  columns[column].taskIds[taskIndex]
 
 export const CASE_REORDER_COLUMNS = {
   'move 1st column to 2nd place': {

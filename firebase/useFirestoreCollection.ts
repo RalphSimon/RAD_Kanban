@@ -10,13 +10,10 @@ interface Collection {
   error: string | string[] | {};
 }
 
-export const useFirestoreCollection = (
-  path: string,
-  initialState: []
-): Collection => {
+export const useFirestoreCollection = (path: string): Collection => {
   const db = useContext(FirebaseContext)
 
-  const [collection, dispatch] = useReducer(boardsReducer, initialState)
+  const [collection, dispatch] = useReducer(boardsReducer, {})
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState()
 

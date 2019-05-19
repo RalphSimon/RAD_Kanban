@@ -18,9 +18,8 @@ import { DeleteProject } from '../components/Home/DeleteProject'
 
 const Home = () => {
   const db = useContext(FirebaseContext)
-  const { collection, isLoading, error } = useFirestoreCollection(
-    'BOARDS',
-    null
+  const { collection: boards, isLoading, error } = useFirestoreCollection(
+    'BOARDS'
   )
 
   const handleAddBoard = title => {
@@ -79,7 +78,7 @@ const Home = () => {
           </div>
         ) : (
           <Projects>
-            {collection.map(board => (
+            {boards.map(board => (
               <ProjectCard key={board.id} {...board}>
                 <DeleteProject
                   deleteProject={handleDeleteProject}
@@ -93,22 +92,5 @@ const Home = () => {
     </AppCanvas>
   )
 }
-
-// Home.getInitialProps = async () => {
-//   const { db } = loadDB()
-//   const ref = await db.collection('BOARDS')
-//   const BOARDS = await ref.get().then(snapshot => {
-//     let collection = []
-//     snapshot.forEach(doc => {
-//       collection.push({
-//         ...doc.data()
-//       })
-//     })
-
-//     return collection
-//   })
-
-//   return { data: BOARDS }
-// }
 
 export default Home

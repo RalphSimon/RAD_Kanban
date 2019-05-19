@@ -4,7 +4,7 @@ const { ADD_TASK, COMPLETE_TASK, REMOVE_TASK, UPDATE_TASK } = typesTasks
 
 export const addTask = task => ({
   type: ADD_TASK,
-  task
+  payload: task
 })
 
 export const completeTask = (id, isComplete) => ({
@@ -15,10 +15,11 @@ export const completeTask = (id, isComplete) => ({
 
 export const removeTask = taskId => ({
   type: REMOVE_TASK,
-  taskId
+  payload: taskId
 })
 
-export const updateTask = (task, field, payload) => ({
+export const updateTask = (id, field, payload) => ({
   type: UPDATE_TASK,
-  task: { ...task, [field]: payload }
+  payload: { [field]: payload },
+  id
 })

@@ -21,7 +21,7 @@ export const TaskModal = ({ close, task }: TaskProps) => {
   })
 
   const handleCompletion = () => {
-    dispatch(completeTask(task.id, true))
+    dispatch(completeTask(task.id, 'completed', true))
     close()
   }
 
@@ -44,7 +44,7 @@ export const TaskModal = ({ close, task }: TaskProps) => {
             tag="h5"
             className="text-preset-4"
             title={task.title}
-            updateTitle={value => dispatch(updateTask(task, 'title', value))}
+            updateTitle={value => dispatch(updateTask(task.id, 'title', value))}
           />
         </header>
 
@@ -52,7 +52,9 @@ export const TaskModal = ({ close, task }: TaskProps) => {
           <MarkdownEditor
             value={task.note}
             name={`task-note_${task.id}`}
-            updateContent={value => dispatch(updateTask(task, 'note', value))}
+            updateContent={value =>
+              dispatch(updateTask(task.id, 'note', value))
+            }
           />
         </div>
       </section>
@@ -65,7 +67,7 @@ export const TaskModal = ({ close, task }: TaskProps) => {
             iconBefore={<CheckCircle size="24" strokeWidth="1.5" />}
             label="Make Active"
             outline
-            onClick={() => dispatch(completeTask(task.id, false))}
+            onClick={() => dispatch(completeTask(task.id, 'completed', false))}
           />
         ) : (
           <Button label="Complete" outline onClick={handleCompletion} />

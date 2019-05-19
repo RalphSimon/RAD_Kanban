@@ -13,7 +13,7 @@ interface FieldProps {
   value: string | number;
 }
 
-export const FieldBase = ({
+const FieldBase = ({
   disabled,
   error,
   helperText,
@@ -182,3 +182,5 @@ export const FieldBase = ({
 FieldBase.defaultProps = {
   type: 'text'
 }
+
+export default FieldBase

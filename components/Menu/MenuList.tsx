@@ -14,7 +14,6 @@ export const MenuList = ({ children }) => {
 			!hook.popoverRef.current.contains(target) &&
 			isOpen
     ) {
-      // onClick()
       setMenuState(false)
     }
   }

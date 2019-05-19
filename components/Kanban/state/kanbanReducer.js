@@ -19,10 +19,7 @@ export const kanbanReducer = (state, action) => {
     case ADD_TO_COLUMN:
       return {
         ...state,
-        columns: {
-          ...state.columns,
-          [action.payload.id]: action.payload
-        }
+        columns: [...state.columns, action.payload]
       }
     case MOVE_TASK:
       return {
@@ -39,10 +36,7 @@ export const kanbanReducer = (state, action) => {
     case REORDER_TASKS:
       return {
         ...state,
-        columns: {
-          ...state.columns,
-          ...action.payload
-        }
+        columns: action.payload
       }
     case REMOVE_FROM_COLUMN:
       return {

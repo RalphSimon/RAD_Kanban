@@ -4,13 +4,15 @@ import { typesKanban } from '../state'
 const { REMOVE_COLUMN } = typesKanban
 const board = db.boards[0]
 
+const selectColumn = (columnId = 'column-1') => {
+  const [column] = board.columns.filter(c => c.id === columnId)
+  return column
+}
+
 const secondBoard = {
   ...board,
-  columns: {
-    [board.columns['column-1'].id]: board.columns['column-1'],
-    [board.columns['column-2'].id]: board.columns['column-2']
-  },
-  order: [board.columns['column-1'].id, board.columns['column-2'].id]
+  columns: [selectColumn(), selectColumn('column-2')],
+  order: [selectColumn().id, selectColumn('column-2').id]
 }
 
 export const CASE_REMOVE_COLUMN = {
@@ -29,10 +31,8 @@ export const CASE_REMOVE_COLUMN = {
       type: REMOVE_COLUMN,
       payload: {
         ...board,
-        columns: {
-          [board.columns['column-2'].id]: board.columns['column-2']
-        },
-        order: [board.columns['column-2'].id]
+        columns: [selectColumn('column-2')],
+        order: [selectColumn('column-2').id]
       }
     }
   }

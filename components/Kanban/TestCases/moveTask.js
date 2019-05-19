@@ -4,8 +4,18 @@ import { typesKanban } from '../state'
 const { MOVE_TASK } = typesKanban
 const { columns } = db.boards[0]
 const printDndResult = (index, id) => ({ index, droppableId: id })
-const selectTask = (column = 'column-1', taskIndex = 0) =>
-  columns[column].taskIds[taskIndex]
+// const selectTask = (column = 'column-1', taskIndex = 0) =>
+//   columns[column].taskIds[taskIndex]
+
+const selectColumn = (columnId = 'column-1') => {
+  const [column] = columns.filter(c => c.id === columnId)
+  return column
+}
+const selectTask = (columnId = 'column-1', taskIndex = 0) => {
+  // columns[column].taskIds[taskIndex]
+  const [column] = columns.filter(c => c.id === columnId)
+  return column.taskIds[taskIndex]
+}
 
 export const CASE_MOVE_TASKS = {
   'move task from 1st to 2nd column': {
@@ -18,34 +28,31 @@ export const CASE_MOVE_TASKS = {
     },
     output: {
       type: MOVE_TASK,
-      payload: {
-        'column-1': {
-          id: 'column-1',
-          title: 'Open',
+      payload: [
+        {
+          ...selectColumn(),
           taskIds: [
-            '8b1c3f05-2582-465f-863f-928e9a2df705',
-            '6ae035ee-c4b1-49d2-a72d-33b217cbf2fe',
-            '8cc7174b-7b0a-4fff-b0fa-736d9fc6b927'
+            '1b9ecf2e-458f-4770-9ff2-fa45f0f8a7ee',
+            '2bc999ba-4869-4138-9a3d-c50a9dd16729',
+            'a1af323c-c064-44ed-86f6-3c88e4a6d702'
           ]
         },
-        'column-2': {
-          id: 'column-2',
-          title: 'In Progress',
+        {
+          ...selectColumn('column-2'),
           taskIds: [
-            '0cd8bae6-68bb-4abc-abc9-b393388b9d32',
-            'fd2ed3bc-b7a9-4af8-998d-e48cec47e7b9',
-            '49f1fb61-e8a3-404a-a8c0-738de652fed9',
-            '7d3e9feb-d20e-4e72-989e-8733cd35a616',
-            'a14bae36-7d8a-4513-aa01-5f582059ea3b',
-            '6f13fb41-e9a9-42a1-9260-2e60254fb0b7'
+            '8f5b2880-74a2-4d60-98a8-a228821e730d',
+            '862c4579-63bb-48f4-a408-2db19f30ebbc',
+            '0b1a024c-a5f3-4a59-b5d3-a668a05945df',
+            'f3fff7ce-54a0-4284-94d8-76571db28200',
+            '5c5fa4b9-c016-49fe-9770-1626dafae3c0',
+            'f69cadb6-d197-4390-876a-6ea2c16ac14f'
           ]
         },
-        'column-3': {
-          id: 'column-3',
-          title: 'Done',
+        {
+          ...selectColumn('column-3'),
           taskIds: []
         }
-      }
+      ]
     }
   },
   'move task from 1st to 3th column': {
@@ -58,33 +65,30 @@ export const CASE_MOVE_TASKS = {
     },
     output: {
       type: MOVE_TASK,
-      payload: {
-        'column-1': {
-          id: 'column-1',
-          title: 'Open',
+      payload: [
+        {
+          ...selectColumn(),
           taskIds: [
-            '0cd8bae6-68bb-4abc-abc9-b393388b9d32',
-            '8b1c3f05-2582-465f-863f-928e9a2df705',
-            '6ae035ee-c4b1-49d2-a72d-33b217cbf2fe',
-            '8cc7174b-7b0a-4fff-b0fa-736d9fc6b927'
+            '8f5b2880-74a2-4d60-98a8-a228821e730d',
+            '1b9ecf2e-458f-4770-9ff2-fa45f0f8a7ee',
+            '2bc999ba-4869-4138-9a3d-c50a9dd16729',
+            'a1af323c-c064-44ed-86f6-3c88e4a6d702'
           ]
         },
-        'column-2': {
-          id: 'column-2',
-          title: 'In Progress',
+        {
+          ...selectColumn('column-2'),
           taskIds: [
-            'fd2ed3bc-b7a9-4af8-998d-e48cec47e7b9',
-            '49f1fb61-e8a3-404a-a8c0-738de652fed9',
-            'a14bae36-7d8a-4513-aa01-5f582059ea3b',
-            '6f13fb41-e9a9-42a1-9260-2e60254fb0b7'
+            '862c4579-63bb-48f4-a408-2db19f30ebbc',
+            '0b1a024c-a5f3-4a59-b5d3-a668a05945df',
+            '5c5fa4b9-c016-49fe-9770-1626dafae3c0',
+            'f69cadb6-d197-4390-876a-6ea2c16ac14f'
           ]
         },
-        'column-3': {
-          id: 'column-3',
-          title: 'Done',
-          taskIds: ['7d3e9feb-d20e-4e72-989e-8733cd35a616']
+        {
+          ...selectColumn('column-3'),
+          taskIds: ['f3fff7ce-54a0-4284-94d8-76571db28200']
         }
-      }
+      ]
     }
   }
 }

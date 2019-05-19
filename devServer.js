@@ -11,10 +11,11 @@ app
   .then(() => {
     const server = express()
 
-    server.get('/project:id', (req, res) => {
-      const page = '/project'
-      const queryParams = { id: req.params.id }
-      app.render(req, res, page, queryParams)
+    server.get('/project/:slug/:id', (req, res) => {
+      app.render(req, res, '/project', {
+        id: req.params.id,
+        slug: req.params.slug
+      })
     })
 
     server.get('*', (req, res) => {

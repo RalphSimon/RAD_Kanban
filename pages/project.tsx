@@ -1,33 +1,46 @@
+import { useMemo } from 'react'
 import { withRouter } from 'next/router'
 
 import { AppCanvas } from '../components/Layout'
-import { loadDB, useCollection } from '../firebase'
+import { Kanban } from '../components/Kanban'
+import { useFirestoreDoc, useFirestoreCollection } from '../firebase'
 
-const Project = ({ data, router }) => {
-  console.log(data.title)
+const mergeKanbanState = (board, columns) => ({
+  ...board,
+  columns
+})
+
+const Project = ({ id }) => {
+  const { firestoreDoc: board, isLoading: boardIsLoading } = useFirestoreDoc(
+    `BOARDS/${id}`
+  )
+  const {
+    collection: columns,
+    isLoading: columnsAreLoading
+  } = useFirestoreCollection(`BOARDS/${id}/COLUMNS`)
+  const {
+    collection: tasks,
+    isLoading: tasksAreLoading
+  } = useFirestoreCollection('TASKS')
+
+  const project = useMemo(() => mergeKanbanState(board, columns), [
+    board,
+    columns
+  ])
+
   return (
     <AppCanvas>
-      <h1>Kanban Board</h1>
+      {boardIsLoading || columnsAreLoading || tasksAreLoading ? (
+        <h1>'Loading board...'</h1>
+      ) : (
+        <Kanban board={project} tasks={tasks} />
+      )}
     </AppCanvas>
   )
 }
 
 Project.getInitialProps = async ({ query }) => {
-  const { db } = loadDB()
-  const boardRef = await db.collection('BOARDS').doc(query.id)
-
-  const BOARD = await boardRef
-    .get()
-    .then(doc => {
-      if (!doc.exists) {
-        console.warn('Board doesn\'t exist')
-      } else {
-        return doc.data()
-      }
-    })
-    .catch(err => console.error('Error fetching board', err))
-
-  return { data: BOARD }
+  return { id: query.id }
 }
 
 export default withRouter(Project)

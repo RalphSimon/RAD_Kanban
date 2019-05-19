@@ -77,30 +77,30 @@ const tasksAsObject = transformToObject(tasks)
 const board = () => ({
   title: 'The Kanban Project',
   id: random.uuid(),
-  columns: {
-    'column-1': {
+  columns: [
+    {
       id: 'column-1',
       title: 'Open',
       taskIds: tasks.map(task => task.id).slice(0, 4)
     },
-    'column-2': {
+    {
       id: 'column-2',
       title: 'In Progress',
       taskIds: tasks.map(task => task.id).slice(4, 9)
     },
-    'column-3': {
+    {
       id: 'column-3',
       title: 'Done',
       taskIds: []
     }
-  },
+  ],
   order: ['column-1', 'column-2', 'column-3']
 })
 
 const data = JSON.stringify({
   users: generateList(user),
   boards: [board()],
-  tasks: tasksAsObject
+  tasks
 })
 
 const filePath = path.join(__dirname, '/public/db.json')

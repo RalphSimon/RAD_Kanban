@@ -28,12 +28,21 @@ export const Kanban = ({ board, tasks }) => {
   const [taskState, dispatchTasks] = useReducer(taskReducer, tasks)
 
   const orderedColumns = boardState.order.map(columnId => {
-    const column = boardState.columns[columnId]
-    const columnTasks = column.taskIds.map(id => taskState[id])
+    if (boardState.columns) {
+      console.log(boardState.columns)
+      const [column] = boardState.columns.filter(
+        column => column.id === columnId
+      )
+      const columnTasks = column.taskIds.map(id => {
+        const [task] = taskState.filter(task => task.id === id)
 
-    return {
-      ...column,
-      tasks: columnTasks
+        return task
+      })
+
+      return {
+        ...column,
+        tasks: columnTasks
+      }
     }
   })
 
@@ -57,7 +66,7 @@ export const Kanban = ({ board, tasks }) => {
 
   const handleAddTask = column => {
     // console.log('ADD TASK', column)
-    const newTask = Task(column.ud)
+    const newTask = Task(column.id)
 
     dispatchKanban(addToColumn(column, newTask.id))
     dispatchTasks(addTask(newTask))
@@ -69,36 +78,38 @@ export const Kanban = ({ board, tasks }) => {
         title={boardState.title}
         updateTitle={value => dispatchKanban(updateBoardTitle(value))}
       />
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable
-          droppableId="kanban-canvas"
-          direction="horizontal"
-          type={typesDnd.DRAG_TYPE_COLUMN}>
-          {provided => (
-            <KanbanDispatch.Provider value={dispatchTasks}>
-              <KanbanCanvas
-                columnCount={orderedColumns.length + 1}
-                provided={provided}>
-                {orderedColumns.map((column, index) => (
-                  <KanbanColumn
-                    key={column.id}
-                    addTask={() => handleAddTask(column)}
-                    removeColumn={() => handleRemoveColumn(column.id)}
-                    column={column}
-                    index={index}
-                    tasks={column.tasks}
-                    updateTitle={value => {
-                      dispatchKanban(updateColumnTitle(column.id, value))
-                    }}
-                  />
-                ))}
-                {provided.placeholder}
-                <KanbanAddColumn addColumn={handleAddColumn} />
-              </KanbanCanvas>
-            </KanbanDispatch.Provider>
-          )}
-        </Droppable>
-      </DragDropContext>
+      {orderedColumns && (
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable
+            droppableId="kanban-canvas"
+            direction="horizontal"
+            type={typesDnd.DRAG_TYPE_COLUMN}>
+            {provided => (
+              <KanbanDispatch.Provider value={dispatchTasks}>
+                <KanbanCanvas
+                  columnCount={orderedColumns.length + 1}
+                  provided={provided}>
+                  {orderedColumns.map((column, index) => (
+                    <KanbanColumn
+                      key={column.id}
+                      addTask={() => handleAddTask(column)}
+                      removeColumn={() => handleRemoveColumn(column.id)}
+                      column={column}
+                      index={index}
+                      tasks={column.tasks}
+                      updateTitle={value => {
+                        dispatchKanban(updateColumnTitle(column.id, value))
+                      }}
+                    />
+                  ))}
+                  {provided.placeholder}
+                  <KanbanAddColumn addColumn={handleAddColumn} />
+                </KanbanCanvas>
+              </KanbanDispatch.Provider>
+            )}
+          </Droppable>
+        </DragDropContext>
+      )}
     </KanbanRoot>
   )
 }
