@@ -1,10 +1,7 @@
-import nanoid from 'nanoid'
-
 export function Task(columnId) {
   return {
-    id: nanoid(),
     title: 'Add a title...',
-    body: '',
+    note: '',
     createdOn: Date.now(),
     columnId
   }
