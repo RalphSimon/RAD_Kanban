@@ -1,5 +1,5 @@
 import db from '../../../mock_api/public/db.json'
-import { typesKanban } from '../state'
+import { typesKanban } from '../components/Kanban/state'
 
 const { REORDER_COLUMNS } = typesKanban
 const { order } = db.boards[0]

@@ -1,3 +1,4 @@
+export { updateArray } from './collectionHelpers/updateArray'
 export { Column } from './factories/column'
 export { Task } from './factories/task'
 export { formatDate } from './date/formatDate'

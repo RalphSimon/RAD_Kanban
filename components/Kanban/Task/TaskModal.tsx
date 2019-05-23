@@ -2,10 +2,15 @@ import { useRef, useEffect, useContext } from 'react'
 import { CheckCircle, X } from 'styled-icons/feather'
 
 import { KanbanDispatch } from '../Board/KanbanDispatch'
-import { completeTask, updateTask } from '../state/taskActions'
+import {
+  updateTask as updateTaskAction,
+  removeTask as removeTaskAction
+} from '../state/taskActions'
 import { Button, IconButton } from '../../Buttons'
 import { EditableTitle, MarkdownEditor } from '../../Inputs'
 import { formatDate } from '../../../utils'
+import { FirebaseContext } from '../../../firebase'
+import { DeleteItem } from '../../DeleteItem'
 
 interface TaskProps {
   close: () => void;
@@ -15,13 +20,27 @@ interface TaskProps {
 export const TaskModal = ({ close, task }: TaskProps) => {
   const buttonRef = useRef(null)
   const dispatch = useContext(KanbanDispatch)
+  const db = useContext(FirebaseContext)
 
   useEffect(() => {
     buttonRef.current.focus()
   })
 
+  const handleUpdate = (field, value) => {
+    const ref = db.collection('TASKS').doc(task.id)
+    const payload = { [field]: value }
+
+    dispatch(updateTaskAction(ref, task.id, payload))
+  }
+
+  const handleDeletion = id => {
+    const ref = db.collection('TASKS').doc(task.id)
+
+    dispatch(removeTaskAction(ref, id))
+  }
+
   const handleCompletion = () => {
-    dispatch(completeTask(task.id, 'completed', true))
+    handleUpdate('completed', true)
     close()
   }
 
@@ -44,7 +63,7 @@ export const TaskModal = ({ close, task }: TaskProps) => {
             tag="h5"
             className="text-preset-4"
             title={task.title}
-            updateTitle={value => dispatch(updateTask(task.id, 'title', value))}
+            updateTitle={value => handleUpdate('title', value)}
           />
         </header>
 
@@ -52,12 +71,14 @@ export const TaskModal = ({ close, task }: TaskProps) => {
           <MarkdownEditor
             value={task.note}
             name={`task-note_${task.id}`}
-            updateContent={value =>
-              dispatch(updateTask(task.id, 'note', value))
-            }
+            updateContent={value => handleUpdate('note', value)}
           />
         </div>
       </section>
+
+      <div className="task__danger flex">
+        <DeleteItem deleteItem={() => handleDeletion(task.id)} />
+      </div>
 
       <footer className="task__footer flex">
         <Button label="Cancel" color="red" onClick={close} outline />
@@ -67,7 +88,7 @@ export const TaskModal = ({ close, task }: TaskProps) => {
             iconBefore={<CheckCircle size="24" strokeWidth="1.5" />}
             label="Make Active"
             outline
-            onClick={() => dispatch(completeTask(task.id, 'completed', false))}
+            onClick={() => handleUpdate('completed', false)}
           />
         ) : (
           <Button label="Complete" outline onClick={handleCompletion} />
@@ -77,7 +98,7 @@ export const TaskModal = ({ close, task }: TaskProps) => {
       <style jsx>{`
 				.task__root {
 					display: grid;
-					grid-template-rows: [header] 48px [body] 1fr [footer] 64px;
+					grid-template-rows: [header] 48px [body] 1fr [danger] 64px [footer] 64px;
 					width: 100vw;
 					height: 100vh;
 					flex-direction: column;
@@ -113,6 +134,13 @@ export const TaskModal = ({ close, task }: TaskProps) => {
 					height: 400px;
 					padding: 0 16px 16px;
 					overflow-y: scroll;
+				}
+
+				.task__danger {
+					grid-row: danger;
+					justify-content: center;
+					align-items: center;
+					background-color: var(--color-gray-light);
 				}
 
 				.task__footer {

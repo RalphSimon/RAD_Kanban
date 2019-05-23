@@ -4,14 +4,15 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { Plus, Trash2 } from 'styled-icons/feather'
 
 import { Body } from './Body'
+import { Button, IconButton } from '../../Buttons'
 import { ColumnMenu } from './ColumnMenu'
 import { ColumnOptions } from './ColumnOptions'
 import { Container } from './Container'
 import { Header } from './Header'
 import { List } from './List'
 import { KanbanItem } from '../Task/KanbanItem'
+import { TaskPlaceholder } from '../Task/TaskPlaceholder'
 import { typesDnd } from '../state/actionTypes'
-import { Button, IconButton } from '../../Buttons'
 import { Tag } from '../../Tags'
 
 interface ColumnProps {
@@ -34,13 +35,14 @@ export const KanbanColumn = ({
   const [disabled, setDisabled] = React.useState(true)
   const [title, setTitle] = React.useState(column.title)
 
-  const memoizedTasks = React.useMemo(
-    () =>
-      tasks.map((task, index) => {
-        return <KanbanItem key={task.id} index={index} task={task} />
-      }),
-    [tasks]
-  )
+  const memoizedTasks = React.useMemo(() => {
+    if (tasks) {
+      console.log(tasks)
+      return tasks.map((task, index) => (
+        <KanbanItem key={task.id} index={index} task={task} />
+      ))
+    }
+  }, [tasks])
 
   const handleBlur = event => {
     const { textContent } = event.target
@@ -83,9 +85,9 @@ export const KanbanColumn = ({
               {(provided, snapshot) => (
                 <List
                   provided={provided}
-                  isDraggingOver={snapshot.isDraggingOver}
-                  tasks={memoizedTasks}
-                />
+                  isDraggingOver={snapshot.isDraggingOver}>
+                  {memoizedTasks}
+                </List>
               )}
             </Droppable>
           </Body>

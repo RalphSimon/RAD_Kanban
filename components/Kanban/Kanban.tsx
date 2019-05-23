@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useReducer, useContext } from 'react'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { KanbanCanvas } from './Board/KanbanCanvas'
@@ -10,34 +10,37 @@ import { KanbanAddColumn } from './Column/KanbanAddColumn'
 
 import {
   addColumn,
-  addToColumn,
+  addToColumn as addToColumnAction,
   handleDragEndAction,
   removeColumn,
   reorderColumns,
   updateBoardTitle,
   updateColumnTitle
-} from './state/kanbanActions'
-import { addTask } from './state/taskActions'
-import { kanbanReducer } from './state/kanbanReducer'
+} from './state/boardActions'
+import { addTask as addTaskAction } from './state/taskActions'
+import { kanbanReducer } from './state/boardReducer'
 import { taskReducer } from './state/taskReducer'
 import { typesDnd } from './state/actionTypes'
 import { Column, Task } from '../../utils'
+import { FirebaseContext } from '../../firebase'
 
 export const Kanban = ({ board, tasks }) => {
+  const db = useContext(FirebaseContext)
   const [boardState, dispatchKanban] = useReducer(kanbanReducer, board)
   const [taskState, dispatchTasks] = useReducer(taskReducer, tasks)
 
   const orderedColumns = boardState.order.map(columnId => {
     if (boardState.columns) {
-      console.log(boardState.columns)
       const [column] = boardState.columns.filter(
         column => column.id === columnId
       )
-      const columnTasks = column.taskIds.map(id => {
-        const [task] = taskState.filter(task => task.id === id)
+      const columnTasks = column.taskIds
+        ? column.taskIds.map(id => {
+          const [task] = taskState.filter(task => task.id === id)
 
-        return task
-      })
+          return task
+				  })
+        : []
 
       return {
         ...column,
@@ -56,8 +59,8 @@ export const Kanban = ({ board, tasks }) => {
 
   const handleAddColumn = () => {
     const newColumn = Column(boardState.id)
-
-    dispatchKanban(addColumn(boardState, newColumn))
+    console.log(newColumn)
+    dispatchKanban(addColumn(newColumn))
   }
 
   const handleRemoveColumn = id => {
@@ -65,11 +68,13 @@ export const Kanban = ({ board, tasks }) => {
   }
 
   const handleAddTask = column => {
-    // console.log('ADD TASK', column)
+    const columnRef = db.doc(`BOARDS/${boardState.id}/COLUMNS/${column.id}`)
+    const tasksRef = db.collection('TASKS').doc()
+
     const newTask = Task(column.id)
 
-    dispatchKanban(addToColumn(column, newTask.id))
-    dispatchTasks(addTask(newTask))
+    dispatchKanban(addToColumnAction(column, tasksRef.id, columnRef))
+    dispatchTasks(addTaskAction(tasksRef, { ...newTask, id: tasksRef.id }))
   }
 
   return (

@@ -27,7 +27,12 @@ export const Task = forwardRef(
         <div className="kb-item__container" ref={ref}>
           <header className="kb-item__header">
             <h5 className="text-preset-4">{task.title}</h5>
-            <span className="text-preset-7">{formatDate(task.createdOn)}</span>
+            <span className="text-preset-7">
+              {task.createdOn
+                ? formatDate(new Date(task.createdOn.seconds))
+                : formatDate(new Date(task.created.seconds))}
+            </span>
+
             {task.completed ? (
               <span className="kb-item__check">
                 <Check size="18" strokeWidth="1.5" />
@@ -43,10 +48,6 @@ export const Task = forwardRef(
         <div className="kb-item__shadow" />
         <style jsx>
           {`
-						.kb-item__root:last-of-type {
-							margin-bottom: ${isDragging ? 0 : 136}px;
-						}
-
 						.kb-item__container::before {
 							background-color: ${task.color};
 						}
@@ -62,6 +63,7 @@ export const Task = forwardRef(
 						.kb-item__root {
 							--border-card: 1px solid var(--color-indigo2-light);
 							z-index: 3;
+							height: 225px;
 							position: relative;
 							margin-bottom: 16px;
 						}
@@ -126,6 +128,11 @@ export const Task = forwardRef(
 
 						.kb-item__header .text-preset-7 {
 							margin-left: 16px;
+						}
+
+						.kb-item__body {
+							height: 125px;
+							overflow: hidden;
 						}
 
 						.kb-item__check {

@@ -77,6 +77,12 @@ const tasksAsObject = transformToObject(tasks)
 const board = () => ({
   title: 'The Kanban Project',
   id: random.uuid(),
+  order: ['column-1', 'column-2', 'column-3']
+})
+
+const data = JSON.stringify({
+  users: generateList(user),
+  boards: [board()],
   columns: [
     {
       id: 'column-1',
@@ -94,12 +100,6 @@ const board = () => ({
       taskIds: []
     }
   ],
-  order: ['column-1', 'column-2', 'column-3']
-})
-
-const data = JSON.stringify({
-  users: generateList(user),
-  boards: [board()],
   tasks
 })
 

@@ -1,16 +1,16 @@
 interface Props {
   provided: {};
   isDraggingOver: boolean;
-  tasks: JSX.Element[];
+  children: JSX.Element[];
 }
 
-export const List = ({ provided, isDraggingOver, tasks }) => {
+export const List = ({ provided, isDraggingOver, children }) => {
   return (
     <ul
       className="kb-column__list"
       ref={provided.innerRef}
       {...provided.droppableProps}>
-      {tasks}
+      {children}
       {provided.placeholder}
 
       <style jsx>

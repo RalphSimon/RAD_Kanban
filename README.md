@@ -13,6 +13,7 @@ Simple setup for nextjs projects
 [ ] - Add global search
 [ ] - Helper to update item in array
 [ ] - Notifications
+[ ] - Use 'Drawkit' (Invision Studio) for intermediary screens (intro, loading, error...)
 
 ### Normalization
 **Problem**:

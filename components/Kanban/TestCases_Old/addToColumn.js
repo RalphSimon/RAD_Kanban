@@ -1,6 +1,6 @@
 import db from '../../../mock_api/public/db.json'
-import { typesKanban } from '../state'
-import { Task } from '../../../utils'
+import { typesKanban } from '../components/Kanban/state'
+import { Task } from '../utils'
 
 const { ADD_TO_COLUMN } = typesKanban
 const { columns } = db.boards[0]

@@ -65,6 +65,7 @@ export const useFirestore = (
 
   return {
     state,
+    dispatch,
     isLoading,
     error
   }

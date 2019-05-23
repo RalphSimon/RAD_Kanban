@@ -1,8 +1,7 @@
-export function Column(columnId, boardId) {
+export function Column(boardId) {
   return {
     title: 'Add a title...',
     taskIds: [],
-    createdOn: Date.now(),
     boardId
   }
 }

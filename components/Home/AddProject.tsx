@@ -68,7 +68,7 @@ export const AddProject = ({ close, onAdd }) => {
 				@media (min-width: 480px) {
 					.panel {
 						width: 480px;
-						height: calc(100vh - 48px);
+						height: calc(50vh);
 					}
 				}
 			`}</style>

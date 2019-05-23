@@ -13,6 +13,7 @@ export const Markdown = ({ source, height }) => (
     <style jsx global>{`
 			.markdown__output {
 				height: ${height ? height + 'px' : 'auto'};
+				overflow: hidden;
 			}
 
 			.markdown__output,
@@ -22,6 +23,9 @@ export const Markdown = ({ source, height }) => (
 			.markdown__output p {
 				text-overflow: ellipsis;
 				overflow: ${height ? 'hidden' : 'auto'};
+				 {
+					/* white-space: nowrap; */
+				}
 			}
 		`}</style>
 

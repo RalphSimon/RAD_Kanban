@@ -12,26 +12,24 @@ import {
 import { DateDisplay, TimeDisplay } from '../components/Helpers'
 import { AppCanvas } from '../components/Layout'
 import { Modal } from '../components/Modal'
-import { useFirestoreCollection, FirebaseContext } from '../firebase'
-import { addBoard, deleteBoard } from '../firebase/Boards/actions'
-import { DeleteProject } from '../components/Home/DeleteProject'
+import { addDoc, deleteDoc, useFirestore, FirebaseContext } from '../firebase'
+import { DeleteItem } from '../components/DeleteItem'
 
 const Home = () => {
   const db = useContext(FirebaseContext)
-  const { collection: boards, isLoading, error } = useFirestoreCollection(
-    'BOARDS'
-  )
+
+  const { state: boards, isLoading } = useFirestore('BOARDS')
 
   const handleAddBoard = title => {
     const ref = db.collection('BOARDS')
 
-    addBoard(ref, title)
+    addDoc(ref, { order: [], title })
   }
 
   const handleDeleteProject = id => {
     const ref = db.collection('BOARDS').doc(id)
 
-    deleteBoard(ref)
+    deleteDoc(ref)
   }
 
   return (
@@ -80,10 +78,7 @@ const Home = () => {
           <Projects>
             {boards.map(board => (
               <ProjectCard key={board.id} {...board}>
-                <DeleteProject
-                  deleteProject={handleDeleteProject}
-                  id={board.id}
-                />
+                <DeleteItem deleteItem={() => handleDeleteProject(board.id)} />
               </ProjectCard>
             ))}
           </Projects>
