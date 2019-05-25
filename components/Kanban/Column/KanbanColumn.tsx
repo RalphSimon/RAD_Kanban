@@ -1,5 +1,4 @@
-import * as React from 'react'
-import ContentEditable from 'react-contenteditable'
+import { useMemo } from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { Plus, Trash2 } from 'styled-icons/feather'
 
@@ -11,17 +10,32 @@ import { Container } from './Container'
 import { Header } from './Header'
 import { List } from './List'
 import { KanbanItem } from '../Task/KanbanItem'
-import { typesDnd } from '../Store/actionTypes'
 import { Tag } from '../../Tags'
+import { EditableTitle } from '../../Inputs'
 
 interface ColumnProps {
   addTask: () => void;
   column: {};
   index: number;
   tasks: {};
-  updateTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  updateTitle: (value: string) => void;
   removeColumn: () => void;
 }
+
+const Actions = ({ children }) => (
+  <div className="actions">
+    {children}
+    <style jsx>{`
+			.actions {
+				flex: 1.5;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				margin-left: 8px;
+			}
+		`}</style>
+  </div>
+)
 
 export const KanbanColumn = ({
   addTask,
@@ -31,20 +45,11 @@ export const KanbanColumn = ({
   tasks,
   updateTitle
 }: ColumnProps) => {
-  const [disabled, setDisabled] = React.useState(true)
-  const [title, setTitle] = React.useState(column.title)
-
-  const memoizedTasks = React.useMemo(() => {
+  const memoizedTasks = useMemo(() => {
     return column.taskIds.map((id, index) => {
       return <KanbanItem key={id} index={index} task={tasks[id]} />
     })
   }, [column.taskIds, tasks])
-
-  const handleBlur = event => {
-    const { textContent } = event.target
-    setDisabled(true)
-    updateTitle(textContent)
-  }
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -54,36 +59,34 @@ export const KanbanColumn = ({
           isDragging={snapshot.isDragging}
           backgroundColor={
             snapshot.isDragging
-              ? 'var(--color-indigo-light)'
+              ? 'var(--color-cyan-light)'
               : 'var(--color-bg-canvas)'
           }>
           <Header
             dragHandleProps={provided.dragHandleProps}
             isDragging={snapshot.isDraggingOver}>
-            <ContentEditable
-              html={title}
-              disabled={disabled}
-              onChange={e => setTitle(e.target.value)}
-              onDoubleClick={() => setDisabled(false)}
-              onBlur={handleBlur}
-              tagName="span"
-              className="text-preset-3"
+            <EditableTitle
+              inputCssClass="text-preset-3"
+              value={column.title}
+              onBlur={value => updateTitle(value)}
             />
-            <Tag label={column.taskIds.length} />
-            <IconButton onClick={addTask} size="32">
-              <Plus size="18" strokeWidth="1.5" />
-            </IconButton>
-            <ColumnMenu>
-              <ColumnOptions>
-                <Button
-                  label="Delete"
-                  iconAfter={<Trash2 size="20" strokeWidth="1.5" />}
-                  color="red"
-                  onClick={removeColumn}
-                  outline
-                />
-              </ColumnOptions>
-            </ColumnMenu>
+            <Actions>
+              <Tag label={column.taskIds.length} />
+              <IconButton onClick={addTask} size="32">
+                <Plus size="18" strokeWidth="1.5" />
+              </IconButton>
+              <ColumnMenu>
+                <ColumnOptions>
+                  <Button
+                    label="Delete"
+                    iconAfter={<Trash2 size="20" strokeWidth="1.5" />}
+                    color="red"
+                    onClick={removeColumn}
+                    outline
+                  />
+                </ColumnOptions>
+              </ColumnMenu>
+            </Actions>
           </Header>
 
           <Droppable droppableId={column.id} type="DRAG_TYPE_TASK">

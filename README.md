@@ -7,8 +7,10 @@ Simple setup for nextjs projects
 [x] - Wire up firestore to app
 [X] - Seed database with a couple of boards
 [x] - Normalize firestore reads/writes
-[ ] - Modify kanban state to account for firestore
-[ ] - Add dynamic pages
+[X] - Modify kanban state to account for firestore
+[X] - Add dynamic pages
+[ ] - Review editable field - right now it's hard to select
+[ ] - Review Task Components
 [ ] - Add authentication
 [ ] - Add global search
 [ ] - Helper to update item in array

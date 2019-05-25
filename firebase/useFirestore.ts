@@ -1,6 +1,6 @@
 import { useEffect, useState, useReducer, useContext } from 'react'
 
-import { listenForCollection, listenForDocument } from './actions'
+import { listenForCollection, listenForDocument } from './asyncActions'
 import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
 import { isEven } from '../utils'

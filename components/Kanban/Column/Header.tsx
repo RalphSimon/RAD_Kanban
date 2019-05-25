@@ -1,5 +1,3 @@
-import { Fragment } from 'react'
-
 interface Props {
   children: JSX.Element[] | JSX.Element | HTMLElement[];
   dragHandleProps: {};
@@ -20,13 +18,8 @@ export const Header = ({ children, dragHandleProps }: Props) => {
 					background-color: var(--color-bg-panel);
 				}
 
-				.kb-column__header > .btn {
-					margin-left: auto;
-				}
-
 				:global(.kb-column__header .tag__root) {
-					margin-left: 8px;
-					margin-right: auto;
+					margin-left: auto;
 				}
 			`}</style>
     </header>

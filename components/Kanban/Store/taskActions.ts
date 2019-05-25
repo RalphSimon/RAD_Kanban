@@ -1,5 +1,5 @@
 import { typesTasks } from './actionTypes'
-import { addAsyncDoc, deleteDoc, updateDoc } from '../../../firebase'
+import { addAsyncDoc, deleteAsyncDoc, updateAsyncDoc } from '../../../firebase'
 
 const { ADD_TASK, REMOVE_TASK, UPDATE_TASK } = typesTasks
 
@@ -15,7 +15,7 @@ export const addTask = (ref, task, dispatch) => {
 }
 
 export const removeTask = (ref, taskId) => {
-  deleteDoc(ref, task)
+  deleteAsyncDoc(ref, task)
 
   return {
     type: REMOVE_TASK,
@@ -24,7 +24,7 @@ export const removeTask = (ref, taskId) => {
 }
 
 export const updateTask = (ref, id, payload) => {
-  updateDoc(ref, payload)
+  updateAsyncDoc(ref, payload)
   return {
     type: UPDATE_TASK,
     payload: payload,

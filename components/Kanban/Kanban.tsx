@@ -19,6 +19,7 @@ import {
   updateBoardField,
   updateTaskOrder
 } from '../../firebase/kanban'
+import { EditableTitle } from '../Inputs'
 import { reorder, reorderTaskMap, Column, Task } from '../../utils'
 import { updateColumnField } from '../../firebase/kanban/actions'
 
@@ -104,12 +105,16 @@ export const Kanban = ({ board, dispatch }) => {
 
   return (
     <Fragment>
-      <KanbanHeader
-        title={board.title}
-        updateTitle={value =>
-          dispatch(updateBoardField({ field: 'title', value }))
-        }
-      />
+      <KanbanHeader>
+        <EditableTitle
+          inputCssClass="text-preset-1"
+          value={board.title}
+          onBlur={value => {
+            console.log(value)
+            dispatch(updateBoardField({ field: 'title', value: value }))
+          }}
+        />
+      </KanbanHeader>
       <KanbanRoot>
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable
