@@ -1,6 +1,6 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { Home } from 'styled-icons/feather'
+import { Home, LogIn, Trello } from 'styled-icons/feather'
 // import { resetServerContext } from 'react-beautiful-dnd'
 
 import { AppLayout, BottomNav, NavItem, SideNav } from '../components/Layout'
@@ -39,27 +39,33 @@ export default class RADApp extends App {
         </Head>
 
         <AppLayout>
-          <SideNav>
+          {/* <SideNav>
             <NavItem href="/" label="Home">
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
             <NavItem href="/modal" label="Modal">
-              <Home size="24" strokeWidth="1.5" />
+              <Trello size="24" strokeWidth="1.5" />
             </NavItem>
-          </SideNav>
+            <NavItem href="/auth" label="auth">
+              <LogIn size="24" strokeWidth="1.5" />
+            </NavItem>
+          </SideNav> */}
 
           <FirebaseContext.Provider value={db}>
             <Component {...pageProps} />
           </FirebaseContext.Provider>
 
-          <BottomNav>
+          {/* <BottomNav>
             <NavItem href="/" label="Home">
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
             <NavItem href="/modal" label="Modal">
-              <Home size="24" strokeWidth="1.5" />
+              <Trello size="24" strokeWidth="1.5" />
             </NavItem>
-          </BottomNav>
+            <NavItem href="/auth" label="auth">
+              <LogIn size="24" strokeWidth="1.5" />
+            </NavItem>
+          </BottomNav> */}
         </AppLayout>
       </Container>
     )

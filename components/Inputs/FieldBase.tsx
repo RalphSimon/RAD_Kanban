@@ -101,6 +101,7 @@ const FieldBase = ({
 					border-right: 1px solid var(--error-state);
 					border-bottom: none;
 					border-left: 1px solid var(--error-state);
+					box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 				}
 
 				.field__input {

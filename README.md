@@ -9,8 +9,8 @@ Simple setup for nextjs projects
 [x] - Normalize firestore reads/writes
 [X] - Modify kanban state to account for firestore
 [X] - Add dynamic pages
-[ ] - Review editable field - right now it's hard to select
-[ ] - Review Task Components
+[x] - Review editable field - right now it's hard to select
+[x] - Review Task Components
 [ ] - Add authentication
 [ ] - Add global search
 [ ] - Helper to update item in array

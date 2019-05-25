@@ -75,10 +75,10 @@ export const Button = forwardRef(
 					}
 
 					.btn__base {
-						height: 36px;
+						min-height: 36px;
 						min-width: 64px;
 						padding: 0 16px;
-						font-size: 0.75rem;
+						font-size: 1rem;
 						font-weight: 800;
 						word-spacing: 0.275em;
 						letter-spacing: 0.15em;
