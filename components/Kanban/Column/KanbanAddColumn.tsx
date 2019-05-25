@@ -1,22 +1,19 @@
 import { Plus } from 'styled-icons/feather'
 
-import { Container } from './Container'
 import { IconButton } from '../../Buttons'
 
 export const KanbanAddColumn = ({ addColumn }) => {
   return (
-    <Container>
-      <section className="center">
-        <h5 className="text-preset-5">Add a column...</h5>
-        <br />
-        <IconButton onClick={addColumn} filled>
-          <Plus size="24" strokeWidth="1.5" />
-        </IconButton>
-      </section>
+    <section className="add-column">
+      <h5 className="text-preset-5">Add a column...</h5>
+
+      <IconButton onClick={addColumn} filled>
+        <Plus size="24" strokeWidth="1.5" />
+      </IconButton>
 
       <style jsx>{`
-				.center {
-					flex: 1 1 100%;
+				.add-column {
+					grid-column: span 1;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
@@ -24,10 +21,14 @@ export const KanbanAddColumn = ({ addColumn }) => {
 					background-color: transparent;
 				}
 
-				.center:hover {
+				.add-column:hover {
 					background-color: var(--color-cyan-light);
 				}
+
+				h5 {
+					margin-bottom: 24px;
+				}
 			`}</style>
-    </Container>
+    </section>
   )
 }

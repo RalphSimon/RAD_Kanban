@@ -14,30 +14,25 @@ export const KanbanCanvas = ({ children, columnCount, provided }: Props) => {
       <style jsx>
         {`
 					.kb__canvas {
-						--columns: ${columnCount * 4};
+						--columns: ${columnCount};
+						width: ${columnCount * 296}px;
 					}
 				`}
       </style>
 
       <style jsx>{`
 				.kb__canvas {
-					grid-row: canvas;
-					grid-column: 1 / -1;
-					height: 100%;
+					height: calc(100vh - 96px);
 					display: grid;
 					grid-auto-flow: column;
-					grid-template-columns: repeat(var(--columns), 56px) 16px;
-					grid-gap: 24px;
-					align-items: center;
-					padding-left: 16px;
-					overflow: auto;
+					grid-template-columns: repeat(var(--columns), 296px);
 					background-color: var(--color-bg-canvas);
 				}
 
-				.kb__canvas::after {
-					content: '';
-					width: 1px;
-					height: 100%;
+				@media (min-width: 480px) {
+					.kb__canvas {
+						height: calc(100vh - 72px);
+					}
 				}
 			`}</style>
     </div>

@@ -48,9 +48,18 @@ export const KanbanColumn = ({
 
   return (
     <Draggable draggableId={column.id} index={index}>
-      {provided => (
-        <Container provided={provided}>
-          <Header dragHandleProps={provided.dragHandleProps}>
+      {(provided, snapshot) => (
+        <Container
+          provided={provided}
+          isDragging={snapshot.isDragging}
+          backgroundColor={
+            snapshot.isDragging
+              ? 'var(--color-indigo-light)'
+              : 'var(--color-bg-canvas)'
+          }>
+          <Header
+            dragHandleProps={provided.dragHandleProps}
+            isDragging={snapshot.isDraggingOver}>
             <ContentEditable
               html={title}
               disabled={disabled}
@@ -76,17 +85,18 @@ export const KanbanColumn = ({
               </ColumnOptions>
             </ColumnMenu>
           </Header>
-          <Body>
-            <Droppable droppableId={column.id} type="DRAG_TYPE_TASK">
-              {(provided, snapshot) => (
+
+          <Droppable droppableId={column.id} type="DRAG_TYPE_TASK">
+            {(provided, snapshot) => (
+              <Body>
                 <List
                   provided={provided}
                   isDraggingOver={snapshot.isDraggingOver}>
                   {memoizedTasks}
                 </List>
-              )}
-            </Droppable>
-          </Body>
+              </Body>
+            )}
+          </Droppable>
         </Container>
       )}
     </Draggable>

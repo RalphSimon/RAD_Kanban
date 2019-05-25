@@ -9,14 +9,17 @@ export const KanbanRoot = ({ children }: RootProps) => {
       <style jsx>
         {`
 					.kb__root {
-						width: 100%;
-						height: 100%;
-						display: grid;
-						grid-auto-flow: column;
-						grid-template-columns: 16px 1fr 16px;
-						grid-template-rows: [header] max-content [canvas] 1fr;
-						padding: 16px 0;
-						overflow: hidden;
+						width: auto;
+						height: calc(100vh - 48px);
+						background-color: var(--color-bg-panel);
+						overflow-x: scroll;
+						overflow-y: hidden;
+					}
+
+					@media (min-width: 480px) {
+						.kb__root {
+							height: 100vh;
+						}
 					}
 				`}
       </style>

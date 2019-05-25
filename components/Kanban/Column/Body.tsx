@@ -10,8 +10,9 @@ export const Body = ({ children }: Props) => (
 				flex: 1 0 100%;
 				display: flex;
 				flex-direction: column;
-				height: 100%;
+				padding: 8px;
 				margin-bottom: 136px;
+				user-select: none;
 			}
 		`}</style>
   </section>

@@ -26,11 +26,12 @@ export const List = ({ provided, isDraggingOver, children }) => {
       <style jsx>
         {`
 					.kb-column__list {
-						height: calc(100% + 204px);
+						height: calc(100vh - 120px);
 						width: 100%;
 						padding: 0;
 						margin: 0;
 						list-style: none;
+						overflow-y: scroll;
 					}
 				`}
       </style>

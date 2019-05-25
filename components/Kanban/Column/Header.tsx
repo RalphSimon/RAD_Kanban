@@ -14,8 +14,10 @@ export const Header = ({ children, dragHandleProps }: Props) => {
 					display: flex;
 					align-items: center;
 					width: 100%;
-					height: auto;
-					padding-bottom: 8px;
+					height: 48px;
+					padding-right: 8px;
+					padding-left: 8px;
+					background-color: var(--color-bg-panel);
 				}
 
 				.kb-column__header > .btn {

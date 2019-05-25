@@ -1,38 +1,41 @@
-import { Fragment } from 'react'
+import { Shadow } from '../../Helpers'
 
 interface Props {
+  backgroundColor: string;
   children: JSX.Element[] | JSX.Element | HTMLElement[];
+  isDragging: boolean;
   provided: {};
 }
 
-export const Container = ({ children, provided }: Props) => {
-  const container = provided ? (
+export const Container = ({
+  backgroundColor,
+  children,
+  isDragging,
+  provided
+}: Props) => {
+  return (
     <div
       className="kb-column__root"
       ref={provided.innerRef}
       {...provided.draggableProps}>
-      {children}
+      <div className="kb-column__content" style={{ backgroundColor }}>
+        {children}
+      </div>
+      <Shadow opacity={isDragging ? 1 : 0} />
       <style jsx>{`
 				.kb-column__root {
-					grid-column: span 4;
-					display: flex;
-					flex-direction: column;
-					height: calc(100vh - 80px);
+					z-index: 100;
+					position: relative;
+					grid-column: span 1;
 				}
-			`}</style>
-    </div>
-  ) : (
-    <div className="kb-column__root">
-      {children}{' '}
-      <style jsx>{`
-				.kb-column__root {
-					grid-column: span 4;
+				.kb-column__content {
+					z-index: 3;
 					display: flex;
 					flex-direction: column;
-					height: calc(100vh - 80px);
+					margin: 0;
+					background-color: var(--color-bg-canvas);
 				}
 			`}</style>
     </div>
   )
-  return <Fragment>{container}</Fragment>
 }

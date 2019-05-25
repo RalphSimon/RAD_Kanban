@@ -1,6 +1,7 @@
 import { forwardRef, useContext } from 'react'
 import { Check } from 'styled-icons/feather'
 
+import { Shadow } from '../../Helpers'
 import { Markdown } from '../../Inputs'
 import { formatDate } from '../../../utils'
 
@@ -45,15 +46,11 @@ export const Task = forwardRef(
           </div>
         </div>
 
-        <div className="kb-item__shadow" />
+        <Shadow opacity={isDragging ? 1 : 0} />
         <style jsx>
           {`
 						.kb-item__container::before {
 							background-color: ${task.color};
-						}
-
-						.kb-item__shadow {
-							opacity: ${isDragging ? 1 : 0};
 						}
 					`}
         </style>
@@ -63,7 +60,7 @@ export const Task = forwardRef(
 						.kb-item__root {
 							--border-card: 1px solid var(--color-indigo2-light);
 							z-index: 3;
-							height: 225px;
+							height: 180px;
 							position: relative;
 							margin-bottom: 16px;
 						}
@@ -96,19 +93,6 @@ export const Task = forwardRef(
 							content: ' ';
 							width: 2px;
 							height: calc(100%);
-						}
-
-						.kb-item__shadow {
-							z-index: -2;
-							position: absolute;
-							top: 0;
-							left: 0;
-							width: 100%;
-							height: 100%;
-							background-color: rgba(0, 0, 0, 0.12);
-							box-shadow: 0 4px 16px 0px rgba(0, 0, 0, 0.12);
-							opacity: 0;
-							transition: opacity 0.1s linear;
 						}
 
 						.kb-item__header,
