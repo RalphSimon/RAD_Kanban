@@ -5,6 +5,8 @@ import {
   HANDLE_LOADING_ERROR,
   SET_LOADING,
   UPDATE_COLUMN_ORDER,
+  UPDATE_BOARD_FIELD,
+  UPDATE_COLUMN_FIELD,
   UPDATE_TASK_ORDER
 } from './actionTypes'
 
@@ -54,6 +56,26 @@ export const reducer = (state, action) => {
       return {
         ...state,
         order: action.order
+      }
+    }
+    case UPDATE_BOARD_FIELD: {
+      return {
+        ...state,
+        [action.field]: action.value
+      }
+    }
+    case UPDATE_COLUMN_FIELD: {
+      const column = state.columns[action.id]
+
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          [action.id]: {
+            ...column,
+            [action.field]: action.value
+          }
+        }
       }
     }
     case UPDATE_TASK_ORDER: {

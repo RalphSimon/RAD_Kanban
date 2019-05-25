@@ -1,12 +1,6 @@
 export {
   listenForCollection,
   listenForDocument,
-  addDoc,
-  deleteDoc,
-  updateDoc,
-  updateMultipleDocs
-} from './actions'
-export {
   addAsyncDoc,
   deleteAsyncDoc,
   updateAsyncDoc,

@@ -57,7 +57,10 @@ export const updateAsyncMultipleDocs = (dbRef, path, collection) => {
               @FirestoreDocRef
               @Doc Payload
             */
-          transaction.update(refs[index], collection[index])
+          transaction.update(refs[index], {
+            ...collection[index],
+            edited: firebase.firestore.FieldValue.serverTimestamp()
+          })
         }
       })
     })

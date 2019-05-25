@@ -12,7 +12,12 @@ import {
 import { DateDisplay, TimeDisplay } from '../components/Helpers'
 import { AppCanvas } from '../components/Layout'
 import { Modal } from '../components/Modal'
-import { addDoc, deleteDoc, useFirestore, FirebaseContext } from '../firebase'
+import {
+  addAsyncDoc,
+  deleteAsyncDoc,
+  useFirestore,
+  FirebaseContext
+} from '../firebase'
 import { DeleteItem } from '../components/DeleteItem'
 
 const Home = () => {
@@ -23,13 +28,13 @@ const Home = () => {
   const handleAddBoard = title => {
     const ref = db.collection('BOARDS').doc()
 
-    addDoc(ref, { order: [], id: ref.id, title })
+    addAsyncDoc(ref, { order: [], id: ref.id, title })
   }
 
   const handleDeleteProject = id => {
     const ref = db.collection('BOARDS').doc(id)
 
-    deleteDoc(ref)
+    deleteAsyncDoc(ref)
   }
 
   return (

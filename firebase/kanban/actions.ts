@@ -6,7 +6,9 @@ import {
   SET_LOADING,
   SET_ORIGIN,
   UPDATE_COLUMN_ORDER,
-  UPDATE_TASK_ORDER
+  UPDATE_TASK_ORDER,
+  UPDATE_BOARD_FIELD,
+  UPDATE_COLUMN_FIELD
 } from './actionTypes'
 
 export const listenForBoard = payload => ({
@@ -42,6 +44,19 @@ export const setOrigin = payload => ({
 export const updateColumnOrder = payload => ({
   type: UPDATE_COLUMN_ORDER,
   order: payload
+})
+
+export const updateBoardField = ({ field, value }) => ({
+  type: UPDATE_BOARD_FIELD,
+  field,
+  value
+})
+
+export const updateColumnField = ({ id, field, value }) => ({
+  type: UPDATE_COLUMN_FIELD,
+  id,
+  field,
+  value
 })
 
 export const updateTaskOrder = payload => ({
