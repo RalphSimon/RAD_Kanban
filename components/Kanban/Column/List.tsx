@@ -28,8 +28,8 @@ export const List = ({ provided, isDraggingOver, children }) => {
 					.kb-column__list {
 						height: calc(100vh - 120px);
 						width: 100%;
-						padding: 0;
 						margin: 0;
+						padding: 0 0 64px 0;
 						list-style: none;
 						overflow-y: scroll;
 					}

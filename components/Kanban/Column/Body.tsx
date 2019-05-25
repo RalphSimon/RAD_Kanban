@@ -11,7 +11,6 @@ export const Body = ({ children }: Props) => (
 				display: flex;
 				flex-direction: column;
 				padding: 8px;
-				margin-bottom: 136px;
 				user-select: none;
 			}
 		`}</style>

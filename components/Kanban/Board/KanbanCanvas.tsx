@@ -15,7 +15,13 @@ export const KanbanCanvas = ({ children, columnCount, provided }: Props) => {
         {`
 					.kb__canvas {
 						--columns: ${columnCount};
-						width: ${columnCount * 296}px;
+						width: ${columnCount * 325}px;
+					}
+
+					@media (min-width: 480px) {
+						.kb__canvas {
+							width: ${columnCount * 296}px;
+						}
 					}
 				`}
       </style>
@@ -25,13 +31,14 @@ export const KanbanCanvas = ({ children, columnCount, provided }: Props) => {
 					height: calc(100vh - 96px);
 					display: grid;
 					grid-auto-flow: column;
-					grid-template-columns: repeat(var(--columns), 296px);
+					grid-template-columns: repeat(var(--columns), 325px);
 					background-color: var(--color-bg-canvas);
 				}
 
 				@media (min-width: 480px) {
 					.kb__canvas {
 						height: calc(100vh - 72px);
+						grid-template-columns: repeat(var(--columns), 296px);
 					}
 				}
 			`}</style>

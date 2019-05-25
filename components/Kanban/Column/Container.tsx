@@ -24,7 +24,7 @@ export const Container = ({
       <Shadow opacity={isDragging ? 1 : 0} />
       <style jsx>{`
 				.kb-column__root {
-					z-index: 100;
+					z-index: 1;
 					position: relative;
 					grid-column: span 1;
 				}

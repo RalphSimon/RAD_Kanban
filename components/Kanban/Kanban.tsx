@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { KanbanCanvas } from './Board/KanbanCanvas'
@@ -43,40 +43,45 @@ export const Kanban = ({ board, dispatch }) => {
     }
   }
   return (
-    <KanbanRoot>
+    <Fragment>
       <KanbanHeader
         title={board.title}
         updateTitle={value => console.log('Update title: ', value)}
       />
-
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable
-          droppableId="kanban-canvas"
-          direction="horizontal"
-          type="DRAG_TYPE_COLUMN">
-          {provided => (
-            <KanbanDispatch.Provider value={dispatch}>
-              <KanbanCanvas
-                columnCount={board.order.length + 1}
-                provided={provided}>
-                {board.order.map((id, index) => (
-                  <KanbanColumn
-                    key={id}
-                    addTask={() => console.log('ADD_TASK')}
-                    removeColumn={() => console.log('REMOVE_COLUMN')}
-                    column={board.columns[id]}
-                    tasks={board.tasks}
-                    index={index}
-                    updateTitle={value => console.log('UPDATE_TITLE: ', value)}
+      <KanbanRoot>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable
+            droppableId="kanban-canvas"
+            direction="horizontal"
+            type="DRAG_TYPE_COLUMN">
+            {provided => (
+              <KanbanDispatch.Provider value={dispatch}>
+                <KanbanCanvas
+                  columnCount={board.order.length + 1}
+                  provided={provided}>
+                  {board.order.map((id, index) => (
+                    <KanbanColumn
+                      key={id}
+                      addTask={() => console.log('ADD_TASK')}
+                      removeColumn={() => console.log('REMOVE_COLUMN')}
+                      column={board.columns[id]}
+                      tasks={board.tasks}
+                      index={index}
+                      updateTitle={value =>
+                        console.log('UPDATE_TITLE: ', value)
+                      }
+                    />
+                  ))}
+                  {provided.placeholder}
+                  <KanbanAddColumn
+                    addColumn={() => console.log('ADD_COLUMN')}
                   />
-                ))}
-                {provided.placeholder}
-                <KanbanAddColumn addColumn={() => console.log('ADD_COLUMN')} />
-              </KanbanCanvas>
-            </KanbanDispatch.Provider>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </KanbanRoot>
+                </KanbanCanvas>
+              </KanbanDispatch.Provider>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </KanbanRoot>
+    </Fragment>
   )
 }
