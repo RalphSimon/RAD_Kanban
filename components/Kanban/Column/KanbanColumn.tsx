@@ -47,9 +47,16 @@ export const KanbanColumn = ({
 }: ColumnProps) => {
   const memoizedTasks = useMemo(() => {
     return column.taskIds.map((id, index) => {
-      return <KanbanItem key={id} index={index} task={tasks[id]} />
+      return (
+        <KanbanItem
+          key={id}
+          index={index}
+          task={tasks[id]}
+          columnId={column.id}
+        />
+      )
     })
-  }, [column.taskIds, tasks])
+  }, [column.id, column.taskIds, tasks])
 
   return (
     <Draggable draggableId={column.id} index={index}>

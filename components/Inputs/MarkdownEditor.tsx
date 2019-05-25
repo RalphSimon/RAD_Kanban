@@ -81,7 +81,7 @@ export const MarkdownEditor = ({ value, name, updateContent }: Props) => {
 				}
 
 				.editor__input:focus {
-					background-color: var(--color-bg-canvas);
+					background-color: var(--color-cyan-light);
 					outline: none;
 				}
 			`}</style>

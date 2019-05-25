@@ -8,7 +8,8 @@ import {
   UPDATE_COLUMN_ORDER,
   UPDATE_TASK_ORDER,
   UPDATE_BOARD_FIELD,
-  UPDATE_COLUMN_FIELD
+  UPDATE_COLUMN_FIELD,
+  REMOVE_TASK
 } from './actionTypes'
 
 export const listenForBoard = payload => ({
@@ -29,6 +30,12 @@ export const listenForTasks = payload => ({
 export const handleLoadingError = payload => ({
   type: HANDLE_LOADING_ERROR,
   error: payload
+})
+
+export const removeTask = payload => ({
+  type: REMOVE_TASK,
+  columnId: payload.columnId,
+  taskIds: payload.taskIds
 })
 
 export const setLoading = payload => ({

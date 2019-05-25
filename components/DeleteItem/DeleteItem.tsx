@@ -5,8 +5,9 @@ import { Menu, MenuList, MenuTrigger } from '../Menu'
 import { IconButton, Button } from '../Buttons'
 
 export const DeleteItem = ({ deleteItem, menuPlacement }) => {
-  const handleDeletion = event => {
+  const handleDeletion = (event, setMenuState) => {
     event.preventDefault()
+    setMenuState(false)
     deleteItem()
   }
   return (
@@ -27,7 +28,9 @@ export const DeleteItem = ({ deleteItem, menuPlacement }) => {
             <Button color="gray" onClick={() => setMenuState(false)} outline>
 							Cancel
             </Button>
-            <Button color="red" onClick={handleDeletion}>
+            <Button
+              color="red"
+              onClick={() => handleDeletion(event, setMenuState)}>
 							Confirm
             </Button>
           </Confirmation>

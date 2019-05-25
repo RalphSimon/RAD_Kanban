@@ -1,15 +1,20 @@
 import { Draggable } from 'react-beautiful-dnd'
 
-import { Task } from './Task'
-import { TaskModal } from './TaskModal'
 import { Modal } from '../../Modal'
+import { Task, TaskModal } from '../../Task'
 
 interface Props {
-  task: {};
+  columnId: string;
   index: number;
+  task: {};
 }
 
-export const KanbanItem = ({ task, index }: Props) => {
+export const KanbanItem = ({ columnId, index, task }: Props) => {
+  // console.log({
+  //   id: task.id,
+  //   title: task.title,
+  //   column: columnId
+  // })
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -24,7 +29,11 @@ export const KanbanItem = ({ task, index }: Props) => {
             />
           )}>
           {setIsOpen => (
-            <TaskModal task={task} close={() => setIsOpen(false)} />
+            <TaskModal
+              task={task}
+              close={() => setIsOpen(false)}
+              columnId={columnId}
+            />
           )}
         </Modal>
       )}

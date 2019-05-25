@@ -12,8 +12,7 @@ export const EditableTitle = ({
   fontSize,
   value,
   onFocus,
-  onBlur,
-  onChange
+  onBlur
 }: Props) => {
   const cssClass = `input ${inputCssClass}`
   const [disabled, setDisabled] = useState(true)

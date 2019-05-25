@@ -3,6 +3,7 @@ import {
   LISTEN_FOR_COLUMNS,
   LISTEN_FOR_TASKS,
   HANDLE_LOADING_ERROR,
+  REMOVE_TASK,
   SET_LOADING,
   UPDATE_COLUMN_ORDER,
   UPDATE_BOARD_FIELD,
@@ -44,6 +45,18 @@ export const reducer = (state, action) => {
       return {
         ...state,
         error: action.error
+      }
+    }
+    case REMOVE_TASK: {
+      return {
+        ...state,
+        columns: {
+          ...state.columns,
+          [action.columnId]: {
+            ...state.columns[action.columnId],
+            taskIds: action.taskIds
+          }
+        }
       }
     }
     case SET_LOADING: {

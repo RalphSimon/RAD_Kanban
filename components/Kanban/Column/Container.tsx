@@ -28,7 +28,6 @@ export const Container = ({
 					grid-column: span 1;
 				}
 				.kb-column__content {
-					z-index: 3;
 					display: flex;
 					flex-direction: column;
 					margin: 0;

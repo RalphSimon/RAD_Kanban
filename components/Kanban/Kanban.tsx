@@ -122,7 +122,7 @@ export const Kanban = ({ board, dispatch }) => {
             direction="horizontal"
             type="DRAG_TYPE_COLUMN">
             {provided => (
-              <KanbanDispatch.Provider value={dispatch}>
+              <KanbanDispatch.Provider value={{ board, dispatch }}>
                 <KanbanCanvas
                   columnCount={board.order.length + 1}
                   provided={provided}>

@@ -29,9 +29,9 @@ export const List = ({ provided, isDraggingOver, children }) => {
 						height: calc(100vh - 120px);
 						width: 100%;
 						margin: 0;
-						padding: 0 0 64px 0;
+						padding: 16px 8px 64px 8px;
 						list-style: none;
-						overflow-y: scroll;
+						overflow: scroll;
 					}
 				`}
       </style>
