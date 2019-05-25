@@ -5,7 +5,7 @@ import { FirebaseContext } from './firebaseContext'
 import { firebaseReducer } from './firebaseReducer'
 import { isEven } from '../utils'
 
-interface FirestoreReducer {
+export interface FirestoreReducer {
   (state: {} | [], action: {}): {} | [];
 }
 
@@ -16,6 +16,10 @@ interface FirestoreResult {
   error?: string | string[] | {};
 }
 
+const snapShotOptions = {
+  includeMetadataChanges: true
+}
+
 export const useFirestore = (
   path: string,
   reducer: FirestoreReducer = firebaseReducer
@@ -23,6 +27,7 @@ export const useFirestore = (
   const db = useContext(FirebaseContext)
 
   const [state, dispatch] = useReducer(reducer, {})
+  const [source, setSource] = useState('Client')
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState()
 
@@ -38,15 +43,28 @@ export const useFirestore = (
 
     const unsubscribe = isEven(path)
       ? ref.onSnapshot(
+        snapShotOptions,
         doc => {
+          // console.log('DOCUMENT', doc)
+          const writeSource = doc.metadata.hasPendingWrites
+            ? 'Client'
+            : 'Server'
+          console.log('DOCUMENT - WRITE SOURCE ', writeSource)
           dispatch(listenForDocument(doc.data()))
+          setSource(writeSource)
           setLoading(false)
         },
         err => setError(err)
 			  )
       : ref.onSnapshot(
+        snapShotOptions,
         snapshot => {
+          // console.log('SNAPSHOT', snapshot)
           let LIST = []
+          const writeSource = snapshot.metadata.hasPendingWrites
+            ? 'Client'
+            : 'Server'
+          console.log('COLLECTION - WRITE SOURCE ', writeSource)
           snapshot.forEach(doc => {
             LIST.push({
               ...doc.data(),
@@ -55,6 +73,7 @@ export const useFirestore = (
           })
 
           dispatch(listenForCollection(LIST))
+          setSource(writeSource)
           setLoading(false)
         },
         err => setError(err)
@@ -65,6 +84,7 @@ export const useFirestore = (
 
   return {
     state,
+    source,
     dispatch,
     isLoading,
     error

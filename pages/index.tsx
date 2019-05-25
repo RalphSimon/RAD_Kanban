@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Plus, Delete } from 'styled-icons/feather'
+import { Plus } from 'styled-icons/feather'
 
 import { Button } from '../components/Buttons'
 import {
@@ -21,9 +21,9 @@ const Home = () => {
   const { state: boards, isLoading } = useFirestore('BOARDS')
 
   const handleAddBoard = title => {
-    const ref = db.collection('BOARDS')
+    const ref = db.collection('BOARDS').doc()
 
-    addDoc(ref, { order: [], title })
+    addDoc(ref, { order: [], id: ref.id, title })
   }
 
   const handleDeleteProject = id => {

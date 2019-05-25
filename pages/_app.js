@@ -1,6 +1,6 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { Home, Trello } from 'styled-icons/feather'
+import { Home } from 'styled-icons/feather'
 // import { resetServerContext } from 'react-beautiful-dnd'
 
 import { AppLayout, BottomNav, NavItem, SideNav } from '../components/Layout'
@@ -44,7 +44,7 @@ export default class RADApp extends App {
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
             <NavItem href="/modal" label="Modal">
-              <Trello size="24" strokeWidth="1.5" />
+              <Home size="24" strokeWidth="1.5" />
             </NavItem>
           </SideNav>
 
@@ -57,7 +57,7 @@ export default class RADApp extends App {
               <Home size="24" strokeWidth="1.5" />
             </NavItem>
             <NavItem href="/modal" label="Modal">
-              <Trello size="24" strokeWidth="1.5" />
+              <Home size="24" strokeWidth="1.5" />
             </NavItem>
           </BottomNav>
         </AppLayout>

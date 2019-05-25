@@ -9,8 +9,6 @@ export { boardReducer } from './boardReducer'
 export {
   addColumn,
   addTaskToColumn,
-  handleDragEndAction,
-  moveTask,
   removeColumn,
   removeTaskFromColumn,
   reorderTasks,

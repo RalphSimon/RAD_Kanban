@@ -45,23 +45,6 @@ export const addDoc = (ref, payload) => {
   }
 }
 
-export const addAsyncDoc = (ref, payload) => {
-  /*
-    payload.id ? use .set(), else use .add()
-  */
-  if (payload.id) {
-    return ref.set({
-      ...payload,
-      created: firebase.firestore.Timestamp.fromMillis(Date.now())
-    })
-  } else {
-    return ref.add({
-      ...payload,
-      created: firebase.firestore.Timestamp.fromMillis(Date.now())
-    })
-  }
-}
-
 export const deleteDoc = ref => {
   ref
     .delete()

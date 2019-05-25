@@ -11,8 +11,7 @@ import { Container } from './Container'
 import { Header } from './Header'
 import { List } from './List'
 import { KanbanItem } from '../Task/KanbanItem'
-import { TaskPlaceholder } from '../Task/TaskPlaceholder'
-import { typesDnd } from '../state/actionTypes'
+import { typesDnd } from '../Store/actionTypes'
 import { Tag } from '../../Tags'
 
 interface ColumnProps {
@@ -36,13 +35,10 @@ export const KanbanColumn = ({
   const [title, setTitle] = React.useState(column.title)
 
   const memoizedTasks = React.useMemo(() => {
-    if (tasks) {
-      console.log(tasks)
-      return tasks.map((task, index) => (
-        <KanbanItem key={task.id} index={index} task={task} />
-      ))
-    }
-  }, [tasks])
+    return column.taskIds.map((id, index) => {
+      return <KanbanItem key={id} index={index} task={tasks[id]} />
+    })
+  }, [column.taskIds, tasks])
 
   const handleBlur = event => {
     const { textContent } = event.target
@@ -64,7 +60,7 @@ export const KanbanColumn = ({
               tagName="span"
               className="text-preset-3"
             />
-            <Tag label={memoizedTasks.length} />
+            <Tag label={column.taskIds.length} />
             <IconButton onClick={addTask} size="32">
               <Plus size="18" strokeWidth="1.5" />
             </IconButton>
@@ -81,7 +77,7 @@ export const KanbanColumn = ({
             </ColumnMenu>
           </Header>
           <Body>
-            <Droppable droppableId={column.id} type={typesDnd.DRAG_TYPE_TASK}>
+            <Droppable droppableId={column.id} type="DRAG_TYPE_TASK">
               {(provided, snapshot) => (
                 <List
                   provided={provided}

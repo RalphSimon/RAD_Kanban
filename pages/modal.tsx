@@ -1,45 +1,15 @@
-import { useContext } from 'rect'
-
 import { AppCanvas } from '../components/Layout'
-import { useFirestore, FirebaseContext } from '../firebase'
+import { useFirestoreKanban } from '../firebase/kanban/'
+import { Loading } from '../components/Loading'
+import { Kanban } from '../components/Kanban'
 
 const ModalPage = () => {
-  // const db = useContext(FirebaseContext)
-
-  const { state: task, isLoading } = useFirestore('TASKS/8PbGSfUfGPea6CqD3qFc')
+  const id = 'tGz4G7aGv1Jwj9DZ6Gv4'
+  const project = useFirestoreKanban(id)
 
   return (
     <AppCanvas>
-      <section className="canvas">
-        <header>
-          <h1 className="text-preset-1">Testing components here...</h1>
-          <h2>{isLoading ? 'Loading' : task.title}</h2>
-        </header>
-      </section>
-      <style jsx>{`
-				.canvas {
-					display: flex;
-					flex-wrap: nowrap;
-					flex-direction: column;
-					justify-content: space-between;
-					align-items: center;
-					width: 100%;
-					height: 100%;
-					padding: 16px;
-				}
-
-				.row {
-					display: flex;
-					justify-content: space-between;
-					width: 100%;
-				}
-
-				.row-center {
-					display: flex;
-					width: 100%;
-					justify-content: center;
-				}
-			`}</style>
+      {project.board.isLoading ? <Loading /> : <Kanban {...project} />}
     </AppCanvas>
   )
 }

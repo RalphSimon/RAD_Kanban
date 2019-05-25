@@ -7,7 +7,7 @@
 // }
 
 // https://gist.github.com/codeguy/6684588
-export const slugify = str => {
+export const slugify = (str: string): string => {
   str = str.replace(/^\s+|\s+$/g, '') // trim
   str = str.toLowerCase()
 

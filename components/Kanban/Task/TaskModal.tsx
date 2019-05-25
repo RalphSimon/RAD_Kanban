@@ -5,7 +5,7 @@ import { KanbanDispatch } from '../Board/KanbanDispatch'
 import {
   updateTask as updateTaskAction,
   removeTask as removeTaskAction
-} from '../state/taskActions'
+} from '../Store/taskActions'
 import { Button, IconButton } from '../../Buttons'
 import { EditableTitle, MarkdownEditor } from '../../Inputs'
 import { formatDate } from '../../../utils'

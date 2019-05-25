@@ -1,8 +1,9 @@
-export function Task(columnId) {
+export function Task(columnId, boardId) {
   return {
     title: 'Add a title...',
     note: '',
     completed: false,
-    columnId
+    columnId,
+    boardId
   }
 }
