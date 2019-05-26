@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import { Plus } from 'styled-icons/feather'
 
 import { Button } from '../components/Buttons'
@@ -12,30 +12,33 @@ import {
 import { DateDisplay, TimeDisplay } from '../components/Helpers'
 import { AppCanvas } from '../components/Layout'
 import { Modal } from '../components/Modal'
-import {
-  addAsyncDoc,
-  deleteAsyncDoc,
-  useFirestore,
-  FirebaseContext
-} from '../firebase'
+import { FirebaseDatabase } from '../firebase/context'
+import { addAsyncDoc, deleteAsyncDoc } from '../firebase/handlers'
+import { useFirestore } from '../firebase/subscriptions'
 import { DeleteItem } from '../components/DeleteItem'
 
-const Home = () => {
-  const db = useContext(FirebaseContext)
+const Home = props => {
+  const { db, auth } = useContext(FirebaseDatabase)
 
-  const { state: boards, isLoading } = useFirestore('BOARDS')
+  const { state: boards, error } = useFirestore('BOARDS')
 
-  const handleAddBoard = title => {
-    const ref = db.collection('BOARDS').doc()
+  const handleAddBoard = useCallback(
+    title => {
+      const ref = db.collection('BOARDS').doc()
 
-    addAsyncDoc(ref, { order: [], id: ref.id, title })
-  }
+      addAsyncDoc(ref, { order: [], id: ref.id, title })
+    },
+    [db]
+  )
 
-  const handleDeleteProject = id => {
-    const ref = db.collection('BOARDS').doc(id)
+  const handleDeleteProject = useCallback(
+    id => {
+      const ref = db.collection('BOARDS').doc(id)
 
-    deleteAsyncDoc(ref)
-  }
+      deleteAsyncDoc(ref)
+    },
+    [db]
+  )
 
   return (
     <AppCanvas>
@@ -70,7 +73,7 @@ const Home = () => {
             )}
           </Modal>
         </Header>
-        {isLoading ? (
+        {/* {isLoading ? (
           <div
             style={{
               width: '100%',
@@ -87,10 +90,18 @@ const Home = () => {
               </ProjectCard>
             ))}
           </Projects>
-        )}
+        )} */}
       </HomeView>
     </AppCanvas>
   )
 }
 
-export default Home
+Home.getInitialProps = async props => {
+  const { db, auth } = await loadDB()
+
+  return {
+    title: 'My title'
+  }
+}
+
+export default React.memo(Home)

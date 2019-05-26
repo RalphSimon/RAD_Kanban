@@ -1,14 +1,20 @@
+import { useContext } from 'react'
+
+import { FirebaseDatabase } from '../../firebase/context'
+
 interface Props {
   children: JSX.Element[] | JSX.Element;
 }
 
 export const SideNav = ({ children }: Props) => {
+  const { auth } = useContext(FirebaseDatabase)
+  // console.log('sidenav auth', auth)
   return (
     <div className="side-nav">
       <div className="icon-space" />
-      <nav>{children}</nav>
+      <nav>{auth && auth.currentUser && children}</nav>
 
-      <style jsx>{/* CSS */ `
+      <style jsx>{`
 				.side-nav {
 					display: none;
 				}

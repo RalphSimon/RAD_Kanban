@@ -1,11 +1,17 @@
+import { useContext } from 'react'
+
+import { FirebaseDatabase } from '../../firebase/context'
+
 interface Props {
   children: JSX.Element[] | JSX.Element;
 }
 
 export const BottomNav = ({ children }: Props) => {
+  const { db, auth } = useContext(FirebaseDatabase)
+
   return (
     <nav className="bottom-nav">
-      {children}
+      {auth && auth.currentUser && children}
       <style jsx>{`
 				.bottom-nav {
 					z-index: 100;

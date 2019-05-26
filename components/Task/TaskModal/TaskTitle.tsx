@@ -6,7 +6,7 @@ export const TaskTitle = ({ children }) => {
 				.task__title {
 					display: flex;
 					align-items: center;
-					height: 32px;
+					height: auto;
 					padding: 0 8px;
 				}
 			`}</style>

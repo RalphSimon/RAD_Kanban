@@ -6,3 +6,8 @@ export { Task } from './factories/task'
 export { reorder, reorderItems, reorderTaskMap } from './handlers/reorder'
 export { slugify } from './stringHelpers/slugify'
 export { isEven } from './stringHelpers/isEven'
+export {
+  validateEmail,
+  validatePassword,
+  validateUserName
+} from './validators/validate'

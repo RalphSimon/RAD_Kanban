@@ -1,14 +1,15 @@
 import { AppCanvas } from '../components/Layout'
-import { useFirestoreKanban } from '../firebase/kanban/'
+// import { useFirestoreKanban } from '../firebase/kanban/'
 import { Loading } from '../components/Loading'
-import { Kanban } from '../components/Kanban'
+// import { Kanban } from '../components/Kanban'
 
 const Project = ({ id }) => {
-  const project = useFirestoreKanban(id)
+  // const project = useFirestoreKanban(id)
 
   return (
     <AppCanvas>
-      {project.board.isLoading ? <Loading /> : <Kanban {...project} />}
+      <Loading />
+      {/* {project.board.isLoading ? <Loading /> : <Kanban {...project} />} */}
     </AppCanvas>
   )
 }

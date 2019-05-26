@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useMemo, useContext } from 'react'
 
-import { FirebaseContext } from '../firebaseContext'
+import { FirebaseProvider } from '../firebaseProvider'
 import {
   subscribeToFirestore as subscribe,
   subscriptionCallback
@@ -16,7 +16,7 @@ import {
 } from './actions'
 
 export const useFirestoreKanban = (boardId: string) => {
-  const db = useContext(FirebaseContext)
+  const { db } = useContext(FirebaseProvider)
   const [state, dispatch] = useReducer(reducer, {
     isLoading: true
   })

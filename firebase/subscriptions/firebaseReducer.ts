@@ -1,4 +1,7 @@
-import { LISTEN_FOR_COLLECTION, LISTEN_FOR_DOCUMENT } from './actionTypes'
+import {
+  LISTEN_FOR_COLLECTION,
+  LISTEN_FOR_DOCUMENT
+} from '../handlers/actionTypes'
 
 export const firebaseReducer = (state, action) => {
   switch (action.type) {

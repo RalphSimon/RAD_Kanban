@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+// import firebase from 'firebase/app'
+// import 'firebase/firestore'
+// import 'firebase/auth'
 
 import { config } from './config'
 
 const isDev = process.env.NODE_ENV === 'development'
 
-export default () => {
+export default async () => {
+  const firebase = await import('firebase/app')
+  await import('firebase/firestore')
+  await import('firebase/auth')
+
   try {
     firebase.initializeApp(config)
   } catch (err) {
@@ -17,7 +22,11 @@ export default () => {
     }
   }
 
+  const db = firebase.firestore()
+  const auth = firebase.auth()
+
   return {
-    db: firebase.firestore()
+    db,
+    auth
   }
 }

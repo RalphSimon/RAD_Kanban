@@ -163,12 +163,12 @@ export const AppLayout = ({ children }) => {
 				}
 
 				.text-preset-7 {
-					font-size: 11px;
+					font-size: 12px;
 					font-weight: 400;
 					font-style: italic;
 					line-height: 1.7692307692307692;
 					letter-spacing: 1.13px;
-					color: var(--color-text-light);
+					color: var(--color-text-base);
 				}
 
 				.app-layout {

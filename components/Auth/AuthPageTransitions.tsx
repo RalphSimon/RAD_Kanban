@@ -20,7 +20,7 @@ export const AuthPageTransitions = posed.div({
   },
   exit: {
     opacity: 0,
-    duration: 200,
+    duration: 50,
     x: ({ prev, current }) => (fromLeft(prev, current) ? '100%' : '-100%'),
     transition
   }

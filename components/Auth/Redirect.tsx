@@ -43,7 +43,7 @@ export const RedirectLink = ({ children, href }) => {
 export const Redirect = ({ children, message }) => {
   return (
     <div className="redirect">
-      <span>{message}</span>
+      <span className="text-preset-5">{message}</span>
       {children}
       <style jsx>{`
 				.redirect {

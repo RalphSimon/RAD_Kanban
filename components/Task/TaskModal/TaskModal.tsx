@@ -16,7 +16,7 @@ import { formatDate } from '../../../utils'
 import {
   deleteAsyncDoc,
   updateAsyncDoc,
-  FirebaseContext
+  FirebaseProvider
 } from '../../../firebase'
 import { removeTask } from '../../../firebase/kanban'
 
@@ -26,7 +26,7 @@ interface TaskProps {
 }
 
 export const TaskModal = ({ close, columnId, task }) => {
-  const db = useContext(FirebaseContext)
+  const { db } = useContext(FirebaseProvider)
   const { board, dispatch } = useContext(KanbanDispatch)
   const buttonRef = useRef(null)
   const taskRef = db.doc(`TASKS/${task.id}`)

@@ -11,7 +11,7 @@ import {
   addAsyncDoc,
   updateAsyncDoc,
   updateAsyncMultipleDocs,
-  FirebaseContext,
+  FirebaseProvider,
   deleteAsyncDoc
 } from '../../firebase'
 import {
@@ -24,7 +24,7 @@ import { reorder, reorderTaskMap, Column, Task } from '../../utils'
 import { updateColumnField } from '../../firebase/kanban/actions'
 
 export const Kanban = ({ board, dispatch }) => {
-  const db = useContext(FirebaseContext)
+  const { db } = useContext(FirebaseProvider)
   const boardRef = db.doc(`BOARDS/${board.id}`)
   const getColumn = id => db.doc(`BOARDS/${board.id}/COLUMNS/${id}`)
 
@@ -84,9 +84,9 @@ export const Kanban = ({ board, dispatch }) => {
   }
 
   const handleColumnField = (payload: {
-    field: string;
-    value: string | string[] | {};
-    id: string;
+  field: string
+  value: string | string[] | {}
+  id: string
   }) => {
     const columnRef = getColumn(payload.id)
     dispatch(updateColumnField(payload))

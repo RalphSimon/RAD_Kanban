@@ -1,6 +1,6 @@
 export const Container = ({ children }) => (
   <div className="container">
-    {children}
+    {children}{' '}
     <style jsx>{`
 			.container {
 				width: 100vw;

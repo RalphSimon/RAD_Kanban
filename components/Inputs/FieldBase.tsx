@@ -5,6 +5,7 @@ interface FieldProps {
   className: string | string[];
   disabled?: boolean;
   error: string | {};
+  helperText: string;
   isValid: boolean;
   label: string;
   onChange?: (event: React.ChangeEvent) => void;
@@ -94,6 +95,7 @@ const FieldBase = ({
       <style jsx>{`
 				.field__root {
 					min-width: 320px;
+					margin-bottom: 12px;
 				}
 
 				.field__container {
@@ -135,6 +137,7 @@ const FieldBase = ({
 				}
 
 				.helper-text {
+					color: var(--color-text-base);
 					margin-left: 16px;
 				}
 
