@@ -6,6 +6,7 @@ import {
   AuthForm,
   AuthReducer,
   Container,
+  ErrorMessage,
   InitAuthSchema,
   Redirect,
   RedirectLink,
@@ -21,38 +22,6 @@ import { validateEmail, validatePassword } from '../utils'
 const userSchema = {
   email: '',
   password: ''
-}
-
-const ErrorTransition = posed.div({
-  enter: {
-    y: 0,
-    opacity: 1
-  },
-  preEnter: {
-    y: -20,
-    opacity: 0
-  },
-  exit: {
-    y: -20,
-    opacity: 0
-  }
-})
-
-const ErrorMessage = ({ message, ...poseGroupProps }) => {
-  const msg = JSON.stringify(message, null, 2)
-  return (
-    <ErrorTransition {...poseGroupProps}>
-      <div className="error">{msg}</div>
-      <style jsx>{`
-				.error {
-					width: 100%;
-					padding: 16px;
-					color: white;
-					background-color: var(--color-red-base);
-				}
-			`}</style>
-    </ErrorTransition>
-  )
 }
 
 const Login = props => {
@@ -156,7 +125,7 @@ const Login = props => {
         <RedirectLink href="/sign-up">Sign Up</RedirectLink>
       </Redirect>
       <PoseGroup>
-        {error && <ErrorMessage message={error} key="error-message" />}
+        {error && <ErrorMessage message={error.message} key="error-message" />}
       </PoseGroup>
       <PoseGroup>
         {isVisible && (
