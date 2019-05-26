@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 
 interface IconButtonProps {
   ariaLabel: string;
+  border?: boolean;
   children: JSX.Element[] | JSX.Element;
   color?: string;
   filled: boolean;
@@ -14,6 +15,7 @@ export const IconButton = forwardRef(
   (
     {
       ariaLabel,
+      border,
       children,
       color,
       filled,
@@ -23,7 +25,9 @@ export const IconButton = forwardRef(
     }: IconButtonProps,
     ref
   ) => {
-    const btnClass = `btn ${filled ? 'btn--filled' : 'btn--base'}`
+    const filledClass = `${filled ? 'btn--filled' : 'btn--base'}`
+    const borderClass = `${border && 'btn--border'}`
+    const btnClass = `btn ${filledClass} ${borderClass}`
 
     return (
       <button
@@ -71,7 +75,8 @@ export const IconButton = forwardRef(
 					}
 
 					.btn--base::before,
-					.btn--filled::before {
+					.btn--filled::before,
+					.btn--border::before {
 						z-index: 0;
 						content: '';
 						position: absolute;
@@ -100,20 +105,36 @@ export const IconButton = forwardRef(
 						background-color: var(--color-secondary);
 					}
 
+					.btn--border {
+						color: inherit;
+						border: 2px solid inherit;
+					}
+
 					.btn--filled:focus,
-					.btn--filled:hover {
+					.btn--filled:hover,
+					.btn--border:focus,
+					.btn--border:hover {
 						color: var(--color-text-white);
 					}
 
-					.btn--filled::before {
+					.btn--filled::before,
+					.btn--border::before {
 						opacity: 0;
 						background-color: var(--color-focus);
+					}
+
+					 {
+						/* .btn--filled::before {
+						background-color: var(--color-primary);
+					} */
 					}
 
 					.btn--base:focus::before,
 					.btn--base:hover::before,
 					.btn--filled:focus::before,
-					.btn--filled:hover::before {
+					.btn--filled:hover::before,
+					.btn--border:focus::before,
+					.btn--border:hover::before {
 						opacity: 1;
 						transform: scale(1);
 					}

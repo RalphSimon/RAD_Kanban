@@ -2,11 +2,11 @@ import { Fragment } from 'react'
 import App, { Container } from 'next/app'
 import Router from 'next/router'
 import Head from 'next/head'
-import { Home, LogIn, Trello } from 'styled-icons/feather'
+import { Home, LogIn, User } from 'styled-icons/feather'
 
 // import { resetServerContext } from 'react-beautiful-dnd'
 
-import { SignOutButton } from '../components/Buttons'
+import { SignOutWithConfirmation } from '../components/Auth'
 import { AppLayout } from '../components/Layout'
 import { BottomNav, NavItem, SideNav } from '../components/Navigation'
 import { FirebaseContext } from '../firebase/context'
@@ -47,13 +47,13 @@ export default class RADApp extends App {
                 <NavItem href="/" label="Home">
                   <Home size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/modal" label="Modal">
-                  <Trello size="24" strokeWidth="1.5" />
+                <NavItem href="/profile" label="Profile">
+                  <User size="24" strokeWidth="1.5" />
                 </NavItem>
                 <NavItem href="/auth" label="auth">
                   <LogIn size="24" strokeWidth="1.5" />
                 </NavItem>
-                <SignOutButton />
+                <SignOutWithConfirmation />
               </Fragment>
             </SideNav>
 
@@ -64,13 +64,13 @@ export default class RADApp extends App {
                 <NavItem href="/" label="Home">
                   <Home size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/modal" label="Modal">
-                  <Trello size="24" strokeWidth="1.5" />
+                <NavItem href="/profile" label="Profile">
+                  <User size="24" strokeWidth="1.5" />
                 </NavItem>
                 <NavItem href="/auth" label="auth">
                   <LogIn size="24" strokeWidth="1.5" />
                 </NavItem>
-                <SignOutButton />
+                <SignOutWithConfirmation />
               </Fragment>
             </BottomNav>
           </AppLayout>
