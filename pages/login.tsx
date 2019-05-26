@@ -1,14 +1,18 @@
 import { useState } from 'react'
 
-import { AuthForm } from './AuthForm'
-import { Container } from './Container'
-import { Redirect, RedirectLink } from './Redirect'
-import { Welcome } from './Welcome'
-import { Button } from '../Buttons'
-import { FieldBase } from '../Inputs'
-import { SignInDrawing } from '../Drawings'
+import {
+  AuthForm,
+  Container,
+  Redirect,
+  RedirectLink,
+  Welcome
+} from '../components/Auth'
 
-export const SignIn = () => {
+import { Button } from '../components/Buttons'
+import { FieldBase } from '../components/Inputs'
+import { DrawingTransition, SignUpDrawing } from '../components/Drawings'
+
+const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,10 +22,11 @@ export const SignIn = () => {
       email
     })
   }
-
   return (
     <Container>
-      <SignInDrawing opacity="0.25" />
+      <DrawingTransition yOffset={-20}>
+        <SignUpDrawing />
+      </DrawingTransition>
       <Welcome>Sign in to continue where you left off</Welcome>
       <AuthForm onSubmit={handleSubmit}>
         <FieldBase
@@ -30,7 +35,6 @@ export const SignIn = () => {
           label="Email"
           type="email"
           onChange={e => setEmail(e.target.value)}
-          autoComplete
         />
         <FieldBase
           value={password}
@@ -38,15 +42,16 @@ export const SignIn = () => {
           label="Password"
           type="password"
           onChange={e => setPassword(e.target.value)}
-          autoComplete
         />
         <footer>
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">Login</Button>
         </footer>
       </AuthForm>
       <Redirect message="Don't have an account yet?">
-        <RedirectLink href="/">Sign Up</RedirectLink>
+        <RedirectLink href="/sign-up">Sign Up</RedirectLink>
       </Redirect>
     </Container>
   )
 }
+
+export default SignIn

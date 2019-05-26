@@ -1,14 +1,18 @@
 import { useState } from 'react'
 
-import { AuthForm } from './AuthForm'
-import { Container } from './Container'
-import { Redirect, RedirectLink } from './Redirect'
-import { Welcome } from './Welcome'
-import { Button } from '../Buttons'
-import { FieldBase } from '../Inputs'
-import { SignInDrawing } from '../Drawings'
+import {
+  AuthForm,
+  Container,
+  Redirect,
+  RedirectLink,
+  Welcome
+} from '../components/Auth'
 
-export const SignUp = () => {
+import { Button } from '../components/Buttons'
+import { FieldBase } from '../components/Inputs'
+import { LoginDrawing, DrawingTransition } from '../components/Drawings'
+
+const SignIn = () => {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,11 +23,13 @@ export const SignUp = () => {
       email
     })
   }
-
   return (
     <Container>
-      <Welcome>Sign up to get started</Welcome>
+      <DrawingTransition>
+        <LoginDrawing />
+      </DrawingTransition>
 
+      <Welcome>Sign up to get started</Welcome>
       <AuthForm onSubmit={handleSubmit}>
         <FieldBase
           value={userName}
@@ -46,13 +52,14 @@ export const SignUp = () => {
           onChange={e => setPassword(e.target.value)}
         />
         <footer>
-          <Button>Sign Up</Button>
+          <Button type="submit">Sign Up</Button>
         </footer>
       </AuthForm>
       <Redirect message="Already have an account?">
-        <RedirectLink href="/">Sign In</RedirectLink>
+        <RedirectLink href="/login">Login</RedirectLink>
       </Redirect>
-      <SignInDrawing opacity="0.25" />
     </Container>
   )
 }
+
+export default SignIn

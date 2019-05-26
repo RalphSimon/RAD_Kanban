@@ -14,7 +14,6 @@ export const EditableTitle = ({
   onFocus,
   onBlur
 }: Props) => {
-  const cssClass = `input ${inputCssClass}`
   const [disabled, setDisabled] = useState(true)
   const [state, setState] = useState(value)
 
@@ -33,7 +32,7 @@ export const EditableTitle = ({
       onDoubleClick={() => setDisabled(false)}
       onTouchEnd={() => setDisabled(false)}>
       {disabled ? (
-        <span className={cssClass}>{state}</span>
+        <p className={`input__value ${inputCssClass}`}>{state}</p>
       ) : (
         <input
           type="text"
@@ -42,7 +41,7 @@ export const EditableTitle = ({
           onFocus={onFocus}
           onChange={event => setState(event.target.value)}
           onBlur={handleBlur}
-          className={cssClass}
+          className={`input ${inputCssClass}`}
           style={{ fontSize }}
         />
       )}
@@ -60,13 +59,16 @@ export const EditableTitle = ({
 					display: flex;
 					align-items: center;
 					font-family: inherit;
-					line-height: 0.75;
-					margin-bottom: 0;
-					padding: 0 8px;
 					border: none;
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
+				}
+
+				.input,
+				.input__value {
+					padding: 0 8px;
+					margin: 0;
 				}
 
 				.input:focus {

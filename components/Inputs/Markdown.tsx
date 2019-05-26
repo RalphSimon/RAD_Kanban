@@ -58,3 +58,7 @@ export const Markdown = ({ source, height }) => (
 		`}</style>
   </Fragment>
 )
+
+Markdown.defaultProps = {
+  height: 400
+}

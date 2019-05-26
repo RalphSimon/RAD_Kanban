@@ -1,6 +1,7 @@
 import { Check } from 'styled-icons/feather'
 
 interface FieldProps {
+  autoComplete: string;
   className: string | string[];
   disabled?: boolean;
   error: string | {};
@@ -14,6 +15,7 @@ interface FieldProps {
 }
 
 const FieldBase = ({
+  autoComplete,
   disabled,
   error,
   helperText,
@@ -38,6 +40,7 @@ const FieldBase = ({
           onChange={onChange}
           onBlur={onBlur}
           className="field__input text-preset-6"
+          autoComplete={autoComplete}
         />
 
         <span className="field__label">
@@ -181,7 +184,8 @@ const FieldBase = ({
 }
 
 FieldBase.defaultProps = {
-  type: 'text'
+  type: 'text',
+  autoComplete: 'on'
 }
 
 export default FieldBase
