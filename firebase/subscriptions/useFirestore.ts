@@ -7,7 +7,7 @@ import { firebaseReducer } from './firebaseReducer'
 import { isEven } from '../../utils'
 
 export interface FirestoreReducer {
-  (state: {} | [], action: {}): {} | [];
+	(state: {} | [], action: {}): {} | [];
 }
 
 interface FirestoreResult {
@@ -33,19 +33,17 @@ export const useFirestore = (
   const [error, setError] = useState()
 
   const handleDocumentListener = useCallback(doc => {
-    // console.log('DOCUMENT', doc)
     const writeSource = doc.metadata.hasPendingWrites ? 'Client' : 'Server'
-    // console.log('DOCUMENT - WRITE SOURCE ', writeSource)
+
     dispatch(listenForDocument(doc.data()))
     setSource(writeSource)
     setLoading(false)
   }, [])
 
   const handleCollectionListener = useCallback(snapshot => {
-    // console.log('SNAPSHOT', snapshot)
     let LIST = []
     const writeSource = snapshot.metadata.hasPendingWrites ? 'Client' : 'Server'
-    // console.log('COLLECTION - WRITE SOURCE ', writeSource)
+
     snapshot.forEach(doc => {
       LIST.push({
         ...doc.data(),
@@ -83,32 +81,6 @@ export const useFirestore = (
       setError('Could not find a user...')
       Router.push('/login')
     }
-
-    // auth.onAuthStateChanged(user => {
-    //   if (user && isSubscribing) {
-    //     const ref = isEven(path) ? db.doc(path) : db.collection(path)
-    //     if (!ref) {
-    //       setError(
-    //         `The ${
-    //           isEven(path) ? 'document' : 'collection'
-    //         } you requested doesn't seem to exist`
-    //       )
-    //     }
-
-    //     unsubscribe = isEven(path)
-    //       ? ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError)
-    //       : ref.onSnapshot(
-    //         snapShotOptions,
-    //         handleCollectionListener,
-    //         handleError
-    // 			  )
-    //   } else {
-    //     setError('Could not find a user...')
-    //     Router.push('/login')
-    //   }
-
-    //   return
-    // })
 
     return () => {
       isSubscribing = false

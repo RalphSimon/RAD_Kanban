@@ -116,7 +116,7 @@ const SignIn = props => {
           emailVerified: newUser.emailVerified
         }
         console.log(user)
-        const userDocRef = await db.collection('USERS').doc(userName)
+        const userDocRef = await db.collection('USERS').doc(newUser.uid)
         await userDocRef.set(user)
 
         Router.push('/')
