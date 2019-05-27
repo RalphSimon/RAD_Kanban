@@ -18,26 +18,29 @@ import { useFirestore } from '../firebase/subscriptions'
 import { DeleteItem } from '../components/DeleteItem'
 
 const Home = props => {
-  const { db, auth } = useContext(FirebaseDatabase)
+  const { db, user } = useContext(FirebaseDatabase)
+  const userName = user && user.displayName
 
-  const { state: boards, error } = useFirestore('BOARDS')
+  const { state: boards, isLoading } = useFirestore(`USERS/${userName}/BOARDS`)
+
+  console.log(boards)
 
   const handleAddBoard = useCallback(
     title => {
-      const ref = db.collection('BOARDS').doc()
+      const ref = db.collection(`USERS/${userName}/BOARDS`).doc()
 
       addAsyncDoc(ref, { order: [], id: ref.id, title })
     },
-    [db]
+    [db, userName]
   )
 
   const handleDeleteProject = useCallback(
     id => {
-      const ref = db.collection('BOARDS').doc(id)
+      const ref = db.collection(`USERS/${userName}/BOARDS`).doc(id)
 
       deleteAsyncDoc(ref)
     },
-    [db]
+    [db, userName]
   )
 
   return (
@@ -73,7 +76,7 @@ const Home = props => {
             )}
           </Modal>
         </Header>
-        {/* {isLoading ? (
+        {isLoading ? (
           <div
             style={{
               width: '100%',
@@ -90,7 +93,7 @@ const Home = props => {
               </ProjectCard>
             ))}
           </Projects>
-        )} */}
+        )}
       </HomeView>
     </AppCanvas>
   )

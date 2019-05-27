@@ -3,19 +3,21 @@ Simple setup for nextjs projects
 
 ---
 ## Connecting with Firestore
-[x] - use .dotenv to store firebase config
-[x] - Wire up firestore to app
-[X] - Seed database with a couple of boards
-[x] - Normalize firestore reads/writes
-[X] - Modify kanban state to account for firestore
-[X] - Add dynamic pages
-[x] - Review editable field - right now it's hard to select
-[x] - Review Task Components
-[ ] - Add authentication
-[ ] - Add global search
-[ ] - Helper to update item in array
-[ ] - Notifications
-[ ] - Use 'Drawkit' (Invision Studio) for intermediary screens (intro, loading, error...)
+- [x] use .dotenv to store firebase config
+- [x] Wire up firestore to app
+- [X] Seed database with a couple of boards
+- [x] Normalize firestore reads/writes
+- [X] Modify kanban state to account for firestore
+- [X] Add dynamic pages
+- [x] Review editable field - right now it's hard to select
+- [x] Review Task Components
+- [x] Add authentication
+- [ ] Move Auth observer to FirebaseContext
+- [ ] Intermediary screens (intro, loading, error...) - Use 'Drawkit' (Invision Studio)
+- [ ] Add global search
+- [ ] Helper to update item in array
+- [ ] Notifications
+
 
 ### Normalization
 **Problem**:
@@ -38,7 +40,7 @@ https://github.com/CSFrequency/react-firebase-hooks
 
 ---
 ## Misc. Issues:
-[ ] = FIXME: MenuList renders when coming from server
+[ ] - FIXME: MenuList renders when coming from server (Sort of fixed - it's now hidden on first **load**)
 
 ---
 ## Paring Auth0 with MongoDB Stitch

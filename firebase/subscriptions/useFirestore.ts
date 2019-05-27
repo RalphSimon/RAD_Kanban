@@ -25,7 +25,7 @@ export const useFirestore = (
   path: string,
   reducer: FirestoreReducer = firebaseReducer
 ): FirestoreResult => {
-  const { db, auth } = useContext(FirebaseDatabase)
+  const { db, auth, user } = useContext(FirebaseDatabase)
 
   const [state, dispatch] = useReducer(reducer, {})
   const [source, setSource] = useState('Client')
@@ -63,33 +63,52 @@ export const useFirestore = (
   useEffect(() => {
     let isSubscribing = true
     let unsubscribe = null
-    if (!auth) return
-
-    auth.onAuthStateChanged(user => {
-      if (user && isSubscribing) {
-        const ref = isEven(path) ? db.doc(path) : db.collection(path)
-        if (!ref) {
-          setError(
-            `The ${
-              isEven(path) ? 'document' : 'collection'
-            } you requested doesn't seem to exist`
-          )
-        }
-
-        unsubscribe = isEven(path)
-          ? ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError)
-          : ref.onSnapshot(
-            snapShotOptions,
-            handleCollectionListener,
-            handleError
-					  )
-      } else if (isSubscribing) {
-        setError('Could not find a user...')
-        Router.push('/login')
+    // if (!auth) return
+    if (!user) return
+    console.log('useFirestore - user exists:', user)
+    if (user && isSubscribing) {
+      const ref = isEven(path) ? db.doc(path) : db.collection(path)
+      if (!ref) {
+        setError(
+          `The ${
+            isEven(path) ? 'document' : 'collection'
+          } you requested doesn't seem to exist`
+        )
       }
 
-      return
-    })
+      unsubscribe = isEven(path)
+        ? ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError)
+        : ref.onSnapshot(snapShotOptions, handleCollectionListener, handleError)
+    } else {
+      setError('Could not find a user...')
+      Router.push('/login')
+    }
+
+    // auth.onAuthStateChanged(user => {
+    //   if (user && isSubscribing) {
+    //     const ref = isEven(path) ? db.doc(path) : db.collection(path)
+    //     if (!ref) {
+    //       setError(
+    //         `The ${
+    //           isEven(path) ? 'document' : 'collection'
+    //         } you requested doesn't seem to exist`
+    //       )
+    //     }
+
+    //     unsubscribe = isEven(path)
+    //       ? ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError)
+    //       : ref.onSnapshot(
+    //         snapShotOptions,
+    //         handleCollectionListener,
+    //         handleError
+    // 			  )
+    //   } else {
+    //     setError('Could not find a user...')
+    //     Router.push('/login')
+    //   }
+
+    //   return
+    // })
 
     return () => {
       isSubscribing = false
@@ -103,7 +122,7 @@ export const useFirestore = (
     handleDocumentListener,
     handleCollectionListener,
     handleError,
-    auth
+    user
   ])
 
   return {
