@@ -7,7 +7,7 @@ import { firebaseReducer } from './firebaseReducer'
 import { isEven } from '../../utils'
 
 export interface FirestoreReducer {
-	(state: {} | [], action: {}): {} | [];
+  (state: {} | [], action: {}): {} | [];
 }
 
 interface FirestoreResult {
@@ -63,7 +63,7 @@ export const useFirestore = (
     let unsubscribe = null
     // if (!auth) return
     if (!user) return
-    console.log('useFirestore - user exists:', user)
+
     if (user && isSubscribing) {
       const ref = isEven(path) ? db.doc(path) : db.collection(path)
       if (!ref) {

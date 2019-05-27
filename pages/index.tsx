@@ -1,7 +1,9 @@
-import React, { useContext, useEffect, useCallback } from 'react'
+import React, { useContext, useEffect, useCallback, useState } from 'react'
 import { Plus } from 'styled-icons/feather'
+import { PoseGroup } from 'react-pose'
 
 import { Button } from '../components/Buttons'
+import { DrawingTransition, SignUpDrawing } from '../components/Drawings'
 import {
   AddProject,
   Header,
@@ -12,36 +14,41 @@ import {
 import { DateDisplay, TimeDisplay } from '../components/Helpers'
 import { AppCanvas } from '../components/Layout'
 import { Modal } from '../components/Modal'
+import { ErrorMessage } from '../components/Notifications'
 import { FirebaseDatabase } from '../firebase/context'
 import { addAsyncDoc, deleteAsyncDoc } from '../firebase/handlers'
 import { useFirestore } from '../firebase/subscriptions'
 import { DeleteItem } from '../components/DeleteItem'
+import { BusinessWoman } from '../components/Drawings/BusinessWoman'
 
 const Home = props => {
   const { db, user } = useContext(FirebaseDatabase)
-  const userName = user && user.displayName
+  const [errorMessage, setErrorMessage] = useState()
+  const uid = user && user.uid
 
-  const { state: boards, isLoading } = useFirestore(`USERS/${userName}/BOARDS`)
-
-  console.log(boards)
+  const { state: boards, isLoading } = useFirestore(`USERS/${uid}/BOARDS`)
 
   const handleAddBoard = useCallback(
     title => {
-      const ref = db.collection(`USERS/${userName}/BOARDS`).doc()
+      const ref = db.collection(`USERS/${uid}/BOARDS`).doc()
 
-      addAsyncDoc(ref, { order: [], id: ref.id, title })
+      addAsyncDoc(ref, { order: [], id: ref.id, title }).catch(err =>
+        setErrorMessage(`${err.name}: ${err.code}`)
+      )
     },
-    [db, userName]
+    [db, uid]
   )
 
   const handleDeleteProject = useCallback(
     id => {
-      const ref = db.collection(`USERS/${userName}/BOARDS`).doc(id)
+      const ref = db.collection(`USERS/${uid}/BOARDS`).doc(id)
 
       deleteAsyncDoc(ref)
     },
-    [db, userName]
+    [db, uid]
   )
+
+  const dismissError = useCallback(() => setErrorMessage(), [])
 
   return (
     <AppCanvas>
@@ -76,15 +83,15 @@ const Home = props => {
             )}
           </Modal>
         </Header>
-        {isLoading ? (
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              padding: '48px'
-            }}>
-            <h1>Loading...</h1>
-          </div>
+        {isLoading || boards.length < 1 ? (
+          <PoseGroup>
+            <DrawingTransition
+              key="empty-state"
+              position="static"
+              opacity={0.54}>
+              <BusinessWoman />
+            </DrawingTransition>
+          </PoseGroup>
         ) : (
           <Projects>
             {boards.map(board => (
@@ -95,6 +102,7 @@ const Home = props => {
           </Projects>
         )}
       </HomeView>
+      <ErrorMessage message={errorMessage} dismiss={dismissError} />
     </AppCanvas>
   )
 }

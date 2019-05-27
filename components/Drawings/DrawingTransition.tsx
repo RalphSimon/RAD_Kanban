@@ -2,28 +2,42 @@ import posed from 'react-pose'
 
 export const Drawing = posed.div({
   enter: {
-    opacity: 0.42
+    opacity: ({ opacity }) => opacity,
+    delay: 150,
+    transition: {
+      opacity: { duration: 250 }
+    }
   },
   preEnter: {
-    opacity: 0
+    opacity: 0,
+    transition: {
+      duration: 250,
+      delay: 150
+    }
   },
   exit: {
     opacity: 0
   }
 })
 
-export const DrawingTransition = ({ children, yOffset, ...poseGroupProps }) => {
+export const DrawingTransition = ({
+  children,
+  yOffset,
+  opacity,
+  position,
+  ...poseGroupProps
+}) => {
   return (
-    <Drawing {...poseGroupProps} className="drawing">
+    <Drawing {...poseGroupProps} className="drawing" opacity={opacity}>
       {children}
       <style jsx global>{`
 				.drawing {
 					z-index: -1;
-					position: absolute;
+					position: ${position};
 					top: 0;
 					left: 0;
-					width: 100vw;
-					height: 100vh;
+					width: 100%;
+					height: 100%;
 					padding: 16px;
 					transform: translate(0, ${yOffset}%);
 				}
@@ -39,5 +53,7 @@ export const DrawingTransition = ({ children, yOffset, ...poseGroupProps }) => {
 }
 
 DrawingTransition.defaultProps = {
-  yOffset: -15
+  yOffset: -15,
+  opacity: 0.42,
+  position: 'absolute'
 }

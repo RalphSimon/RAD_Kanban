@@ -1,18 +1,4 @@
-import posed from 'react-pose'
-
-const Drawing = posed.div({
-  enter: {
-    opacity: 0.42
-  },
-  preEnter: {
-    opacity: 0
-  },
-  exit: {
-    opacity: 0
-  }
-})
-
-export const LoginDrawing = ({ opacity }) => {
+export const LoginDrawing = props => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -547,8 +533,4 @@ export const LoginDrawing = ({ opacity }) => {
       </g>
     </svg>
   )
-}
-
-LoginDrawing.defaultProps = {
-  opacity: 0.42
 }
