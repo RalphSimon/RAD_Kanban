@@ -5,7 +5,7 @@ import {
   CollectionReference
 } from '@firebase/firestore-types'
 
-import { isEven } from '../utils'
+import { isEven } from '../../utils'
 
 const snapShotOptions = {
   includeMetadataChanges: true

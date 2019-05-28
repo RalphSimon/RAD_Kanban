@@ -13,11 +13,8 @@ import { DeleteItem } from '../../DeleteItem'
 import { EditableTitle, MarkdownEditor } from '../../Inputs'
 import { KanbanDispatch } from '../../Kanban/Board'
 import { formatDate } from '../../../utils'
-import {
-  deleteAsyncDoc,
-  updateAsyncDoc,
-  FirebaseProvider
-} from '../../../firebase'
+import { deleteAsyncDoc, updateAsyncDoc } from '../../../firebase/handlers'
+import { FirebaseDatabase } from '../../../firebase/context'
 import { removeTask } from '../../../firebase/kanban'
 
 interface TaskProps {
@@ -26,10 +23,10 @@ interface TaskProps {
 }
 
 export const TaskModal = ({ close, columnId, task }) => {
-  const { db } = useContext(FirebaseProvider)
+  const { db, user } = useContext(FirebaseDatabase)
   const { board, dispatch } = useContext(KanbanDispatch)
   const buttonRef = useRef(null)
-  const taskRef = db.doc(`TASKS/${task.id}`)
+  const taskRef = db.doc(`USERS/${user.uid}/TASKS/${task.id}`)
 
   useEffect(() => {
     buttonRef.current.focus()
@@ -42,7 +39,9 @@ export const TaskModal = ({ close, columnId, task }) => {
   }
 
   const handleRemoval = () => {
-    const columnRef = db.doc(`BOARDS/${board.id}/COLUMNS/${columnId}`)
+    const columnRef = db.doc(
+      `USERS/${user.uid}/BOARDS/${board.id}/COLUMNS/${columnId}`
+    )
     const column = board.columns[columnId]
     const newColumnOrder = column.taskIds.filter(id => id !== task.id)
     const taskToRemove = {
@@ -57,10 +56,6 @@ export const TaskModal = ({ close, columnId, task }) => {
         )
       })
       .catch(err => console.log('error deleting task', err))
-
-    //
-
-    // .then(() => console.log('Task deleted...'))
 
     close()
   }

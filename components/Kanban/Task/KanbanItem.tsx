@@ -10,11 +10,6 @@ interface Props {
 }
 
 export const KanbanItem = ({ columnId, index, task }: Props) => {
-  // console.log({
-  //   id: task.id,
-  //   title: task.title,
-  //   column: columnId
-  // })
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (

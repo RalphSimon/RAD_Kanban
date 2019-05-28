@@ -53,22 +53,22 @@ export const EditableTitle = ({
 					height: 100%;
 				}
 
+				.input,
+				.input__value {
+					display: flex;
+					align-items: center;
+					padding: 0 8px;
+					margin: 0;
+				}
+
 				.input {
 					width: 100%;
 					height: 100%;
-					display: flex;
-					align-items: center;
 					font-family: inherit;
 					border: none;
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
-				}
-
-				.input,
-				.input__value {
-					padding: 0 8px;
-					margin: 0;
 				}
 
 				.input:focus {
