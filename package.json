@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "next --hostname 192.168.0.153",
 		"dev:server": "node devServer.js",
-		"now-build": "next build",
+		"build": "next build",
 		"start": "next start",
 		"test": "jest",
 		"test:watch": "jest --watch",
