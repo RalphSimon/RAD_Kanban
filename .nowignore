@@ -1,0 +1,8 @@
+.next
+.vscode
+devServer.js
+dist
+mock_api
+node_modules
+temp
+scraper

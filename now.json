@@ -1,0 +1,11 @@
+{
+	"version": 2,
+	"alias": "kanban-project",
+	"builds": [{ "src": "next.config.js", "use": "@now/next" }],
+	"routes": [
+		{
+			"src": "/product/(?<id>/<title>[^/]+)$",
+			"dest": "/product/?id=$id/$title/"
+		}
+	]
+}

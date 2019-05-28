@@ -6,6 +6,7 @@ const withTypescript = require('@zeit/next-typescript')
 require('dotenv').config()
 
 const nextConfig = {
+  target: 'serverless',
   analyzeServer: ['server', 'both'].includes(BUNDLE_ANALYZE),
   analyzeBrowser: ['browser', 'both'].includes(BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {

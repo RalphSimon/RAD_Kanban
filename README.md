@@ -12,7 +12,8 @@ Simple setup for nextjs projects
 - [x] Review editable field - right now it's hard to select
 - [x] Review Task Components
 - [x] Add authentication
-- [ ] Move Auth observer to FirebaseContext
+- [x] Move Auth observer to FirebaseContext
+- [ ] Have useFirestore/useSubscription return a Promise
 - [ ] Intermediary screens (intro, loading, error...) - Use 'Drawkit' (Invision Studio)
 - [ ] Add global search
 - [ ] Helper to update item in array
