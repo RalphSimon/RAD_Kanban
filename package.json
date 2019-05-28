@@ -1,7 +1,7 @@
 {
-	"name": "rad-nextjs",
+	"name": "rad_kanban",
 	"version": "0.0.1",
-	"description": "RYO RAD Kanban",
+	"description": "An example kanban app",
 	"main": "index.js",
 	"scripts": {
 		"dev": "next --hostname 192.168.0.153",
@@ -18,30 +18,14 @@
 		"type:check": "tsc",
 		"seed": "node ./firebase/seed/admin.js"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/RalphSimon/kanban-project.git"
-	},
-	"keywords": [
-		"Next.js",
-		"starter-kit",
-		"simple",
-		"setup"
-	],
-	"author": "Ralph Simon",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/RalphSimon/kanban-project#issues"
-	},
-	"homepage": "https://github.com/RalphSimon/kanban-project#readme",
 	"dependencies": {
 		"dotenv": "^8.0.0",
-		"firebase": "^6.0.2",
-		"firebase-admin": "^7.3.0",
+		"firebase": "^6.0.4",
+		"firebase-admin": "^8.0.0",
 		"immer": "^3.1.2",
-		"nanoid": "^2.0.1",
+		"nanoid": "^2.0.3",
 		"next": "^8.1.0",
-		"node-fetch": "^2.5.0",
+		"node-fetch": "^2.6.0",
 		"popper.js": "^1.15.0",
 		"react": "^16.8.6",
 		"react-beautiful-dnd": "^11.0.3",
@@ -49,30 +33,47 @@
 		"react-markdown": "^4.0.8",
 		"react-pose": "^4.0.8",
 		"styled-components": "^4.2.0",
-		"styled-icons": "^7.14.0"
+		"styled-icons": "^8.0.0"
 	},
 	"devDependencies": {
 		"@types/next": "^8.0.5",
-		"@types/react": "^16.8.16",
+		"@types/react": "^16.8.18",
 		"@types/react-dom": "^16.8.4",
-		"@typescript-eslint/eslint-plugin": "^1.7.0",
-		"@typescript-eslint/parser": "^1.7.0",
-		"@zeit/next-bundle-analyzer": "^0.1.2",
+		"@typescript-eslint/eslint-plugin": "^1.9.0",
+		"@typescript-eslint/parser": "^1.9.0",
 		"@zeit/next-typescript": "^1.1.1",
 		"babel-eslint": "^10.0.1",
-		"babel-jest": "^24.7.1",
+		"babel-jest": "^24.8.0",
 		"eslint": "^5.16.0",
-		"eslint-plugin-import": "^2.17.2",
+		"eslint-plugin-import": "^2.17.3",
 		"eslint-plugin-jsx-a11y": "^6.2.1",
-		"eslint-plugin-react": "^7.12.4",
+		"eslint-plugin-react": "^7.13.0",
 		"eslint-plugin-react-hooks": "^1.6.0",
 		"express": "^4.17.0",
 		"faker": "^4.1.0",
-		"jest": "^24.7.1",
+		"jest": "^24.8.0",
 		"jest-in-case": "^1.0.2",
-		"json-server": "^0.14.2",
+		"json-server": "^0.15.0",
 		"react-test-renderer": "^16.8.6",
-		"react-testing-library": "^6.1.2",
+		"react-testing-library": "^7.0.1",
 		"typescript": "^3.4.5"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/RalphSimon/RAD_Kanban.git"
+	},
+	"keywords": [
+		"Kanban",
+		"example-app",
+		"firebase",
+		"react-beautiful-dnd",
+		"typescript",
+		"react-hooks"
+	],
+	"author": "Ralph Simon",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/RalphSimon/RAD_Kanban/issues"
+	},
+	"homepage": "https://github.com/RalphSimon/RAD_Kanban#readme"
 }

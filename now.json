@@ -1,6 +1,6 @@
 {
 	"version": 2,
-	"alias": "kanban-project",
+	"alias": "rad-kanban.now.sh",
 	"builds": [{ "src": "next.config.js", "use": "@now/next" }],
 	"routes": [
 		{
