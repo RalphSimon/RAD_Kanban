@@ -1,5 +1,6 @@
 .next
 .vscode
+.views
 devServer.js
 dist
 mock_api

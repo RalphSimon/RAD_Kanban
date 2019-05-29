@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import App, { Container } from 'next/app'
-import Router from 'next/router'
 import Head from 'next/head'
 import { Home, LogIn, User } from 'styled-icons/feather'
 

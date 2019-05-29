@@ -1,7 +1,6 @@
 {
 	"version": 2,
-	"alias": "rad-kanban.now.sh",
-	"builds": [{ "src": "next.config.js", "use": "@now/next" }],
+	"builds": [{ "src": "package.json", "use": "@now/next" }],
 	"routes": [
 		{
 			"src": "/product/(?<id>/<title>[^/]+)$",
