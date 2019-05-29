@@ -19,6 +19,7 @@
 		"seed": "node ./firebase/seed/admin.js"
 	},
 	"dependencies": {
+		"@zeit/webpack-asset-relocator-loader": "^0.5.1",
 		"dotenv": "^8.0.0",
 		"dotenv-webpack": "^1.7.0",
 		"firebase": "^6.0.4",
