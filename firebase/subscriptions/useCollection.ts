@@ -56,7 +56,7 @@ export const useCollection = (
 
   const subscribe = useCallback(() => {
     if (!user) return
-    const ref = query ? db.collection(path).where(...query) : db.collection(path)
+    const ref = query && query.length > 0 ? db.collection(path).where(...query) : db.collection(path)
 
     return ref.onSnapshot(snapShotOptions, handleCollectionListener, handleError)
   }, [db, handleCollectionListener, handleError, path, user, query])
