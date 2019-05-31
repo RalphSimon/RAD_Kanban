@@ -3,7 +3,7 @@ import { Plus } from 'styled-icons/feather'
 import { PoseGroup } from 'react-pose'
 
 import { Button } from '../components/Buttons'
-import { DrawingTransition, SignUpDrawing } from '../components/Drawings'
+import { DrawingTransition, BusinessWoman } from '../components/Drawings'
 import {
   AddProject,
   Header,
@@ -19,14 +19,13 @@ import { FirebaseDatabase } from '../firebase/context'
 import { addAsyncDoc, deleteAsyncDoc } from '../firebase/handlers'
 import { useFirestore } from '../firebase/subscriptions'
 import { DeleteItem } from '../components/DeleteItem'
-import { BusinessWoman } from '../components/Drawings/BusinessWoman'
 
-const Home = props => {
+const Home = () => {
   const { db, user } = useContext(FirebaseDatabase)
   const [errorMessage, setErrorMessage] = useState()
   const uid = user && user.uid
 
-  const { state: boards, isLoading } = useFirestore(`USERS/${uid}/BOARDS`)
+  const { state } = useFirestore(`USERS/${uid}/BOARDS`)
 
   const handleAddBoard = useCallback(
     title => {
@@ -49,6 +48,8 @@ const Home = props => {
   )
 
   const dismissError = useCallback(() => setErrorMessage(), [])
+
+  console.log(state)
 
   return (
     <AppCanvas>
@@ -83,7 +84,7 @@ const Home = props => {
             )}
           </Modal>
         </Header>
-        {isLoading || boards.length < 1 ? (
+        {state.isLoading ? (
           <PoseGroup>
             <DrawingTransition
               key="empty-state"
@@ -94,7 +95,7 @@ const Home = props => {
           </PoseGroup>
         ) : (
           <Projects>
-            {boards.map(board => (
+            {state.data.map(board => (
               <ProjectCard key={board.id} {...board}>
                 <DeleteItem deleteItem={() => handleDeleteProject(board.id)} />
               </ProjectCard>

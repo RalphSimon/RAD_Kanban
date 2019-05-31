@@ -16,7 +16,7 @@ export const mapToKeys = (collection, item) => {
     ? {
       ...collection,
       [item.id]: item
-		  }
+    }
     : {}
 }
 
@@ -38,6 +38,7 @@ export const reducer = (state, action) => {
     case LISTEN_FOR_TASKS: {
       return {
         ...state,
+        isLoading: false,
         tasks: action.tasks.reduce(mapToKeys, {})
       }
     }

@@ -1,8 +1,11 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import { LISTEN_FOR_COLLECTION, LISTEN_FOR_DOCUMENT } from './actionTypes'
+import { LISTEN_FOR_COLLECTION, LISTEN_FOR_DOCUMENT, ON_LISTEN_ERROR, ON_LISTEN_SUCCESS } from './actionTypes'
 
+/*
+  Used when setting up snapshot listeners
+*/
 export const listenForCollection = payload => ({
   type: LISTEN_FOR_COLLECTION,
   payload
@@ -13,6 +16,19 @@ export const listenForDocument = payload => ({
   payload
 })
 
+export const onListenSuccess = payload => ({
+  type: ON_LISTEN_SUCCESS,
+  ...payload
+})
+
+export const onListenError = payload => ({
+  type: ON_LISTEN_SUCCESS,
+  ...payload
+})
+
+/*
+  Firestore CRUD
+*/
 export const addAsyncDoc = (ref, payload) => {
   /*
     payload.id ? use .set(), else use .add()

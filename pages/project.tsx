@@ -14,6 +14,7 @@ const Project = ({ id }) => {
 }
 
 Project.getInitialProps = async ({ query }) => {
+  console.log('from server: ', query)
   return { id: query.id }
 }
 

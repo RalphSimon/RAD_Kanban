@@ -11,8 +11,6 @@ import {
   listenForColumns,
   listenForTasks,
   handleLoadingError,
-  setLoading,
-  setOrigin
 } from './actions'
 
 export const useFirestoreKanban = (boardId: string) => {
@@ -28,6 +26,7 @@ export const useFirestoreKanban = (boardId: string) => {
     let unsubscribeTasks = null
 
     if (user && isSubscribing) {
+      console.log('kanban is updating...')
       const userRootPath = `USERS/${user.uid}`
       const boardPath = `BOARDS/${boardId}`
 
@@ -36,7 +35,6 @@ export const useFirestoreKanban = (boardId: string) => {
         (snapshot, isEven) =>
           subscriptionCallback(snapshot, isEven).then(result => {
             dispatch(listenForBoard(result.payload))
-            dispatch(setOrigin(result.source))
           }),
         error => dispatch(handleLoadingError(error))
       )
@@ -46,7 +44,6 @@ export const useFirestoreKanban = (boardId: string) => {
         (snapshot, isEven) =>
           subscriptionCallback(snapshot, isEven).then(result => {
             dispatch(listenForColumns(result.payload))
-            dispatch(setOrigin(result.source))
           }),
         error => dispatch(handleLoadingError(error))
       )
@@ -56,8 +53,6 @@ export const useFirestoreKanban = (boardId: string) => {
         (snapshot, isEven) =>
           subscriptionCallback(snapshot, isEven).then(result => {
             dispatch(listenForTasks(result.payload))
-            dispatch(setOrigin(result.source))
-            dispatch(setLoading(false))
           }),
         error => dispatch(handleLoadingError(error))
       )
@@ -67,7 +62,7 @@ export const useFirestoreKanban = (boardId: string) => {
       if (unsubscribeBoard !== null) unsubscribeBoard()
       if (unsubscribeColumns !== null) unsubscribeColumns()
       if (unsubscribeBoard !== null) unsubscribeTasks()
-
+      console.log('kanban is done updating')
       return isSubscribing
     }
   }, [db, boardId, user])

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import Router from 'next/router'
 
 import loadFirebase from './loadFirebase'
@@ -35,6 +35,7 @@ export const useFirebase = () => {
     let isSettingUp = true
     loadFirebase().then(firebase => {
       if (isSettingUp) {
+        console.log('loading firebase...')
         setDb(firebase.db)
         setAuth(firebase.auth)
       }
@@ -43,7 +44,7 @@ export const useFirebase = () => {
     if (auth) {
       auth.onAuthStateChanged(user => {
         if (user) {
-          console.log('useFirebase - SET USER', user.displayName)
+
           setUser(user)
         } else {
           redirectWhenLoggedOut()
@@ -53,7 +54,7 @@ export const useFirebase = () => {
 
     return () => {
       isSettingUp = false
-
+      console.log('done loading firebase...')
       return isSettingUp
     }
   }, [auth, user])

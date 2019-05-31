@@ -1,9 +1,8 @@
-import { useEffect, useState, useReducer, useContext, useCallback } from 'react'
-import Router from 'next/router'
+import { useEffect, useReducer, useContext, useCallback } from 'react'
 
-import { listenForCollection, listenForDocument } from '../handlers'
+import { onListenError, onListenSuccess } from '../handlers'
 import { FirebaseDatabase } from '../context'
-import { firebaseReducer } from './firebaseReducer'
+import { snapshotReducer } from './snapshotReducer'
 import { isEven } from '../../utils'
 
 export interface FirestoreReducer {
@@ -11,10 +10,10 @@ export interface FirestoreReducer {
 }
 
 interface FirestoreResult {
-  collection?: [];
-  doc?: {};
-  isLoading?: boolean | string;
-  error?: string | string[] | {};
+  isLoading: boolean;
+  error: string | {} | null;
+  source: string;
+  data: [] | {};
 }
 
 const snapShotOptions = {
@@ -23,21 +22,20 @@ const snapShotOptions = {
 
 export const useFirestore = (
   path: string,
-  reducer: FirestoreReducer = firebaseReducer
 ): FirestoreResult => {
-  const { db, auth, user } = useContext(FirebaseDatabase)
+  const { db, user } = useContext(FirebaseDatabase)
 
-  const [state, dispatch] = useReducer(reducer, {})
-  const [source, setSource] = useState('Client')
-  const [isLoading, setLoading] = useState(true)
-  const [error, setError] = useState()
+  const [state, dispatch] = useReducer(snapshotReducer, {
+    isLoading: true,
+    error: null,
+    source: '',
+    data: null
+  })
 
   const handleDocumentListener = useCallback(doc => {
     const writeSource = doc.metadata.hasPendingWrites ? 'Client' : 'Server'
 
-    dispatch(listenForDocument(doc.data()))
-    setSource(writeSource)
-    setLoading(false)
+    dispatch(onListenSuccess({ data: doc.data(), source: writeSource }))
   }, [])
 
   const handleCollectionListener = useCallback(snapshot => {
@@ -51,35 +49,34 @@ export const useFirestore = (
       })
     })
 
-    dispatch(listenForCollection(LIST))
-    setSource(writeSource)
-    setLoading(false)
+    dispatch(onListenSuccess({ data: LIST, source: writeSource }))
   }, [])
 
-  const handleError = useCallback(err => setError(err), [])
+  const handleError = useCallback(err => dispatch(onListenError({ error: err })), [])
 
   useEffect(() => {
     let isSubscribing = true
     let unsubscribe = null
-    // if (!auth) return
-    if (!user) return
 
-    if (user && isSubscribing) {
+    if (!user) {
+      isSubscribing = false
+      return
+    }
+
+    if (isSubscribing) {
+
       const ref = isEven(path) ? db.doc(path) : db.collection(path)
       if (!ref) {
-        setError(
-          `The ${
+        dispatch(onListenError({
+          error: `The ${
             isEven(path) ? 'document' : 'collection'
           } you requested doesn't seem to exist`
-        )
+        }))
       }
 
       unsubscribe = isEven(path)
         ? ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError)
         : ref.onSnapshot(snapShotOptions, handleCollectionListener, handleError)
-    } else {
-      setError('Could not find a user...')
-      Router.push('/login')
     }
 
     return () => {
@@ -88,21 +85,9 @@ export const useFirestore = (
 
       return isSubscribing
     }
-  }, [
-    path,
-    db,
-    handleDocumentListener,
-    handleCollectionListener,
-    handleError,
-    user
-  ])
+  }, [path, db, handleDocumentListener, handleCollectionListener, handleError, user])
 
   return {
-    db,
-    state,
-    source,
-    dispatch,
-    isLoading,
-    error
+    state
   }
 }

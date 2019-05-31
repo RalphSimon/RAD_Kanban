@@ -9,8 +9,8 @@
 	],
 	"routes": [
 		{
-			"src": "/product/(?<id>/<title>[^/]+)$",
-			"dest": "/product/?id=$id/$title/"
+			"src": "/project/(?<id>[^/]+)$",
+			"dest": "/project?id=$id"
 		}
 	]
 }

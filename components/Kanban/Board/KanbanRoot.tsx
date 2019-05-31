@@ -11,7 +11,6 @@ export const KanbanRoot = ({ children }: RootProps) => {
 					.kb__root {
 						width: auto;
 						height: calc(100vh - 48px);
-						background-color: var(--color-bg-panel);
 						overflow-x: scroll;
 						overflow-y: hidden;
 					}

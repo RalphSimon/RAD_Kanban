@@ -48,7 +48,6 @@ export const subscribeToFirestore = (
   errorHandler: () => void
 ): DocumentSnapshot | QuerySnapshot => {
   const pathIsEven = ref.path !== undefined ? isEven(ref.path) : isEven('false')
-
   const subscription = ref.onSnapshot(
     snapShotOptions,
     snapshot => callBack(snapshot, pathIsEven),

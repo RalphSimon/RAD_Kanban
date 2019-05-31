@@ -2,7 +2,7 @@
 Simple setup for nextjs projects
 
 ---
-## Connecting with Firestore
+## Wanna haves
 - [x] use .dotenv to store firebase config
 - [x] Wire up firestore to app
 - [X] Seed database with a couple of boards
@@ -13,11 +13,16 @@ Simple setup for nextjs projects
 - [x] Review Task Components
 - [x] Add authentication
 - [x] Move Auth observer to FirebaseContext
+- [x] Enable deployment with Firebase on serverless target
 - [ ] Have useFirestore/useSubscription return a Promise
+- [ ] Notifications
 - [ ] Intermediary screens (intro, loading, error...) - Use 'Drawkit' (Invision Studio)
 - [ ] Add global search
 - [ ] Helper to update item in array
-- [ ] Notifications
+
+## issues
+- [ ] Server side reload returns 404 => Properly configure dynamic routes on serverless
+
 
 
 ### Normalization
@@ -30,6 +35,10 @@ Simple setup for nextjs projects
   2. Make a distinction between what should be realtime (firestore) and what should be local:
      1. Adding and removing items (Boards, Columns, Tasks) should retain realtime benefits
      2. Moving and reordering should remain local. These changes should only be persisted once the user leaves the project page (in order to reduce the amount of requests. I *suspect* a large number of requests could slow down the kanban app).
+
+### Hooks in depth
+https://overreacted.io/a-complete-guide-to-useeffect/
+https://www.robinwieruch.de/react-hooks-fetch-data/
 
 ### Next.js & Firebase Auth Example
 https://github.com/zeit/next.js/tree/master/examples/with-firebase-authentication
