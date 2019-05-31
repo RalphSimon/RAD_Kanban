@@ -26,9 +26,9 @@ const newUserSchema = {
 
 const SignIn = props => {
   const { db, auth } = useContext(FirebaseDatabase)
-  const [userName, setUserName] = useState('RalphSimon')
-  const [email, setEmail] = useState('ralph.simon2008@gmail.com')
-  const [password, setPassword] = useState('Kanban2018')
+  const [userName, setUserName] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
   const [error, setError] = useState()
   const [userDoc, setUser] = useState({})
   const [isVisible, setVisibility] = useState(false)

@@ -19,7 +19,7 @@ const snapShotOptions = {
   includeMetadataChanges: true
 }
 
-export const useDocumentSubscription = (
+export const useDocument = (
   path: string,
 ): FirestoreResult => {
   const { db, user } = useContext(FirebaseDatabase)
@@ -43,9 +43,7 @@ export const useDocumentSubscription = (
     if (!user) return
     const ref = db.doc(path)
 
-    return {
-      listener: ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError),
-    }
+    return ref.onSnapshot(snapShotOptions, handleDocumentListener, handleError)
   }, [db, handleDocumentListener, handleError, path, user])
 
 
@@ -56,7 +54,7 @@ export const useDocumentSubscription = (
 
     return () => {
       isSubscribing = false
-      if (unsubscribe) unsubscribe.listener()
+      if (unsubscribe) unsubscribe()
       return isSubscribing
     }
   }, [subscribe])
