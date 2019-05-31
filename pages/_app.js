@@ -6,6 +6,7 @@ import { Home, LogIn, User } from 'styled-icons/feather'
 // import { resetServerContext } from 'react-beautiful-dnd'
 
 import { SignOutWithConfirmation } from '../components/Auth'
+import { SignOutButton } from '../components/Buttons'
 import { AppLayout } from '../components/Layout'
 import { BottomNav, NavItem, SideNav } from '../components/Navigation'
 import { FirebaseContext } from '../firebase/context'
@@ -52,7 +53,9 @@ export default class RADApp extends App {
                 <NavItem href="/auth" label="auth">
                   <LogIn size="24" strokeWidth="1.5" />
                 </NavItem>
-                <SignOutWithConfirmation />
+                <SignOutButton>
+                  <SignOutWithConfirmation menuPlacement="right" />
+                </SignOutButton>
               </Fragment>
             </SideNav>
 
@@ -69,7 +72,9 @@ export default class RADApp extends App {
                 <NavItem href="/auth" label="auth">
                   <LogIn size="24" strokeWidth="1.5" />
                 </NavItem>
-                <SignOutWithConfirmation />
+                <SignOutButton>
+                  <SignOutWithConfirmation menuPlacement="top-center" />
+                </SignOutButton>
               </Fragment>
             </BottomNav>
           </AppLayout>

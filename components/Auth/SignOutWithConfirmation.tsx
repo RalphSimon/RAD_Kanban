@@ -1,9 +1,10 @@
 import { useContext } from 'react'
 import Router from 'next/router'
+import { Power } from 'styled-icons/feather'
 
 import { Confirmation } from '../DeleteItem/Confirmation'
 import { Menu, MenuList, MenuTrigger } from '../Menu'
-import { Button, SignOutButton } from '../Buttons'
+import { Button, IconButton } from '../Buttons'
 import { FirebaseDatabase } from '../../firebase/context'
 
 export const SignOutWithConfirmation = ({ menuPlacement }) => {
@@ -26,7 +27,13 @@ export const SignOutWithConfirmation = ({ menuPlacement }) => {
     <Menu defaultPlacement={menuPlacement}>
       <MenuTrigger>
         {({ setMenuState }) => (
-          <SignOutButton onClick={() => setMenuState(state => !state)} />
+          <IconButton
+            color="red"
+            size={28}
+            onClick={() => setMenuState(state => !state)}
+            border>
+            <Power size="20" strokeWidth="1.5" />
+          </IconButton>
         )}
       </MenuTrigger>
       <MenuList>

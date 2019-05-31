@@ -1,13 +1,7 @@
-import { Power } from 'styled-icons/feather'
-
-import { IconButton } from './IconButton'
-
-export const SignOutButton = ({ size, label, onClick }) => {
+export const SignOutButton = ({ children, label }) => {
   return (
     <div className="nav-item">
-      <IconButton color="red" size={size} onClick={onClick} border>
-        <Power size="20" strokeWidth="1.5" />
-      </IconButton>
+      {children}
       <span className="label">{label}</span>
       <style jsx>{`
 				.nav-item {
@@ -45,6 +39,5 @@ export const SignOutButton = ({ size, label, onClick }) => {
 }
 
 SignOutButton.defaultProps = {
-  size: 28,
   label: 'Sign out'
 }
