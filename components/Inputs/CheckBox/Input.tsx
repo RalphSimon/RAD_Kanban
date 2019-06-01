@@ -9,6 +9,7 @@ export const Input = ({ value, onChange }) => {
 					position: absolute;
 					width: 100%;
 					height: 100%;
+					margin: 0;
 					opacity: 0;
 				}
 			`}</style>

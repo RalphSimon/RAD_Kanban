@@ -17,7 +17,7 @@ export const CheckMark = ({ value }) => {
     <PoseGroup>
       {value && (
         <Mark key="check-mark">
-          <Check size="24" strokeWidth="2" />
+          <Check size="20" strokeWidth="2" />
         </Mark>
       )}
     </PoseGroup>

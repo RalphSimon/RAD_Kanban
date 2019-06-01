@@ -52,7 +52,6 @@ export const EditableTitle = ({
 					height: 100%;
 				}
 
-				.input,
 				.input {
 					display: flex;
 					align-items: center;

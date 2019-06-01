@@ -1,3 +1,4 @@
+export { mapToKeys } from './arrayHelpers/mapToKeys'
 export { formatDate } from './date/formatDate'
 export { formatTime } from './date/formatTime'
 export { computePlacement } from './domHelpers/computePlacement'
