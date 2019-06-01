@@ -1,11 +1,10 @@
 export const TaskNote = ({ children }) => (
-  <div className="task__content">
+  <div className="task__note">
     {children}
     <style jsx>{`
-			.task__content {
-				height: 400px;
-				padding: 0 16px 16px;
-				overflow-y: scroll;
+			.task__note {
+				height: 100%;
+				padding: 16px;
 				user-select: none;
 			}
 		`}</style>

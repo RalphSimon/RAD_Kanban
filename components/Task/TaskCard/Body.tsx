@@ -4,7 +4,7 @@ export const Body = ({ children }) => (
     <style jsx>{`
 			.kb-item__body {
 				z-index: 2;
-				height: 125px;
+				max-height: 400px;
 				overflow: hidden;
 			}
 		`}</style>

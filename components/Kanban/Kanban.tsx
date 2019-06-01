@@ -29,8 +29,6 @@ export const Kanban = ({ board, dispatch }) => {
   const getColumn = id =>
     db.doc(`USERS/${user.uid}/BOARDS/${board.id}/COLUMNS/${id}`)
 
-  console.log(board)
-
   const handleDragEnd = result => {
     const { source, destination } = result
 

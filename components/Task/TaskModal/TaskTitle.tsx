@@ -4,10 +4,10 @@ export const TaskTitle = ({ children }) => {
       {children}
       <style jsx>{`
 				.task__title {
+					flex: 1;
 					display: flex;
 					align-items: center;
-					height: auto;
-					padding: 0 8px;
+					height: 100%;
 				}
 			`}</style>
     </header>

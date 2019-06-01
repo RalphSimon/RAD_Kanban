@@ -3,9 +3,10 @@ export const Header = ({ children }) => (
     {children}
     <style jsx>{`
 			.task__header {
-				display: flex;
 				grid-row: header;
-				justify-content: flex-end;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
 			}
 		`}</style>
   </header>

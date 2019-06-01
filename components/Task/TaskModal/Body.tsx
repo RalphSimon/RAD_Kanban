@@ -7,6 +7,7 @@ export const Body = ({ children }) => (
 				display: flex;
 				flex: 1;
 				flex-direction: column;
+				overflow: hidden;
 			}
 		`}</style>
   </section>

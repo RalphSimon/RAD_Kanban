@@ -16,10 +16,27 @@ import { formatDate } from '../../../utils'
 import { deleteAsyncDoc, updateAsyncDoc } from '../../../firebase/handlers'
 import { FirebaseDatabase } from '../../../firebase/context'
 import { removeTask } from '../../../firebase/kanban'
+import { Tab, Tabs, TabContainer, TabContent } from '../../Tabs'
 
 interface TaskProps {
   close: () => void;
   task: {};
+}
+
+const Box = ({ children, color }) => {
+  return (
+    <div>
+      <h2>{children}</h2>
+
+      <style jsx>{`
+				div {
+					width: 100%;
+					height: 100%;
+					background-color: ${`var(--color-${color}-base)`};
+				}
+			`}</style>
+    </div>
+  )
 }
 
 export const TaskModal = ({ close, columnId, task }) => {
@@ -68,38 +85,40 @@ export const TaskModal = ({ close, columnId, task }) => {
   return (
     <Root>
       <Header>
+        <TaskTitle>
+          <EditableTitle
+            inputCssClass="text-preset-2"
+            value={task.title}
+            onBlur={value => handleUpdate('title', value)}
+          />
+        </TaskTitle>
         <IconButton onClick={close} ariaLabel="Close Modal" ref={buttonRef}>
           <X size="24" strokeWidth="1.5" />
         </IconButton>
       </Header>
       <Body>
-        <TaskMeta>
-          <span className="text-preset-7">Created On:</span>
-          <span className="text-preset-7">
-            {formatDate(task.created.seconds)}
-          </span>
-          <h3>{task.columnId ? task.columnId : 'no column id'}</h3>
-        </TaskMeta>
-        <TaskTitle>
-          <EditableTitle
-            inputCssClass="text-preset-4"
-            value={task.title}
-            onBlur={value => handleUpdate('title', value)}
-          />
-        </TaskTitle>
-        <TaskNote>
-          <MarkdownEditor
-            value={task.note}
-            name={`task-note_${task.id}`}
-            updateContent={value => handleUpdate('note', value)}
-          />
-        </TaskNote>
+        <TabContainer>
+          <Tabs>
+            <Tab>Notes</Tab>
+            <Tab>CheckList</Tab>
+          </Tabs>
+          <TabContent>
+            <TaskNote>
+              <MarkdownEditor
+                value={task.note}
+                name={`task-note_${task.id}`}
+                updateContent={value => handleUpdate('note', value)}
+              />
+            </TaskNote>
+            <Box color="red">Box 2</Box>
+          </TabContent>
+        </TabContainer>
       </Body>
       <TaskMeta center>
         <DeleteItem deleteItem={handleRemoval} close={close} />
       </TaskMeta>
       <Footer>
-        <Button label="Cancel" color="red" onClick={close} outline />
+        <Button label="Close" color="red" onClick={close} outline />
         {task.completed ? (
           <Button
             color="teal"

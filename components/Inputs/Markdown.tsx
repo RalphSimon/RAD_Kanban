@@ -8,28 +8,28 @@ interface Props {
 
 export const Markdown = ({ source, height }) => (
   <Fragment>
-    <ReactMarkdown source={source} className="markdown__output" />
+    <div className="markdown__output">
+      <ReactMarkdown source={source} />
+    </div>
+
+    <style jsx>{`
+			.markdown__output {
+				min-height: 125px;
+				height: ${height ? height + 'px' : 'auto'};
+			}
+		`}</style>
 
     <style jsx global>{`
-			.markdown__output {
-				height: ${height ? height + 'px' : 'auto'};
-				overflow: hidden;
-			}
-
 			.markdown__output,
 			.markdown__output h1,
 			.markdown__output h2,
 			.markdown__output h3,
 			.markdown__output p {
 				text-overflow: ellipsis;
-				overflow: ${height ? 'hidden' : 'auto'};
-				 {
-					/* white-space: nowrap; */
-				}
+				overflow: hidden;
+				overflow-wrap: break-word;
 			}
-		`}</style>
 
-    <style jsx global>{`
 			.markdown__output h1 {
 				font-size: 32px;
 				font-weight: 400;
@@ -54,11 +54,8 @@ export const Markdown = ({ source, height }) => (
 				font-size: 15px;
 				font-weight: 400;
 				line-height: 1.5333333333333334;
+				hyphens: auto;
 			}
 		`}</style>
   </Fragment>
 )
-
-Markdown.defaultProps = {
-  height: 400
-}

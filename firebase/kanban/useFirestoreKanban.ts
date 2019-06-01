@@ -26,7 +26,7 @@ export const useFirestoreKanban = (boardId: string) => {
     let unsubscribeTasks = null
 
     if (user && isSubscribing) {
-      console.log('kanban is updating...')
+
       const userRootPath = `USERS/${user.uid}`
       const boardPath = `BOARDS/${boardId}`
 
@@ -62,7 +62,7 @@ export const useFirestoreKanban = (boardId: string) => {
       if (unsubscribeBoard !== null) unsubscribeBoard()
       if (unsubscribeColumns !== null) unsubscribeColumns()
       if (unsubscribeBoard !== null) unsubscribeTasks()
-      console.log('kanban is done updating')
+
       return isSubscribing
     }
   }, [db, boardId, user])

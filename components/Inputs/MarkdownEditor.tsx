@@ -1,8 +1,5 @@
 import { useState, useRef } from 'react'
-import ContentEditable from 'react-contenteditable'
-import { Feather, Save } from 'styled-icons/feather'
 
-import { IconButton } from '../Buttons'
 import { Markdown } from './Markdown'
 
 interface Props {
@@ -15,20 +12,6 @@ export const MarkdownEditor = ({ value, name, updateContent }: Props) => {
   const [content, setContent] = useState(value)
   const [enabled, setEnabled] = useState(false)
   const rootRef = useRef(null)
-
-  const enableEditor = ({ target }) => {
-    const root = rootRef.current
-    console.log({
-      isRoot: root === target,
-      target,
-      root
-    })
-    if (root === target) {
-      setEnabled(true)
-    } else {
-      setEnabled(false)
-    }
-  }
 
   const handleChange = event => {
     const { value } = event.target
@@ -65,7 +48,8 @@ export const MarkdownEditor = ({ value, name, updateContent }: Props) => {
       <style jsx>{`
 				.editor__root {
 					width: 100%;
-					height: 400px;
+					height: 100%;
+					overflow-y: scroll;
 				}
 
 				.editor__label,

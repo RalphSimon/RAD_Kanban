@@ -29,7 +29,7 @@ export const Button = forwardRef(
     }: ButtonProps,
     ref
   ) => {
-    const btnClass: string = `btn btn__base ${
+    const btnClass = `btn btn__base ${
       outline ? 'btn--outline' : 'btn--filled'
     }`
 

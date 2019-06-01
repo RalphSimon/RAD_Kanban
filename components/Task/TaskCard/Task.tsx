@@ -27,7 +27,7 @@ export const Task = ({ isDragging, onClick, provided, task }: TaskProps) => (
         {task.completed ? <Complete /> : null}
       </Header>
       <Body>
-        <Markdown source={task.note} height={75} />
+        <Markdown source={task.note} />
       </Body>
     </Container>
     <Shadow opacity={isDragging ? 1 : 0} />

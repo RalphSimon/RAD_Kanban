@@ -16,7 +16,6 @@ export const Root = ({ children, onClick, provided }: ContainerProps) => {
 				.kb-item__root {
 					--border-card: 1px solid var(--color-indigo2-light);
 					z-index: 0;
-					height: 180px;
 					position: relative;
 					margin-bottom: 16px;
 				}

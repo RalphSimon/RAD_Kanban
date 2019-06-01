@@ -77,6 +77,7 @@ export const AppLayout = ({ children }) => {
 				body {
 					margin: 0;
 					padding: 0;
+					font-size: 14px;
 					font-family: var(--font-Barlow);
 					font-weight: 400;
 					color: var(--color-text-base);
@@ -184,6 +185,9 @@ export const AppLayout = ({ children }) => {
 				}
 
 				@media (min-width: 480px) {
+					body {
+						font-size: 16px;
+					}
 					.text-preset-1 {
 						font-size: 48px;
 						margin-bottom: 24px;
