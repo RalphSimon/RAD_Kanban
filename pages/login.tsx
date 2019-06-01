@@ -25,7 +25,7 @@ const userSchema = {
 }
 
 const Login = props => {
-  const { db, auth } = useContext(FirebaseDatabase)
+  const { auth } = useContext(FirebaseDatabase)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)

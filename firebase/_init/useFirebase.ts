@@ -35,7 +35,7 @@ export const useFirebase = () => {
     let isSettingUp = true
     loadFirebase().then(firebase => {
       if (isSettingUp) {
-        console.log('loading firebase...')
+
         setDb(firebase.db)
         setAuth(firebase.auth)
       }
@@ -54,7 +54,7 @@ export const useFirebase = () => {
 
     return () => {
       isSettingUp = false
-      console.log('done loading firebase...')
+
       return isSettingUp
     }
   }, [auth, user])

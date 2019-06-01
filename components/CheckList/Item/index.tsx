@@ -1,12 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
-import { DragHandle } from './DragHandle'
 import { Remove } from './Remove'
-import { Root } from './Root'
 import { Title } from './Title'
 import { ItemWithPortal } from './ItemWithPortal'
-import { Shadow } from '../../Helpers'
 import { CheckBox } from '../../Inputs/CheckBox'
 import { CheckListItem } from '../index'
 
@@ -75,29 +72,6 @@ const CheckItem = ({
       )}
     </Draggable>
   )
-  // return (
-  //   <Draggable draggableId={item.id} index={index}>
-  //     {(provided, snapshot) => (
-  //       <Root hasFocus={hasFocus} provided={provided}>
-  //         <DragHandle dragHandleProps={provided.dragHandleProps} />
-  //         <CheckBox
-  //           size={28}
-  //           value={completed}
-  //           onChange={e => setCompleted(e.target.checked)}
-  //         />
-  //         <Title
-  //           value={title}
-  //           complete={completed}
-  //           onChange={e => setTitle(e.target.value)}
-  //           onFocus={handleFocus}
-  //           onBlur={handleBlur}
-  //         />
-  //         <Remove onClick={() => onRemove(item.id)} />
-  //         <Shadow opacity={snapshot.isDragging ? 1 : 0} />
-  //       </Root>
-  //     )}
-  //   </Draggable>
-  // )
 }
 
 export default CheckItem

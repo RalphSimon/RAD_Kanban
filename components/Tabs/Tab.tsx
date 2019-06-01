@@ -16,12 +16,12 @@ export const Tab = ({ children, active, onClick }) => {
 			`}</style>
       <style jsx>{`
 				button {
-					outline: 1px solid pink;
+					outline: none;
 					display: inline-flex;
 					align-items: center;
 					justify-content: center;
 					min-height: 36px;
-					min-width: 120px;
+					padding: 0 24px;
 					border: none;
 					font-family: inherit;
 					font-size: 0.85em;

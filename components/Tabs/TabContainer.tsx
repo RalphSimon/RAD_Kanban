@@ -56,8 +56,6 @@ export const TabContainer = ({ children }) => {
     tabWidths: []
   })
 
-  console.log(state)
-
   return (
     <section>
       <TabsContext.Provider value={[state, dispatch]}>

@@ -50,19 +50,12 @@ const CheckList = ({
   onUpdate
 }: CheckListProps) => {
   const [state, dispatch] = useReducer(reducer, { items, itemOrder }, init)
-  const [test, setTest] = useState({
-    id: '2wiAlm0IULo0BFuRbykkF',
-    completed: false,
-    title: 'Task 1'
-  })
 
   const handleDragEnd = useCallback(
     result => {
       const { source, destination } = result
 
-      console.log('BEFORE', state.order)
       const newItemOrder = reorder(state.order, source.index, destination.index)
-      console.log('AFTER', newItemOrder)
       dispatch({ type: ON_REORDER, payload: newItemOrder })
       onReorder(newItemOrder)
     },
