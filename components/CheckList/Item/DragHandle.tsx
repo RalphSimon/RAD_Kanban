@@ -8,6 +8,12 @@ export const DragHandle = ({ dragHandleProps }) => {
 				.drag-handle {
 					margin-right: 8px;
 				}
+
+				@media (max-width: 480px) {
+					.drag-handle {
+						display: none;
+					}
+				}
 			`}</style>
     </div>
   )

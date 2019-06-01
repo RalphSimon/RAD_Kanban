@@ -78,6 +78,7 @@ export default class RADApp extends App {
               </Fragment>
             </BottomNav>
           </AppLayout>
+          <div id="checklist-portal" />
         </FirebaseContext>
       </Container>
     )

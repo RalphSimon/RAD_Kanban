@@ -23,9 +23,9 @@ const Playground = () => {
         <CheckList
           items={Tasks}
           itemOrder={Order}
-          // onAdd={item => console.log('Add item:\n', item)}
-          // onReorder={order => console.log('Reordered items:\n', order)}
-          // onUpdate={result => console.log('Updated item:\n', result)}
+          onAdd={item => console.log('Add item:\n', item)}
+          onReorder={order => console.log('Reordered items:\n', order)}
+          onUpdate={result => console.log('Updated item:\n', result)}
         />
       </section>
       <style jsx>{`
