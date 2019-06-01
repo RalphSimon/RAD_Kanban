@@ -1,9 +1,8 @@
 export const List = ({ children, provided, snapshot }) => {
   return (
-  // <ul ref={provided.innerRef} {...provided.droppableProps}>
-    <ul>
+    <ul ref={provided.innerRef} {...provided.droppableProps}>
       {children}
-      {/* {provided.placeholder} */}
+      {provided.placeholder}
       <style jsx>{`
 				ul {
 					width: 100%;

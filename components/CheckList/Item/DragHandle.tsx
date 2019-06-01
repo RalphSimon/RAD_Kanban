@@ -1,6 +1,6 @@
 import { Menu } from 'styled-icons/feather'
 
-export const DragHandle = ({ ...dragHandleProps }) => {
+export const DragHandle = ({ dragHandleProps }) => {
   return (
     <div {...dragHandleProps} className="drag-handle">
       <Menu size="20" strokeWidth="1.5" />

@@ -4,7 +4,7 @@
 	"description": "An example kanban app",
 	"main": "index.js",
 	"scripts": {
-		"dev": "next --hostname 192.168.0.153",
+		"dev": "next --hostname 192.168.1.15",
 		"dev:server": "node devServer.js",
 		"now-build": "next build",
 		"start": "next start",

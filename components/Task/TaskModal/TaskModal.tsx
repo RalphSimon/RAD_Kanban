@@ -1,5 +1,6 @@
 import { useRef, useEffect, useContext } from 'react'
 import { CheckCircle, X } from 'styled-icons/feather'
+import nanoid from 'nanoid'
 
 import { Body } from './Body'
 import { Footer } from './Footer'
@@ -17,11 +18,25 @@ import { deleteAsyncDoc, updateAsyncDoc } from '../../../firebase/handlers'
 import { FirebaseDatabase } from '../../../firebase/context'
 import { removeTask } from '../../../firebase/kanban'
 import { Tab, Tabs, TabContainer, TabContent } from '../../Tabs'
+import CheckList from '../../CheckList'
 
 interface TaskProps {
   close: () => void;
   task: {};
 }
+
+const Task = index => ({
+  id: nanoid(),
+  title: `Task ${index + 1}`,
+  completed: false
+})
+
+const generateList = (factory, length = 5) =>
+  Array.apply(null, { length }).map((c, i) => factory(i))
+
+const Tasks = generateList(Task)
+
+const Order = Tasks.map(task => task.id)
 
 const Box = ({ children, color }) => {
   return (
@@ -110,7 +125,13 @@ export const TaskModal = ({ close, columnId, task }) => {
                 updateContent={value => handleUpdate('note', value)}
               />
             </TaskNote>
-            <Box color="red">Box 2</Box>
+            <CheckList
+              items={Tasks}
+              itemOrder={Order}
+              onAdd={item => console.log('Add item:\n', item)}
+              onReorder={order => console.log('Reordered items:\n', order)}
+              onUpdate={result => console.log('Updated item:\n', result)}
+            />
           </TabContent>
         </TabContainer>
       </Body>

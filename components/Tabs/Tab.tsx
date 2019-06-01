@@ -16,7 +16,7 @@ export const Tab = ({ children, active, onClick }) => {
 			`}</style>
       <style jsx>{`
 				button {
-					outline: none;
+					outline: 1px solid pink;
 					display: inline-flex;
 					align-items: center;
 					justify-content: center;

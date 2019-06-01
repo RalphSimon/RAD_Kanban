@@ -13,7 +13,7 @@ export const Shadow = ({ opacity }: Props) => {
 					left: 0;
 					width: 100%;
 					height: 100%;
-					background-color: rgba(0, 0, 0, 0.12);
+					background-color: var(--color-bg-panel);
 					box-shadow: 0 4px 16px 0px rgba(0, 0, 0, 0.12);
 					opacity: 0;
 					transition: opacity 0.1s linear;

@@ -49,8 +49,6 @@ const Home = () => {
 
   const dismissError = useCallback(() => setErrorMessage(), [])
 
-  console.log(state)
-
   return (
     <AppCanvas>
       <HomeView>

@@ -1,10 +1,6 @@
 export const Root = ({ children, hasFocus, provided, snapshot }) => {
   return (
-    <li
-      className="root"
-      // ref={provided.innerRef}
-      // {...provided.draggableProps}
-    >
+    <li className="root" ref={provided.innerRef} {...provided.draggableProps}>
       {children}
       <style jsx>{`
 				.root {
@@ -14,7 +10,7 @@ export const Root = ({ children, hasFocus, provided, snapshot }) => {
 					padding: 6px;
 					background-color: ${hasFocus
       ? 'var(--color-cyan-light)'
-      : 'transparent'};
+      : 'var(--color-bg-panel)'};
 				}
 			`}</style>
     </li>

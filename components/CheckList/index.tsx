@@ -60,11 +60,13 @@ const CheckList = ({
     result => {
       const { source, destination } = result
 
-      const newItemOrder = reorder(itemOrder, source.index, destination)
-
+      console.log('BEFORE', state.order)
+      const newItemOrder = reorder(state.order, source.index, destination.index)
+      console.log('AFTER', newItemOrder)
+      dispatch({ type: ON_REORDER, payload: newItemOrder })
       onReorder(newItemOrder)
     },
-    [itemOrder, onReorder]
+    [onReorder, state.order]
   )
 
   const handleUpdate = useCallback(
@@ -122,7 +124,15 @@ const CheckList = ({
 
   return (
     <Root>
-      <List>{orderedItems}</List>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="checklist">
+          {(provided, snapshot) => (
+            <List provided={provided} snapshot={snapshot}>
+              {orderedItems}
+            </List>
+          )}
+        </Droppable>
+      </DragDropContext>
       <Footer>
         <Button
           size={32}
