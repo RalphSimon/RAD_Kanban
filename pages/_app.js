@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { Home, LogIn, User } from 'styled-icons/feather'
+import { Home, LogIn, User, PlayCircle } from 'styled-icons/feather'
 
 // import { resetServerContext } from 'react-beautiful-dnd'
 
@@ -50,8 +50,8 @@ export default class RADApp extends App {
                 <NavItem href="/profile" label="Profile">
                   <User size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/auth" label="auth">
-                  <LogIn size="24" strokeWidth="1.5" />
+                <NavItem href="/playground" label="play">
+                  <PlayCircle size="24" strokeWidth="1.5" />
                 </NavItem>
                 <SignOutButton>
                   <SignOutWithConfirmation menuPlacement="right" />
@@ -69,8 +69,8 @@ export default class RADApp extends App {
                 <NavItem href="/profile" label="Profile">
                   <User size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/auth" label="auth">
-                  <LogIn size="24" strokeWidth="1.5" />
+                <NavItem href="/playground" label="play">
+                  <PlayCircle size="24" strokeWidth="1.5" />
                 </NavItem>
                 <SignOutButton>
                   <SignOutWithConfirmation menuPlacement="top-center" />
