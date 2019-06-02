@@ -90,7 +90,7 @@ const CheckList = ({
       payload: item
     }
     dispatch(result)
-    onAdd(result)
+    onAdd(result.payload)
   }, [onAdd])
 
   const handleRemoval = useCallback(
@@ -105,17 +105,19 @@ const CheckList = ({
 
   const orderedItems = useMemo(
     () =>
-      state.order.map((id, index) => (
-        <CheckItem
-          key={id}
-          index={index}
-          item={state.items[id]}
-          onComplete={checked => handleUpdate(checked, 'completed', id)}
-          onChangeTitle={value => handleUpdate(value, 'title', id)}
-          onRemove={id => handleRemoval(id)}
-        />
-      )),
-    [handleRemoval, handleUpdate, state.items, state.order]
+      state.order
+        ? state.order.map((id, index) => (
+          <CheckItem
+            key={id}
+            index={index}
+            item={state.items[id]}
+            onComplete={checked => handleUpdate(checked, 'completed', id)}
+            onChangeTitle={value => handleUpdate(value, 'title', id)}
+            onRemove={id => handleRemoval(id)}
+          />
+				  ))
+        : null,
+    [handleRemoval, handleUpdate, state]
   )
 
   return (

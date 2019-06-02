@@ -10,13 +10,14 @@ export const reducer = (state, action) => {
       return action.payload
     }
     case ON_ADD: {
+      const prevOrder = state.order ? Array.from(state.order) : []
       return {
         ...state,
         items: {
           ...state.items,
           [action.payload.id]: action.payload
         },
-        order: [...state.order, action.payload.id]
+        order: [...prevOrder, action.payload.id]
       }
     }
     case ON_REMOVE: {

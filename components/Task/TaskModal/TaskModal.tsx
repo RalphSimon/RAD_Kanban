@@ -13,10 +13,16 @@ import { Button, IconButton } from '../../Buttons'
 import { DeleteItem } from '../../DeleteItem'
 import { EditableTitle, MarkdownEditor } from '../../Inputs'
 import { KanbanDispatch } from '../../Kanban/Board'
+import { Loading } from '../../Loading'
 import { formatDate } from '../../../utils'
-import { deleteAsyncDoc, updateAsyncDoc } from '../../../firebase/handlers'
+import {
+  addAsyncDoc,
+  deleteAsyncDoc,
+  updateAsyncDoc
+} from '../../../firebase/handlers'
 import { FirebaseDatabase } from '../../../firebase/context'
 import { removeTask } from '../../../firebase/kanban'
+import { useCollection } from '../../../firebase/subscriptions'
 import { Tab, Tabs, TabContainer, TabContent } from '../../Tabs'
 import CheckList from '../../CheckList'
 
@@ -43,6 +49,9 @@ export const TaskModal = ({ close, columnId, task }) => {
   const { board, dispatch } = useContext(KanbanDispatch)
   const buttonRef = useRef(null)
   const taskRef = db.doc(`USERS/${user.uid}/TASKS/${task.id}`)
+  const { state: checklist } = useCollection(
+    `USERS/${user.uid}/TASKS/${task.id}/CHECKLIST`
+  )
 
   useEffect(() => {
     buttonRef.current.focus()
@@ -81,6 +90,57 @@ export const TaskModal = ({ close, columnId, task }) => {
     close()
   }
 
+  const onAddChecklistItem = item => {
+    const itemRef = db
+      .collection(`USERS/${user.uid}/TASKS/${task.id}/CHECKLIST`)
+      .doc(item.id)
+    const prevOrder = task.order ? Array.from(task.order) : []
+    const order = [...prevOrder, item.id]
+
+    updateAsyncDoc(taskRef, { order }).then(() => {
+      addAsyncDoc(itemRef, item)
+        .then(() => {
+          console.log('Added a checklist item...')
+        })
+        .catch(err => {
+          console.log('Oopsy on adding checklist item...', err)
+        })
+    })
+  }
+
+  const onRemoveChecklistItem = id => {
+    const newOrder = task.order.filter(itemId => itemId !== id)
+    const itemRef = db.doc(`USERS/${user.uid}/TASKS/${task.id}/CHECKLIST/${id}`)
+
+    updateAsyncDoc(taskRef, { order: newOrder }).then(() => {
+      deleteAsyncDoc(itemRef)
+        .then(() => {
+          console.log('deleted checklist item...')
+        })
+        .catch(err => console.log('error deleting item...'))
+    })
+  }
+
+  const onUpdateChecklistItem = result => {
+    const itemRef = db.doc(
+      `USERS/${user.uid}/TASKS/${task.id}/CHECKLIST/${result.id}`
+    )
+
+    updateAsyncDoc(itemRef, { [result.field]: result.payload })
+      .then(() => {
+        console.log('updated checklist item...')
+      })
+      .catch(err => console.log('error updating item...'))
+  }
+
+  const onReorderChecklist = newOrder => {
+    updateAsyncDoc(taskRef, { order: newOrder })
+      .then(() => {
+        console.log('updated checklist order...')
+      })
+      .catch(err => console.log('error updating order...'))
+  }
+
   return (
     <Root>
       <Header>
@@ -109,14 +169,18 @@ export const TaskModal = ({ close, columnId, task }) => {
                 updateContent={value => handleUpdate('note', value)}
               />
             </TaskNote>
-            <CheckList
-              items={Tasks}
-              itemOrder={Order}
-              onRemove={id => console.log('item with removed', id)}
-              onAdd={item => console.log('Add item:\n', item)}
-              onReorder={order => console.log('Reordered items:\n', order)}
-              onUpdate={result => console.log('Updated item:\n', result)}
-            />
+            {checklist.isLoading ? (
+              <Loading />
+            ) : (
+              <CheckList
+                items={checklist.data}
+                itemOrder={task.order}
+                onRemove={onRemoveChecklistItem}
+                onAdd={onAddChecklistItem}
+                onReorder={onReorderChecklist}
+                onUpdate={onUpdateChecklistItem}
+              />
+            )}
           </TabContent>
         </TabContainer>
       </Body>
