@@ -50,6 +50,8 @@ export const useFirebase = () => {
           redirectWhenLoggedOut()
         }
       })
+    } else {
+      redirectWhenLoggedOut()
     }
 
     return () => {

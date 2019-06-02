@@ -38,22 +38,6 @@ const Tasks = generateList(Task)
 
 const Order = Tasks.map(task => task.id)
 
-const Box = ({ children, color }) => {
-  return (
-    <div>
-      <h2>{children}</h2>
-
-      <style jsx>{`
-				div {
-					width: 100%;
-					height: 100%;
-					background-color: ${`var(--color-${color}-base)`};
-				}
-			`}</style>
-    </div>
-  )
-}
-
 export const TaskModal = ({ close, columnId, task }) => {
   const { db, user } = useContext(FirebaseDatabase)
   const { board, dispatch } = useContext(KanbanDispatch)
