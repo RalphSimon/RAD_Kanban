@@ -55,7 +55,7 @@ const FieldBase = ({
         </div>
       </div>
 
-      <span className="helper-text text-preset-7">
+      <span className="helper-text">
         {error ? 'Error:' : ''} {helperText}
       </span>
 
@@ -73,22 +73,24 @@ const FieldBase = ({
 				}
 
 				.field__input {
-					border-color: ${error
+					border-color: ${
+    error
       ? 'var(--color-error)'
       : isValid
         ? 'var(--color-success)'
-        : 'var(--color-indigo-light)'};
+        : 'var(--color-indigo-light)'
+    };
 				}
 
-				.helper-text {
+				{/* .helper-text {
 					color: ${error ? 'var(--color-error)' : 'var(--color-text-light)'};
-				}
+				} */}
 
 				.field__label {
 					color: ${error ? 'var(--color-error)' : 'var(--color-text-gray)'};
-					transform: ${value
-      ? 'translate(0, 0) scale(1)'
-      : 'translate(0, 50%) scale(1.35)'};
+					transform: ${
+    value ? 'translate(0, 0) scale(1)' : 'translate(0, 50%) scale(1.35)'
+    };
 				}
 			`}</style>
 
@@ -137,7 +139,12 @@ const FieldBase = ({
 				}
 
 				.helper-text {
-					color: var(--color-text-base);
+					font-size: 12px;
+					font-weight: 400;
+					font-style: italic;
+					line-height: 1.7692307692307692;
+					letter-spacing: 1.13px;
+					color: var(--color-error);
 					margin-left: 16px;
 				}
 

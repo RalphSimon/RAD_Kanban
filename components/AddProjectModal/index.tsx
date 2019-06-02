@@ -1,10 +1,19 @@
 import { useState } from 'react'
 import { X } from 'styled-icons/feather'
 
+import { Body } from './Body'
+import { Footer } from './Footer'
+import { Header } from './Header'
+import { Root } from './Root'
 import { IconButton, Button } from '../Buttons'
 import { FieldBase } from '../Inputs'
 
-export const AddProject = ({ close, onAdd }) => {
+interface Props {
+  close: () => void;
+  onAdd: (title: string) => void;
+}
+
+const AddProjectModal = ({ close, onAdd }: Props) => {
   const [title, setTitle] = useState('')
 
   const onAddHandler = () => {
@@ -13,13 +22,13 @@ export const AddProject = ({ close, onAdd }) => {
   }
 
   return (
-    <div className="panel">
-      <header className="header">
+    <Root>
+      <Header>
         <IconButton onClick={close}>
           <X size="24" strokeWidth="1.5" />
         </IconButton>
-      </header>
-      <section className="body">
+      </Header>
+      <Body>
         <h2 className="text-preset-2">
           {!title ? 'Add a project title' : title}
         </h2>
@@ -29,49 +38,17 @@ export const AddProject = ({ close, onAdd }) => {
           value={title}
           onChange={event => setTitle(event.target.value)}
         />
-      </section>
-
-      <footer className="footer">
+      </Body>
+      <Footer>
         <Button color="red" onClick={close} outline>
 					Cancel
         </Button>
         <Button onClick={onAddHandler} disabled={!title}>
 					Create Project
         </Button>
-      </footer>
-
-      <style jsx>{`
-				.panel {
-					display: flex;
-					flex-direction: column;
-					width: 100vw;
-					height: 100vh;
-					background-color: var(--color-bg-panel);
-				}
-
-				.header {
-					display: flex;
-					justify-content: flex-end;
-				}
-
-				.body {
-					flex: 1;
-					padding: 16px;
-				}
-
-				.footer {
-					display: flex;
-					justify-content: space-around;
-					padding: 16px;
-				}
-
-				@media (min-width: 480px) {
-					.panel {
-						width: 480px;
-						height: calc(50vh);
-					}
-				}
-			`}</style>
-    </div>
+      </Footer>
+    </Root>
   )
 }
+
+export default AddProjectModal

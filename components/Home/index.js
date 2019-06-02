@@ -1,5 +1,0 @@
-export { AddProject } from './AddProject'
-export { Header } from './Header'
-export { HomeView } from './HomeView'
-export { Projects } from './Projects'
-export { ProjectCard } from './ProjectCard'

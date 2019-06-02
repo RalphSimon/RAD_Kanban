@@ -1,90 +1,87 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
+import { PoseGroup } from 'react-pose'
 
-import { AppCanvas } from '../components/Layout'
-import { useDocument } from '../firebase/subscriptions/useDocument'
-import { useCollection } from '../firebase/subscriptions/useCollection'
-import { FieldBase } from '../components/Inputs'
-import { Button } from '../components/Buttons'
+import { AppCanvas, PageHeader } from '../components/Layout'
+import { SignUpDrawing, DrawingTransition } from '../components/Drawings'
+
+const Avatar = ({ children }) => (
+  <div className="avatar">
+    {children}
+    <style jsx>{`
+			.avatar {
+				grid-area: avatar;
+				width: 72px;
+				height: 72px;
+				border-radius: 100%;
+				background-color: var(--color-gray-base);
+			}
+		`}</style>
+  </div>
+)
+
+const ProfileHead = ({ children }) => (
+  <div className="profile-head">
+    {children}
+    <style jsx>{`
+			.profile-head {
+				display: grid;
+				grid-template-areas:
+					'avatar name'
+					'avatar email';
+				grid-gap: 0 16px;
+			}
+		`}</style>
+  </div>
+)
+
+const UserName = ({ children }) => (
+  <h2 className="text-preset-2">
+    {children}
+    <style jsx>{`
+			h2 {
+				grid-area: name;
+			}
+		`}</style>
+  </h2>
+)
+
+const Email = ({ children }) => (
+  <h4 className="text-preset-5">
+    {children}
+    <style jsx>{`
+			h4 {
+				grid-area: email;
+			}
+		`}</style>
+  </h4>
+)
 
 const Profile = () => {
-  // const { db, user } = useContext(FirebaseDatabase)
-  const uid = 'WwCK6qszKmRTFSJM56KiHFkYvZ02'
-  const path = `USERS/${uid}/TASKS/6gMZI8ARa9Bdv90M7fws`
-  const [task, setTask] = useState({})
-  const [collection, setCollection] = useState([])
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const { state } = useDocument(path)
-  const { state: taskCollection, setQuery } = useCollection(
-    `USERS/${uid}/TASKS/`,
-    ['boardId', '==', 'itH6kPv5lJ2d7uJhf8Yk']
-  )
-
+  const [isVisible, setVisibility] = useState(false)
   useEffect(() => {
-    let isSubscribing = true
+    const timer = setTimeout(() => {
+      setVisibility(true)
+    }, 400)
 
-    if (!state.isLoading) {
-      setTask(state.data)
-    }
-
-    if (!taskCollection.isLoading) {
-      setCollection(taskCollection.data)
-      console.log(collection)
-    }
-
-    return () => {
-      isSubscribing = false
-
-      return isSubscribing
-    }
-  }, [collection, state, taskCollection])
-
-  const handleSearch = () => {
-    event.preventDefault()
-
-    if (searchQuery) {
-      setQuery(['title', '==', searchQuery])
-    }
-  }
-
-  const handleChange = e => {
-    const { value } = e.target
-
-    setTitle(value)
-  }
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <AppCanvas>
-      <h1>Profile Page</h1>
-      <br />
-      <div>
-        <FieldBase
-          label="Search task titles"
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-        />
-        <h2>
-					My Title: <span>{searchQuery}</span>
-        </h2>
-        <Button onClick={handleSearch}>Search</Button>
-      </div>
-      <br />
-      <hr />
-      <br />
-      {state.isLoading ? <h2>Loading...</h2> : <h3>{task.title}</h3>}
-      <br />
-      {taskCollection.isLoading ? (
-        <h2>Loading...</h2>
-      ) : (
-        <ul>
-          {collection.map(task => (
-            <li key={task.id}>{task.title}</li>
-          ))}
-        </ul>
-      )}
-      <br />
-      <hr />
-      <br />
+      <PageHeader>
+        <ProfileHead>
+          <Avatar />
+          <UserName>Paul Simon</UserName>
+          <Email>paul.simon@music.com</Email>
+        </ProfileHead>
+      </PageHeader>
+      <PoseGroup>
+        {isVisible && (
+          <DrawingTransition key="sign-up-drawing">
+            <SignUpDrawing />
+          </DrawingTransition>
+        )}
+      </PoseGroup>
     </AppCanvas>
   )
 }

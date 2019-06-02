@@ -50,7 +50,7 @@ export default class RADApp extends App {
                 <NavItem href="/profile" label="Profile">
                   <User size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/playground" label="play">
+                <NavItem href="/notifications" label="alerts">
                   <PlayCircle size="24" strokeWidth="1.5" />
                 </NavItem>
                 <SignOutButton>
@@ -69,7 +69,7 @@ export default class RADApp extends App {
                 <NavItem href="/profile" label="Profile">
                   <User size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/playground" label="play">
+                <NavItem href="/notifications" label="alerts">
                   <PlayCircle size="24" strokeWidth="1.5" />
                 </NavItem>
                 <SignOutButton>

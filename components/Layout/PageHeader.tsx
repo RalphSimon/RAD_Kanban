@@ -1,4 +1,4 @@
-export const Header = ({ children }) => {
+export const PageHeader = ({ children }) => {
   return (
     <header className="header">
       {children}

@@ -29,9 +29,7 @@ export const Button = forwardRef(
     }: ButtonProps,
     ref
   ) => {
-    const btnClass = `btn btn__base ${
-      outline ? 'btn--outline' : 'btn--filled'
-    }`
+    const btnClass = `btn btn__base ${outline ? 'btn--outline' : 'btn--filled'}`
 
     return (
       <button
@@ -77,7 +75,7 @@ export const Button = forwardRef(
 					.btn__base {
 						min-height: 36px;
 						min-width: 64px;
-						padding: 0 16px;
+						padding: 0 8px;
 						font-size: 0.85rem;
 						font-weight: 800;
 						word-spacing: 0.275em;

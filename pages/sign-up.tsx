@@ -13,7 +13,7 @@ import {
   Welcome
 } from '../components/Auth'
 import { Button } from '../components/Buttons'
-import { FieldBase } from '../components/Inputs'
+import { TextField } from '../components/Inputs/TextField'
 import { LoginDrawing, DrawingTransition } from '../components/Drawings'
 import { FirebaseDatabase } from '../firebase/context'
 import { validateEmail, validatePassword, validateUserName } from '../utils'
@@ -26,9 +26,9 @@ const newUserSchema = {
 
 const SignIn = props => {
   const { db, auth } = useContext(FirebaseDatabase)
-  const [userName, setUserName] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [userName, setUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState()
   const [userDoc, setUser] = useState({})
   const [isVisible, setVisibility] = useState(false)
@@ -52,13 +52,13 @@ const SignIn = props => {
 
     switch (name) {
       case 'userName': {
-        const isValid = validateUserName(value, 8, 24)
+        const isValid = validateUserName(value, 3, 24)
         validate({
           type: 'VALIDATE_FIELD',
           payload: {
             field: name,
             value,
-            error: !isValid ? 'Username needs between 8 and 24 characters' : '',
+            error: !isValid ? 'Fill in at least 4 and max 24 characters' : '',
             isValid
           }
         })
@@ -131,26 +131,32 @@ const SignIn = props => {
     <Container>
       <Welcome>Sign up to get started</Welcome>
       <AuthForm onSubmit={handleSubmit}>
-        <FieldBase
+        <TextField
           value={userName}
           helperText={validation.errors.userName}
+          error={validation.errors.userName}
           label="Username"
+          minlength={4}
+          maxlength={24}
           name="userName"
           onChange={e => setUserName(e.target.value)}
           onBlur={handleValidation}
         />
-        <FieldBase
+        <TextField
           value={email}
-          helperText={validation.errors['email']}
+          helperText={validation.errors.email}
+          error={validation.errors.email}
           name="email"
           label="Email"
           type="email"
           onChange={e => setEmail(e.target.value)}
           onBlur={handleValidation}
         />
-        <FieldBase
+        <TextField
           value={password}
-          helperText={validation.errors['password']}
+          helperText={validation.errors.password}
+          error={validation.errors.password}
+          minlength={8}
           name="password"
           label="Password"
           type="password"

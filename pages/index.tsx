@@ -2,17 +2,12 @@ import { useContext, useEffect, useCallback, useState } from 'react'
 import { Plus } from 'styled-icons/feather'
 import { PoseGroup } from 'react-pose'
 
+import AddProjectModal from '../components/AddProjectModal'
 import { Button } from '../components/Buttons'
 import { DrawingTransition, BusinessWoman } from '../components/Drawings'
-import {
-  AddProject,
-  Header,
-  HomeView,
-  Projects,
-  ProjectCard
-} from '../components/Home'
+import { Projects, ProjectCard } from '../components/ProjectCard'
 import { DateDisplay, TimeDisplay } from '../components/Helpers'
-import { AppCanvas } from '../components/Layout'
+import { AppCanvas, HomeLayout, PageHeader } from '../components/Layout'
 import { Modal } from '../components/Modal'
 import { ErrorMessage } from '../components/Notifications'
 import { FirebaseDatabase } from '../firebase/context'
@@ -51,8 +46,8 @@ const Home = () => {
 
   return (
     <AppCanvas>
-      <HomeView>
-        <Header>
+      <HomeLayout>
+        <PageHeader>
           <div>
             <TimeDisplay date={Date.now()} />
             <DateDisplay
@@ -75,13 +70,13 @@ const Home = () => {
               </Button>
             )}>
             {setIsOpen => (
-              <AddProject
+              <AddProjectModal
                 close={() => setIsOpen(false)}
                 onAdd={handleAddBoard}
               />
             )}
           </Modal>
-        </Header>
+        </PageHeader>
         {state.isLoading ? (
           <PoseGroup>
             <DrawingTransition
@@ -100,7 +95,7 @@ const Home = () => {
             ))}
           </Projects>
         )}
-      </HomeView>
+      </HomeLayout>
       <ErrorMessage message={errorMessage} dismiss={dismissError} />
     </AppCanvas>
   )

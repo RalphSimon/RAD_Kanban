@@ -14,7 +14,7 @@ import {
 } from '../components/Auth'
 
 import { Button } from '../components/Buttons'
-import { FieldBase } from '../components/Inputs'
+import { TextField } from '../components/Inputs/TextField'
 import { DrawingTransition, SignUpDrawing } from '../components/Drawings'
 import { FirebaseDatabase } from '../firebase/context'
 import { validateEmail, validatePassword } from '../utils'
@@ -97,18 +97,21 @@ const Login = props => {
     <Container>
       <Welcome>Sign in to continue where you left off</Welcome>
       <AuthForm onSubmit={handleSubmit}>
-        <FieldBase
+        <TextField
           value={email}
-          helperText={validation.errors['email']}
+          helperText={validation.errors.email}
+          error={validation.errors.email}
           name="email"
           label="Email"
           type="email"
           onChange={e => setEmail(e.target.value)}
           onBlur={handleValidation}
         />
-        <FieldBase
+        <TextField
           value={password}
-          helperText={validation.errors['password']}
+          helperText={validation.errors.password}
+          error={validation.errors.password}
+          minlength={8}
           name="password"
           label="Password"
           type="password"
@@ -125,7 +128,13 @@ const Login = props => {
         <RedirectLink href="/sign-up">Sign Up</RedirectLink>
       </Redirect>
       <PoseGroup>
-        {error && <ErrorMessage message={error.message} key="error-message" />}
+        {error && (
+          <ErrorMessage
+            message={error.message}
+            key="error-message"
+            dismiss={() => setError(null)}
+          />
+        )}
       </PoseGroup>
       <PoseGroup>
         {isVisible && (

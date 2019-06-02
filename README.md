@@ -14,16 +14,16 @@ Simple setup for nextjs projects
 - [x] Add authentication
 - [x] Move Auth observer to FirebaseContext
 - [x] Enable deployment with Firebase on serverless target
+- [x] Checklist
+- [ ] Web-app manifest (off-line mode, full-screen mode, etc)
 - [ ] Have useFirestore/useSubscription return a Promise
 - [ ] Notifications
 - [ ] Intermediary screens (intro, loading, error...) - Use 'Drawkit' (Invision Studio)
 - [ ] Add global search
-- [ ] Helper to update item in array
+- [x] Helper to update item in array (using immer and 'borrowed' reorder function from react-beautiful-dnd)
 
 ## issues
 - [ ] Server side reload returns 404 => Properly configure dynamic routes on serverless
-
-
 
 ### Normalization
 **Problem**:

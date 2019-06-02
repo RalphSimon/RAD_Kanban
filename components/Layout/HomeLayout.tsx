@@ -1,4 +1,4 @@
-export const HomeView = ({ children }) => {
+export const HomeLayout = ({ children }) => {
   return (
     <div className="home-view">
       {children}
