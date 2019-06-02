@@ -92,8 +92,8 @@ const Login = props => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        setView(0)
         Router.push('/')
+        setView(0)
       })
       .catch(err => setError(err))
   }

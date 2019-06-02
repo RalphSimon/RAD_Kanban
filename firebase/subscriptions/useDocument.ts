@@ -9,10 +9,7 @@ export interface FirestoreReducer {
 }
 
 interface FirestoreResult {
-  isLoading: boolean;
-  error: string | {} | null;
-  source: string;
-  data: [] | {};
+  state: {};
 }
 
 const snapShotOptions = {

@@ -9,10 +9,8 @@ export interface FirestoreReducer {
 }
 
 interface FirestoreResult {
-  isLoading: boolean;
-  error: string | {} | null;
-  source: string;
-  data: [] | {};
+  state: {};
+  setQuery: (state: {}) => void;
 }
 
 const snapShotOptions = {
@@ -43,6 +41,7 @@ export const useCollection = (
     const writeSource = snapshot.metadata.hasPendingWrites ? 'Client' : 'Server'
 
     snapshot.forEach(doc => {
+
       LIST.push({
         ...doc.data(),
         id: doc.id
@@ -55,16 +54,17 @@ export const useCollection = (
   const handleError = useCallback(err => dispatch(onListenError({ error: err })), [])
 
   const subscribe = useCallback(() => {
-    if (!user) return
+    if (!user || !path) return
     const ref = query && query.length > 0 ? db.collection(path).where(...query) : db.collection(path)
 
     return ref.onSnapshot(snapShotOptions, handleCollectionListener, handleError)
-  }, [db, handleCollectionListener, handleError, path, user, query])
+  }, [db, handleCollectionListener, handleError, path, query, user])
 
 
   useEffect(() => {
     let isSubscribing = true
     let unsubscribe = null
+    // if (!user) return
     unsubscribe = subscribe()
 
     return () => {

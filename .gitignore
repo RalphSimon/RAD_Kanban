@@ -92,4 +92,5 @@ typings/
 .dynamodb/
 
 # Misc.
-/firebase/seed/
+firebase/seed/
+firebase/_init/config.ts

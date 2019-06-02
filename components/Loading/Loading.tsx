@@ -1,12 +1,15 @@
+import { BarSpinner } from '../Spinners'
+
 export const Loading = () => {
   return (
     <div className="loading">
-      <h1 className="text-preset-1">'Loading board...'</h1>
+      <BarSpinner />
       <style jsx>{`
 				.loading {
 					width: 100%;
 					height: 100%;
 					display: flex;
+					flex-direction: column;
 					align-items: center;
 					justify-content: center;
 				}

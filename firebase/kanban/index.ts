@@ -6,3 +6,4 @@ export {
   updateTaskOrder
 } from './actions'
 export { useFirestoreKanban } from './useFirestoreKanban'
+export { useKanban } from './useKanban'

@@ -4,23 +4,24 @@ import { PoseGroup } from 'react-pose'
 
 import AddProjectModal from '../components/AddProjectModal'
 import { Button } from '../components/Buttons'
-import { DrawingTransition, BusinessWoman } from '../components/Drawings'
-import { Projects, ProjectCard } from '../components/ProjectCard'
+import { DeleteItem } from '../components/DeleteItem'
 import { DateDisplay, TimeDisplay } from '../components/Helpers'
 import { AppCanvas, HomeLayout, PageHeader } from '../components/Layout'
+import { Loading } from '../components/Loading'
 import { Modal } from '../components/Modal'
 import { ErrorMessage } from '../components/Notifications'
+import { Projects, ProjectCard } from '../components/ProjectCard'
+
 import { FirebaseDatabase } from '../firebase/context'
 import { addAsyncDoc, deleteAsyncDoc } from '../firebase/handlers'
-import { useFirestore } from '../firebase/subscriptions'
-import { DeleteItem } from '../components/DeleteItem'
+import { useCollection } from '../firebase/subscriptions'
 
 const Home = () => {
   const { db, user } = useContext(FirebaseDatabase)
   const [errorMessage, setErrorMessage] = useState()
   const uid = user && user.uid
 
-  const { state } = useFirestore(`USERS/${uid}/BOARDS`)
+  const { state } = useCollection(`USERS/${uid}/BOARDS`)
 
   const handleAddBoard = useCallback(
     title => {
@@ -78,14 +79,7 @@ const Home = () => {
           </Modal>
         </PageHeader>
         {state.isLoading ? (
-          <PoseGroup>
-            <DrawingTransition
-              key="empty-state"
-              position="static"
-              opacity={0.54}>
-              <BusinessWoman />
-            </DrawingTransition>
-          </PoseGroup>
+          <Loading />
         ) : (
           <Projects>
             {state.data.map(board => (

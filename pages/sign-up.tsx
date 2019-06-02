@@ -123,11 +123,12 @@ const SignIn = props => {
         console.log(user)
         const userDocRef = await db.collection('USERS').doc(newUser.uid)
         await userDocRef.set(user)
-        setView(0)
         Router.push('/')
+        setView(0)
       } catch (error) {
         console.log(error)
         setError(error)
+        setView(0)
       }
     })()
   }

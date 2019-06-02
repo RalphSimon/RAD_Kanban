@@ -1,10 +1,12 @@
 import { AppCanvas } from '../components/Layout'
-import { useFirestoreKanban } from '../firebase/kanban/'
 import { Loading } from '../components/Loading'
 import { Kanban } from '../components/Kanban'
+import { useKanban } from '../firebase/kanban/'
 
 const Project = ({ id }) => {
-  const project = useFirestoreKanban(id)
+  const project = useKanban(id)
+
+  console.log(project)
 
   return (
     <AppCanvas>
@@ -14,7 +16,6 @@ const Project = ({ id }) => {
 }
 
 Project.getInitialProps = async ({ query }) => {
-  console.log('from server: ', query)
   return { id: query.id }
 }
 

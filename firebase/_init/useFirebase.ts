@@ -41,16 +41,16 @@ export const useFirebase = () => {
       }
     })
 
-    // if (auth) {
-    //   auth.onAuthStateChanged(user => {
-    //     if (user) {
+    if (auth) {
+      auth.onAuthStateChanged(user => {
+        if (user) {
 
-    //       setUser(user)
-    //     } else {
-    //       redirectWhenLoggedOut()
-    //     }
-    //   })
-    // }
+          setUser(user)
+        } else {
+          redirectWhenLoggedOut()
+        }
+      })
+    }
 
     return () => {
       isSettingUp = false
