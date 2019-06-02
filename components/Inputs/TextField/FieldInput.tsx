@@ -7,6 +7,7 @@ export const FieldInput = ({
   name,
   onBlur,
   onChange,
+  onFocus,
   type,
   value
 }) => {
@@ -20,7 +21,7 @@ export const FieldInput = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        onFocus={e => console.log(e)}
+        onFocus={onFocus}
         className="field__input text-preset-6"
         autoComplete={autoComplete}
       />

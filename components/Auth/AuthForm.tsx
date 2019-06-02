@@ -4,6 +4,7 @@ export const AuthForm = ({ autoComplete, children, onSubmit }) => (
     <style jsx>{`
 			.auth-form {
 				width: 100%;
+				height: 100%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;

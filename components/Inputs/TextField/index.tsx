@@ -19,6 +19,7 @@ interface FieldProps {
   name: string;
   onChange?: (event: React.ChangeEvent) => void;
   onBlur?: (event: React.SyntheticEvent) => void;
+  onFocus?: (event: React.FocusEvent) => void;
   required?: boolean;
   type?: string;
   value: string | number;

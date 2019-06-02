@@ -10,11 +10,14 @@ import {
   InitAuthSchema,
   Redirect,
   RedirectLink,
+  SubmitLoader,
+  SubmitSpinner,
   Welcome
 } from '../components/Auth'
 import { Button } from '../components/Buttons'
-import { TextField } from '../components/Inputs/TextField'
 import { LoginDrawing, DrawingTransition } from '../components/Drawings'
+import { TextField } from '../components/Inputs/TextField'
+import { StaggerContainer, SlideUp } from '../components/Transitions'
 import { FirebaseDatabase } from '../firebase/context'
 import { validateEmail, validatePassword, validateUserName } from '../utils'
 
@@ -30,6 +33,7 @@ const SignIn = props => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState()
+  const [view, setView] = useState(0)
   const [userDoc, setUser] = useState({})
   const [isVisible, setVisibility] = useState(false)
   const [validation, validate] = useReducer(
@@ -100,6 +104,7 @@ const SignIn = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
+    setView(1)
     ;(async function signUp() {
       try {
         await auth.createUserWithEmailAndPassword(email, password)
@@ -118,7 +123,7 @@ const SignIn = props => {
         console.log(user)
         const userDocRef = await db.collection('USERS').doc(newUser.uid)
         await userDocRef.set(user)
-
+        setView(0)
         Router.push('/')
       } catch (error) {
         console.log(error)
@@ -129,46 +134,58 @@ const SignIn = props => {
 
   return (
     <Container>
-      <Welcome>Sign up to get started</Welcome>
-      <AuthForm onSubmit={handleSubmit}>
-        <TextField
-          value={userName}
-          helperText={validation.errors.userName}
-          error={validation.errors.userName}
-          label="Username"
-          minlength={4}
-          maxlength={24}
-          name="userName"
-          onChange={e => setUserName(e.target.value)}
-          onBlur={handleValidation}
-        />
-        <TextField
-          value={email}
-          helperText={validation.errors.email}
-          error={validation.errors.email}
-          name="email"
-          label="Email"
-          type="email"
-          onChange={e => setEmail(e.target.value)}
-          onBlur={handleValidation}
-        />
-        <TextField
-          value={password}
-          helperText={validation.errors.password}
-          error={validation.errors.password}
-          minlength={8}
-          name="password"
-          label="Password"
-          type="password"
-          onChange={e => setPassword(e.target.value)}
-          onBlur={handleValidation}
-        />
-        <footer>
-          <Button type="submit" disabled={!userName && !email && !password}>
-						Sign Up
-          </Button>
-        </footer>
-      </AuthForm>
+      <SubmitLoader activeView={view}>
+        <AuthForm onSubmit={handleSubmit}>
+          <Welcome>Sign up to get started</Welcome>
+          <StaggerContainer className="stagger-container">
+            <SlideUp className="slide-up">
+              <TextField
+                value={userName}
+                helperText={validation.errors.userName}
+                error={validation.errors.userName}
+                label="Username"
+                minlength={4}
+                maxlength={24}
+                name="userName"
+                onChange={e => setUserName(e.target.value)}
+                onBlur={handleValidation}
+              />
+            </SlideUp>
+            <SlideUp className="slide-up">
+              <TextField
+                value={email}
+                helperText={validation.errors.email}
+                error={validation.errors.email}
+                name="email"
+                label="Email"
+                type="email"
+                onChange={e => setEmail(e.target.value)}
+                onBlur={handleValidation}
+              />
+            </SlideUp>
+            <SlideUp className="slide-up">
+              <TextField
+                value={password}
+                helperText={validation.errors.password}
+                error={validation.errors.password}
+                minlength={8}
+                name="password"
+                label="Password"
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+                onBlur={handleValidation}
+                autoComplete="on"
+              />
+            </SlideUp>
+            <SlideUp className="slide-up">
+              <Button type="submit" disabled={!userName && !email && !password}>
+								Sign Up
+              </Button>
+            </SlideUp>
+          </StaggerContainer>
+        </AuthForm>
+        <SubmitSpinner message="Loading your canvas..." />
+      </SubmitLoader>
       <Redirect message="Already have an account?">
         <RedirectLink href="/login">Login</RedirectLink>
       </Redirect>

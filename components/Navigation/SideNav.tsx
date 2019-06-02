@@ -9,10 +9,10 @@ interface Props {
 export const SideNav = ({ children }: Props) => {
   const { auth } = useContext(FirebaseDatabase)
   // console.log('sidenav auth', auth)
-  return (
+  return auth && auth.currentUser ? (
     <div className="side-nav">
       <div className="icon-space" />
-      <nav>{auth && auth.currentUser && children}</nav>
+      <nav>{children}</nav>
 
       <style jsx>{`
 				.side-nav {
@@ -34,5 +34,5 @@ export const SideNav = ({ children }: Props) => {
 				}
 			`}</style>
     </div>
-  )
+  ) : null
 }

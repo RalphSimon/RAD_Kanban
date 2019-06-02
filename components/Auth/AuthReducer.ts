@@ -1,4 +1,4 @@
-import { ValidatorSchema } from './InitiAuthSchema'
+import { ValidatorSchema } from './InitAuthSchema'
 
 interface Action {
   type: string;

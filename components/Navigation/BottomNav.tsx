@@ -7,9 +7,9 @@ interface Props {
 }
 
 export const BottomNav = ({ children }: Props) => {
-  // const { db, auth, user } = useContext(FirebaseDatabase)
+  const { db, auth, user } = useContext(FirebaseDatabase)
 
-  return (
+  return user ? (
     <nav className="bottom-nav">
       {children}
       <style jsx>{`
@@ -30,5 +30,5 @@ export const BottomNav = ({ children }: Props) => {
 				}
 			`}</style>
     </nav>
-  )
+  ) : null
 }

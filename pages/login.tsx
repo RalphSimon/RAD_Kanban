@@ -1,6 +1,6 @@
 import Router from 'next/router'
 import { useState, useEffect, useContext, useReducer } from 'react'
-import { PoseGroup } from 'react-pose'
+import posed, { PoseGroup } from 'react-pose'
 
 import {
   AuthForm,
@@ -10,12 +10,15 @@ import {
   InitAuthSchema,
   Redirect,
   RedirectLink,
+  SubmitLoader,
+  SubmitSpinner,
   Welcome
 } from '../components/Auth'
 
 import { Button } from '../components/Buttons'
-import { TextField } from '../components/Inputs/TextField'
 import { DrawingTransition, SignUpDrawing } from '../components/Drawings'
+import { TextField } from '../components/Inputs/TextField'
+import { StaggerContainer, SlideUp } from '../components/Transitions'
 import { FirebaseDatabase } from '../firebase/context'
 import { validateEmail, validatePassword } from '../utils'
 
@@ -30,6 +33,7 @@ const Login = props => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const [isVisible, setVisibility] = useState(false)
+  const [view, setView] = useState(0)
   const [validation, validate] = useReducer(
     AuthReducer,
     userSchema,
@@ -56,11 +60,11 @@ const Login = props => {
           payload: {
             field: name,
             value,
-            error: !isValid ? 'Your email is not correct' : '',
-            isValid
+            error: !validateEmail(value) ? 'Your email is not correct' : '',
+            isValid: validateEmail(value)
           }
         })
-        console.log(validation.isValid.email)
+        console.log(validateEmail(value))
         break
       }
       case 'password': {
@@ -84,10 +88,11 @@ const Login = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-
+    setView(1)
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
+        setView(0)
         Router.push('/')
       })
       .catch(err => setError(err))
@@ -95,35 +100,46 @@ const Login = props => {
 
   return (
     <Container>
-      <Welcome>Sign in to continue where you left off</Welcome>
-      <AuthForm onSubmit={handleSubmit}>
-        <TextField
-          value={email}
-          helperText={validation.errors.email}
-          error={validation.errors.email}
-          name="email"
-          label="Email"
-          type="email"
-          onChange={e => setEmail(e.target.value)}
-          onBlur={handleValidation}
-        />
-        <TextField
-          value={password}
-          helperText={validation.errors.password}
-          error={validation.errors.password}
-          minlength={8}
-          name="password"
-          label="Password"
-          type="password"
-          onChange={e => setPassword(e.target.value)}
-          onBlur={handleValidation}
-        />
-        <footer>
-          <Button type="submit" disabled={!email && !password}>
-						Login
-          </Button>
-        </footer>
-      </AuthForm>
+      <SubmitLoader activeView={view}>
+        <AuthForm onSubmit={handleSubmit}>
+          <Welcome>Sign in to continue where you left off</Welcome>
+          <StaggerContainer className="stagger-container">
+            <SlideUp className="slide-up">
+              <TextField
+                value={email}
+                helperText={validation.errors.email}
+                error={validation.errors.email}
+                name="email"
+                label="Email"
+                type="email"
+                onChange={e => setEmail(e.target.value)}
+                onBlur={handleValidation}
+                autoComplete="on"
+              />
+            </SlideUp>
+            <SlideUp className="slide-up">
+              <TextField
+                value={password}
+                helperText={validation.errors.password}
+                error={validation.errors.password}
+                minlength={8}
+                name="password"
+                label="Password"
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+                onBlur={handleValidation}
+                autoComplete="on"
+              />
+            </SlideUp>
+            <SlideUp className="slide-up">
+              <Button type="submit" disabled={!email && !password}>
+								Login
+              </Button>
+            </SlideUp>
+          </StaggerContainer>
+        </AuthForm>
+        <SubmitSpinner message="Loading your projects..." />
+      </SubmitLoader>
       <Redirect message="Don't have an account yet?">
         <RedirectLink href="/sign-up">Sign Up</RedirectLink>
       </Redirect>
