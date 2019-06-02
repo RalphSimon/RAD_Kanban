@@ -128,6 +128,7 @@ export const TaskModal = ({ close, columnId, task }) => {
             <CheckList
               items={Tasks}
               itemOrder={Order}
+              onRemove={id => console.log('item with removed', id)}
               onAdd={item => console.log('Add item:\n', item)}
               onReorder={order => console.log('Reordered items:\n', order)}
               onUpdate={result => console.log('Updated item:\n', result)}

@@ -30,6 +30,7 @@ interface CheckListProps {
   onAdd: (value: CheckListItem) => void;
   onReorder: (order: string[]) => void;
   onUpdate: (value: string | boolean | number) => void;
+  onRemove: (id: string) => void;
 }
 
 interface InitialState {
@@ -46,6 +47,7 @@ const CheckList = ({
   itemOrder,
   items,
   onAdd,
+  onRemove,
   onReorder,
   onUpdate
 }: CheckListProps) => {
@@ -96,8 +98,9 @@ const CheckList = ({
       const newOrder = state.order.filter(taskId => taskId !== id)
       dispatch({ type: ON_REORDER, payload: newOrder })
       dispatch({ type: ON_REMOVE, id })
+      onRemove(id)
     },
-    [state.order]
+    [onRemove, state.order]
   )
 
   const orderedItems = useMemo(
@@ -109,7 +112,7 @@ const CheckList = ({
           item={state.items[id]}
           onComplete={checked => handleUpdate(checked, 'completed', id)}
           onChangeTitle={value => handleUpdate(value, 'title', id)}
-          onRemove={handleRemoval}
+          onRemove={id => handleRemoval(id)}
         />
       )),
     [handleRemoval, handleUpdate, state.items, state.order]
