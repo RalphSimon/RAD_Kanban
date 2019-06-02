@@ -1,13 +1,15 @@
 import Link from 'next/link'
 
 interface Props {
-  active: boolean;
   children: JSX.Element[] | JSX.Element;
+  currentRoute: string;
   href: string;
   label: string;
 }
 
-export const NavItem = ({ active, children, href, label }: Props) => {
+export const NavItem = ({ children, currentRoute, href, label }: Props) => {
+  const active = href === currentRoute
+
   return (
     <Link href={href}>
       <a className="nav-item">

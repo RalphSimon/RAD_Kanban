@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { Home, LogIn, User, PlayCircle } from 'styled-icons/feather'
+import { Home, User, PlayCircle } from 'styled-icons/feather'
 
 // import { resetServerContext } from 'react-beautiful-dnd'
 
@@ -26,7 +26,7 @@ export default class RADApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, router } = this.props
 
     return (
       <Container>
@@ -44,13 +44,19 @@ export default class RADApp extends App {
           <AppLayout>
             <SideNav>
               <Fragment>
-                <NavItem href="/" label="Home">
+                <NavItem href="/" label="Home" currentRoute={router.route}>
                   <Home size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/profile" label="Profile">
+                <NavItem
+                  href="/profile"
+                  label="Profile"
+                  currentRoute={router.route}>
                   <User size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/notifications" label="alerts">
+                <NavItem
+                  href="/notifications"
+                  label="alerts"
+                  currentRoute={router.route}>
                   <PlayCircle size="24" strokeWidth="1.5" />
                 </NavItem>
                 <SignOutButton>
@@ -63,13 +69,19 @@ export default class RADApp extends App {
 
             <BottomNav>
               <Fragment>
-                <NavItem href="/" label="Home">
+                <NavItem href="/" label="Home" currentRoute={router.route}>
                   <Home size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/profile" label="Profile">
+                <NavItem
+                  href="/profile"
+                  label="Profile"
+                  currentRoute={router.route}>
                   <User size="24" strokeWidth="1.5" />
                 </NavItem>
-                <NavItem href="/notifications" label="alerts">
+                <NavItem
+                  href="/notifications"
+                  label="alerts"
+                  currentRoute={router.route}>
                   <PlayCircle size="24" strokeWidth="1.5" />
                 </NavItem>
                 <SignOutButton>

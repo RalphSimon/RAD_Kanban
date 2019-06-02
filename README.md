@@ -1,61 +1,41 @@
-# RAD Next.js
-Simple setup for nextjs projects
+# The RAD Kanban Project
 
----
-## Wanna haves
-- [x] use .dotenv to store firebase config
-- [x] Wire up firestore to app
-- [X] Seed database with a couple of boards
-- [x] Normalize firestore reads/writes
-- [X] Modify kanban state to account for firestore
-- [X] Add dynamic pages
-- [x] Review editable field - right now it's hard to select
-- [x] Review Task Components
-- [x] Add authentication
-- [x] Move Auth observer to FirebaseContext
-- [x] Enable deployment with Firebase on serverless target
-- [x] Checklist
-- [ ] Web-app manifest (off-line mode, full-screen mode, etc)
-- [ ] Have useFirestore/useSubscription return a Promise
-- [ ] Notifications
-- [ ] Intermediary screens (intro, loading, error...) - Use 'Drawkit' (Invision Studio)
-- [ ] Add global search
-- [x] Helper to update item in array (using immer and 'borrowed' reorder function from react-beautiful-dnd)
+## About this project
+You're viewing the source code of an exercise in putting together a project that's a bit bigger (complexer?) then a simple to-do app. It's a kanban app - which you probably know from projects like [Trello](https://trello.com/en). It's built with [Next.js](https://nextjs.org/) and many other awesome projects. Do check out the list below.
 
-## issues
-- [ ] Server side reload returns 404 => Properly configure dynamic routes on serverless
+The app is currently configured to be hosted on [Zeit](https://zeit.co/), leveraging it's serverless capabilities and it's fantastic Github integration. For data storage the project currently relies on Firestore with Firebase Auth. I've built wrappers with React Hooks around the Firebase APIs. With that I was able to come up with something 'publishable', which you can check out here:
 
-### Normalization
-**Problem**:
-  1. currently the same firestore actions (set/add, update, delete) are recreated for all contexts (Tasks, Columns, Boards)
-  2. State for kanban board is duplicated between kanban local state and firestore state => realtime updates are lost because a local copy of the database state is made in the Kanban component tree.
+radkanban-git-master.ralph-simon.now.sh
 
-**Goal/Solution**:
-  1. normalize firestore reads/writes (set/add, update, delete)
-  2. Make a distinction between what should be realtime (firestore) and what should be local:
-     1. Adding and removing items (Boards, Columns, Tasks) should retain realtime benefits
-     2. Moving and reordering should remain local. These changes should only be persisted once the user leaves the project page (in order to reduce the amount of requests. I *suspect* a large number of requests could slow down the kanban app).
+Now you've got the link to my first publicly shared project, you'll also notice that there's still a lot to be desired. For instance, the (Zeit) Now platform is only used for hosting the project, while so much more can be done with it. Think of building custom APIs where you clearly separate the front end (the kanban app) from the backend: i.e. the ability to switch Firebase/Firestore for MongoDB, Cosmos DB...
 
-### Hooks in depth
-https://overreacted.io/a-complete-guide-to-useeffect/
-https://www.robinwieruch.de/react-hooks-fetch-data/
+Here's a list of things that this project is missing:
+- Proper tests (!!!)
+- Documentation
+- Organization/Structure
+- Proper Accessibilty support (!!!)
+- PWA support
+- Server side support for dynamic routes (already mentioned)
+- Custom APIs allowing you to host anywhere and fetch/post data from anywhere (see before)
+- UI consistency
+- Proper use of Typescript
+- (I'm stopping here, while there's still something left to critique ;) )
 
-### Next.js & Firebase Auth Example
-https://github.com/zeit/next.js/tree/master/examples/with-firebase-authentication
-https://github.com/suevalov/next-blog-firestore
+## The Awesome Dependencies
+You could just check out my package.json, but let's give credits where credits are due (in no particular order):
 
-### Firebase with hooks
-https://dev.to/bmcmahen/using-firebase-with-react-hooks-21ap
-https://github.com/CSFrequency/react-firebase-hooks
+* [Next.js](https://nextjs.org/)
+* [React](https://reactjs.org/)
+* [Zeit](https://zeit.co/)
+* [Firebase](https://firebase.google.com/)
+* [Nano ID](https://github.com/ai/nanoid)
+* [React Beautiful DnD](https://github.com/atlassian/react-beautiful-dnd/)
+* The awesome drawings I *borrowed* from the Drawkit module in Invision Studio
+* [React Pose](https://popmotion.io/pose/learn/popmotion-get-started/)
+* [Styled Icons](https://styled-icons.js.org/)
+* [Popper.js](https://popper.js.org/)
+* [React Markdown](https://github.com/rexxars/react-markdown)
+* [Immer](https://github.com/immerjs/immer)
+* [Typescript](https://www.typescriptlang.org/) - First time using it, so you'll notice its messy :)
+* And many others...
 
----
-## Misc. Issues:
-[ ] - FIXME: MenuList renders when coming from server (Sort of fixed - it's now hidden on first **load**)
-
----
-## Paring Auth0 with MongoDB Stitch
-https://github.com/mongodb/stitch-js-sdk/issues/153
-
-## Links to remember:
-* https://assortment.io/posts/accessible-modal-component-react-portals-part-2
-* https://www.typescriptlang.org/docs/handbook/interfaces.html

@@ -6,8 +6,6 @@ import { useKanban } from '../firebase/kanban/'
 const Project = ({ id }) => {
   const project = useKanban(id)
 
-  console.log(project)
-
   return (
     <AppCanvas>
       {project.board.isLoading ? <Loading /> : <Kanban {...project} />}

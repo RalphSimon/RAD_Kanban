@@ -1,6 +1,5 @@
-import { useContext, useEffect, useCallback, useState } from 'react'
+import { useContext, useCallback, useState } from 'react'
 import { Plus } from 'styled-icons/feather'
-import { PoseGroup } from 'react-pose'
 
 import AddProjectModal from '../components/AddProjectModal'
 import { Button } from '../components/Buttons'
