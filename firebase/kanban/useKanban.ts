@@ -26,8 +26,6 @@ export const useKanban = (boardId: string) => {
   useEffect(() => {
     let isSubscribing = true
 
-    if (!user) return
-
     if (board.isLoading || columns.isLoading || tasks.isLoading) {
       return () => {
         isSubscribing = false
@@ -36,16 +34,15 @@ export const useKanban = (boardId: string) => {
       }
     }
 
-    if (!board.isLoading) {
+    if (!board.isLoading && !columns.isLoading && !tasks.isLoading) {
       dispatch(listenForBoard(board.data))
-    }
-
-    if (!columns.isLoading) {
       dispatch(listenForColumns(columns.data))
-    }
-
-    if (!tasks.isLoading) {
       dispatch(listenForTasks(tasks.data))
+    }
+    if (board.error && columns.error && tasks.error) {
+      dispatch(handleLoadingError(board.error))
+      dispatch(handleLoadingError(columns.error))
+      dispatch(handleLoadingError(tasks.error))
     }
 
     return () => {
@@ -53,7 +50,7 @@ export const useKanban = (boardId: string) => {
 
       return isSubscribing
     }
-  }, [board.data, board.isLoading, columns.data, columns.isLoading, tasks.data, tasks.isLoading, user])
+  }, [board.data, board.error, board.isLoading, columns.data, columns.error, columns.isLoading, tasks.data, tasks.error, tasks.isLoading])
 
   return {
     board: state,
